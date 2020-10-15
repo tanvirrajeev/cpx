@@ -296,7 +296,7 @@ $('#datetimepicker2').datepicker({
             $('#note').prop('required',true);
             $('#awbd').hide();
             $('#awbd').prop('required',false);
-          }else if($(this).val() == 'RECEIVED'){
+          }else if($(this).val() == 'ARRIVED'){
             $('#awbd').show();
             $('#awbd').prop('required',true);
             $('#note').hide();

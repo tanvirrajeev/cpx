@@ -46,14 +46,12 @@
                                 </div>
                             </div>
                             <div class="col-3">
-
+                                <label for="ecompurchaseamto">PRODUCT PRICE</label><label class="text-danger">*</label>
+                                <input type="text" class="form-control" id="ecompurchaseamto" name="ecompurchaseamto" value="{{$order->ecompurchaseamt}}">
                             </div>
                             <div class="col-5">
                                 <label for="ecomorddtt">DATE OF THE PRODUCT ORDERED</label><label class="text-danger">*</label>
                               <i class="fa fa-calendar-alt"></i>
-                              {{-- <input type="text" class="datetimepicker" name="ecomorddtt" id="ecomorddtt" autocomplete="off" required> --}}
-                              {{-- <input type="text" name="ecomorddtt" id="ecomorddtt" autocomplete="off" required> --}}
-                              {{-- <i class="fa fa-calendar-alt"></i> --}}
                               <div class="input-group date" id="datetimepicker2">
                                 <input type="text" class="form-control" name="ecomorddtt" id="ecomorddtt" autocomplete="off" value="{{$order->ecomorddt}}"><span class="input-group-addon"><i class="glyphicon glyphicon-th"></i></span>
                               </div>
@@ -79,8 +77,8 @@
                             <label for="ecomstatuss">STATUS</label>
                             <select class="form-control form-control-sm" name="ecomstatuss" id="ecomstatuss">
                                 <option value="{{$order->ecomstatus}}" selected>{{$order->ecomstatus}}</option>
-                                <option value="RECEIVED">RECEIVED</option>
-                                <option value="NOT RECEIVED">NOT RECEIVED</option>
+                                <option value="ARRIVED">ARRIVED</option>
+                                <option value="NOT ARRIVED">NOT ARRIVED</option>
                                 <option value="OTHERS">OTHERS</option>
                             </select>
                         </div>

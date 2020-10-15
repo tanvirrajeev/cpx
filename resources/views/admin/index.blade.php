@@ -44,14 +44,12 @@
                                 </div>
                             </div>
                             <div class="col-3">
-
+                                <label for="ecompurchaseamto">PRODUCT PRICE</label><label class="text-danger">*</label>
+                                <input type="text" class="form-control" id="ecompurchaseamto" name="ecompurchaseamto" placeholder="Product purchase price" value="{{ old('ecompurchaseamto') }}" required>
                             </div>
                             <div class="col-5">
                                 <label for="ecomorddtt">DATE OF THE PRODUCT ORDERED</label><label class="text-danger">*</label>
                               <i class="fa fa-calendar-alt"></i>
-                              {{-- <input type="text" class="datetimepicker" name="ecomorddtt" id="ecomorddtt" autocomplete="off" required> --}}
-                              {{-- <input type="text" name="ecomorddtt" id="ecomorddtt" autocomplete="off" required> --}}
-                              {{-- <i class="fa fa-calendar-alt"></i> --}}
                               <div class="input-group date" id="datetimepicker2">
                                 <input type="text" class="form-control" name="ecomorddtt" id="ecomorddtt" autocomplete="off" required><span class="input-group-addon"><i class="glyphicon glyphicon-th"></i></span>
                               </div>

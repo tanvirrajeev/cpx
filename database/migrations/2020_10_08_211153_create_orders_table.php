@@ -20,6 +20,7 @@ class CreateOrdersTable extends Migration
                 $table->string('ecomordid');
                 $table->string('ecomname');
                 $table->string('ecomproddesc');
+                $table->integer('ecompurchaseamt');
                 $table->string('ecomorddt');
                 $table->string('consigneename');
                 $table->string('consigneeaddrs');

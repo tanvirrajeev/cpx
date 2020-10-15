@@ -39,7 +39,8 @@
                                 </div>
                             </div>
                             <div class="col-3">
-
+                                <label for="ecompurchaseamto">PRODUCT PRICE</label><label class="text-danger">*</label>
+                                <input type="text" class="form-control" id="ecompurchaseamto" name="ecompurchaseamto" value="{{$ord->ecompurchaseamt}}" disabled>
                             </div>
                             <div class="col-5">
                                 <label for="ecomorddtt">DATE OF THE PRODUCT ORDERED</label><label class="text-danger">*</label>
@@ -60,7 +61,7 @@
 
                         <div class="form-group">
                             <label for="ecomprdtraclnke">PRODUCT TRACKING LINK (IF AVAILABLE)</label>
-                            <input type="text" class="form-control" id="ecomprdtraclnke" name="ecomprdtraclnke" value="{{$ord->consigneename}}" disabled>
+                            <input type="text" class="form-control" id="ecomprdtraclnke" name="ecomprdtraclnke" value="{{$ord->ecomprdtraclnk}}" disabled>
                         </div>
 
                         <div class="form-group">

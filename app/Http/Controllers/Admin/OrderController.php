@@ -27,7 +27,7 @@ class OrderController extends Controller
 
     public function dashboardlist(){
         $data = DB::table('orders')
-                ->where('ecomstatus', 'NOT RECEIVED')
+                ->where('ecomstatus', 'NOT ARRIVED')
                 ->orWhere('ecomstatus', 'OTHERS')
                 ->get();
         // $user = User::all();
@@ -46,7 +46,7 @@ class OrderController extends Controller
 
     public function orderlist(){
         $data = DB::table('orders')
-                ->where('ecomstatus', 'RECEIVED')
+                ->where('ecomstatus', 'ARRIVED')
                 ->get();
         // $user = User::all();
         // var_dump($data);
@@ -74,12 +74,13 @@ class OrderController extends Controller
         $ord->ecomordid = $request->ecomordida;
         $ord->ecomname = $request->ecomnames;
         $ord->ecomproddesc = $request->ecomproddescd;
+        $ord->ecompurchaseamt = $request->ecompurchaseamto;
         $ord->ecomorddt = $request->ecomorddtt;
         $ord->consigneename = $request->consigneenamer;
         $ord->consigneeaddrs = $request->consigneeaddrsf;
         $ord->ecomprdtraclnk = $request->ecomprdtraclnke;
         $ord->ecomsppngpriority = $request->ecomsppngpriorityq;
-        $ord->ecomstatus = 'NOT RECEIVED';
+        $ord->ecomstatus = 'NOT ARRIVED';
         $ord->updatedby = Auth::id();
         $ord->save();
 
@@ -107,6 +108,7 @@ class OrderController extends Controller
         $ord->ecomordid = $request->ecomordida;
         $ord->ecomname = $request->ecomnames;
         $ord->ecomproddesc = $request->ecomproddescd;
+        $ord->ecompurchaseamt = $request->ecompurchaseamto;
         $ord->ecomorddt = $request->ecomorddtt;
         $ord->consigneename = $request->consigneenamer;
         $ord->consigneeaddrs = $request->consigneeaddrsf;

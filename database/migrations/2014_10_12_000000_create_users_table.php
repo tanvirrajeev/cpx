@@ -16,11 +16,12 @@ class CreateUsersTable extends Migration
         if (!Schema::hasTable('users')) {
             Schema::create('users', function (Blueprint $table) {
                 $table->id();
+                $table->unsignedInteger('role_id')->default(1);
+                $table->unsignedInteger('branch_id')->nullable();
                 $table->string('name');
                 $table->string('email')->unique();
                 $table->bigInteger('phone');
                 $table->string('address');
-                $table->unsignedInteger('role_id')->default(1);
                 $table->string('status');
                 $table->timestamp('email_verified_at')->nullable();
                 $table->string('password');
