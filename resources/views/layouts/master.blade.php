@@ -107,6 +107,36 @@
         </ul>
           @endif
 
+        {{-- For Branch Sidebar      --}}
+        @if(Request::is('branch*'))
+        <ul class="nav nav-sidebar flex-column">
+          <li class="nav-item">
+              <a href="/branch/dashboard" class="nav-link {{ Request::is('branch/dashboard') ? 'active' : ''}}">
+                  <i class="fas fa-tachometer-alt"></i>
+                  <p>Dashboard</p>
+              </a>
+          </li>
+        </ul>
+          <ul class="nav nav-sidebar flex-column">
+            <li class="nav-item">
+                <a href="/branch/cpx" class="nav-link {{ Request::is('branch/cpx') ? 'active' : ''}}">
+                  <i class="fas fa-shipping-fast nav-icon"></i>
+                  <p>
+                    CPX Order
+                  </p>
+                </a>
+        </ul>
+        <ul class="nav nav-sidebar flex-column">
+            <li class="nav-item">
+                <a href="/branch/order" class="nav-link {{ Request::is('branch/order') ? 'active' : ''}}">
+                    <i class="fas fa-table nav-icon"></i>
+                    <p>View Orders</p>
+                </a>
+            </li>
+        </ul>
+          @endif
+
+
           {{-- For Customer Sidebar      --}}
         @if(Request::is('customer*'))
         <ul class="nav nav-sidebar flex-column">

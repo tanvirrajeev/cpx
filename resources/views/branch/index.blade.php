@@ -10,7 +10,7 @@
 
                 <div class="card-body bg-orange">
 
-                    <form action="{{ route('admin.order.store') }}" method="POST">
+                    <form action="{{ route('branch.order.store') }}" method="POST">
                         {{-- <form action="{{ route('order.store') }}" method="POST"> --}}
                         @csrf
                         <div class="row">

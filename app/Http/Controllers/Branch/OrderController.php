@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers\Branch;
 
 use App\Http\Controllers\Controller;
 use App\Order;
@@ -17,13 +17,13 @@ class OrderController extends Controller
 
     public function index(){
 
-        return view('admin.order.index');
+        return view('branch.order.index');
 
     }
 
     public function dashboard(){
 
-        return view('admin.order.dashboard');
+        return view('branch.order.dashboard');
 
     }
 
@@ -43,8 +43,8 @@ class OrderController extends Controller
             return $data->created_at ? with(new Carbon($data->created_at))->format('d/m/Y') : '';
         })
         ->addColumn('action', function( $data) {
-            return  '<a href="/admin/order/'.$data->id.'" class="btn btn-xs btn-primary"><i class="fas fa-eye"></i></a>
-            <a href="/admin/order/'.$data->id.'/edit" class="btn btn-xs btn-danger"><i class="fas fa-edit"></i></a>';
+            return  '<a href="/branch/order/'.$data->id.'" class="btn btn-xs btn-primary"><i class="fas fa-eye"></i></a>
+            <a href="/branch/order/'.$data->id.'/edit" class="btn btn-xs btn-danger"><i class="fas fa-edit"></i></a>';
         })
         ->rawColumns(['action'])
         ->make(true);
@@ -65,7 +65,7 @@ class OrderController extends Controller
             return $data->created_at ? with(new Carbon($data->created_at))->format('d/m/Y') : '';
         })
         ->addColumn('action', function( $data) {
-            return  '<a href="/admin/order/'.$data->id.'" class="btn btn-xs btn-primary"><i class="fas fa-eye"></i></a>';
+            return  '<a href="/branch/order/'.$data->id.'" class="btn btn-xs btn-primary"><i class="fas fa-eye"></i></a>';
         })
         ->rawColumns(['action'])
         ->make(true);
@@ -75,6 +75,12 @@ class OrderController extends Controller
 
     public function statuslist(Request $request){
         $selstat = (isset($_GET['selectedstatus']) ? $_GET['selectedstatus'] : '');
+        // $status = App\Status::find($selectedstatus);
+        // $statusflag = $status->flag;
+        // var_dump($statusflag);
+        // $specstatusg = App\Status::find($selstat);
+        // $statusflag = $specstatusg->flag;
+
         $statusrow = Status::find($selstat);
         $statusflag = $statusrow->flag;
 
@@ -104,21 +110,21 @@ class OrderController extends Controller
 
         // return redirect(route('customer.index'));
         // return view('admin.index');
-        return redirect(route('admin.cpx'))->with('toast_success','Order Created');
+        return redirect(route('branch.cpx'))->with('toast_success','Order Created');
     }
 
     public function show(Order $order){
         $ord = New Order;
         $ord = $order;
         // var_dump($ord);
-        return view('admin.order.show',compact('ord'));
+        return view('branch.order.show',compact('ord'));
 
     }
 
     public function edit(Order $order){
         $status = Status::all();
         // var_dump($status);
-        return view('admin.order.edit',compact('order','status'));
+        return view('branch.order.edit',compact('order','status'));
     }
 
     public function update(Request $request, $order){
@@ -139,7 +145,7 @@ class OrderController extends Controller
         $ord->updatedby = Auth::id();
         $ord->save();
 
-        return redirect(route('admin.dashboard'))->with('toast_success','Order Updated');
+        return redirect(route('branch.dashboard'))->with('toast_success','Order Updated');
     }
 
     public function destroy(Order $order)

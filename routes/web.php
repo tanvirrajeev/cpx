@@ -43,9 +43,13 @@ Route::group([ 'as'=>'admin.', 'prefix' => 'admin', 'namespace'=>'Admin', 'middl
 Route::group([ 'as'=>'branch.', 'prefix' => 'branch', 'namespace'=>'Branch', 'middleware'=>['auth','branch']],
     function (){
         // Route::get('home','HomeController@index')->name('home');
+        Route::get('dashboard', 'OrderController@dashboard')->name('dashboard');
         Route::get('cpx','CpxController@index')->name('cpx');
-        // Route::resource('order', 'OrderController');
-        // Route::get('orderlist', 'OrderController@orderlist')->name('order.orderlist');
+        Route::resource('order', 'OrderController');
+        Route::get('orderlist', 'OrderController@orderlist')->name('order.orderlist');
+        Route::get('dashboardlist', 'OrderController@dashboardlist')->name('order.dashboardlist');
+        Route::get('statuslist', 'OrderController@statuslist')->name('order.statuslist');
+
 });
 
 Route::group([ 'as'=>'customer.', 'prefix' => 'customer', 'namespace'=>'Customer', 'middleware'=>['auth','customer']],
