@@ -72,7 +72,7 @@
                         <div class="form-group">
                             <label for="ecomstatuss">STATUS</label>
                             <select class="form-control form-control-sm" name="ecomstatuss" id="ecomstatuss">
-                                <option value="{{$ord->ecomstatus}}" selected>{{$ord->ecomstatus}}</option>
+                                <option value="{{$ord->status->id}}" selected>{{$ord->status->name}}</option>
                             </select>
                         </div>
 

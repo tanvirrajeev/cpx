@@ -37,6 +37,7 @@ Route::group([ 'as'=>'admin.', 'prefix' => 'admin', 'namespace'=>'Admin', 'middl
         Route::get('dashboard', 'OrderController@dashboard')->name('dashboard');
         Route::get('orderlist', 'OrderController@orderlist')->name('order.orderlist');
         Route::get('dashboardlist', 'OrderController@dashboardlist')->name('order.dashboardlist');
+        Route::get('statuslist', 'OrderController@statuslist')->name('order.statuslist');
 });
 
 Route::group([ 'as'=>'branch.', 'prefix' => 'branch', 'namespace'=>'Branch', 'middleware'=>['auth','branch']],

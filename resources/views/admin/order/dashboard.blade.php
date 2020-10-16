@@ -27,6 +27,27 @@
     </div>
 </div>
 
+{{-- DataTables for Admin Dashborad  --}}
+<script>
+    $(document).ready( function () {
+    $('#admindashboard').DataTable({
+        processing: true,
+        serverSide: true,
+        responsive: true,
+        order: [0, 'desc'],
+        ajax: '{!! route('admin.order.dashboardlist') !!}',
+        columns: [
+            { data: 'id', name: 'id' },
+            { data: 'ecomordid', name: 'ecomordid' },
+            { data: 'consigneename', name: 'consigneename' },
+            { data: 'statusname', name: 'statuses.name' },
+            { data: 'note', name: 'note' },
+            { data: 'created_at', name: 'created_at' },
+            { data: 'action', name: 'action' }
 
+        ]
+    });
+} );
+</script>
 
 @endsection

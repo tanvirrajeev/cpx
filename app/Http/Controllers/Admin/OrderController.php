@@ -29,10 +29,14 @@ class OrderController extends Controller
 
     public function dashboardlist(){
         $data = DB::table('orders')
-                ->where('ecomstatus', 'NOT ARRIVED')
-                ->orWhere('ecomstatus', 'OTHERS')
+                // ->where('status_id', 'NOT ARRIVED')
+                // ->orWhere('ecomstatus', 'OTHERS')
+                ->join('statuses', 'statuses.id', '=', 'orders.status_id')
+                ->select('orders.id as id','ecomordid','consigneename','statuses.name as statusname','note','orders.created_at')
+                ->where('statuses.flag', '0')
+                // ->orWhere('ecomstatus', 'OTHERS')
                 ->get();
-        // $user = User::all();
+        // $data = Order::select();
         // var_dump($data);
         return Datatables::of($data)
         ->editColumn('created_at', function ($data) {
@@ -48,7 +52,11 @@ class OrderController extends Controller
 
     public function orderlist(){
         $data = DB::table('orders')
-                ->where('ecomstatus', 'ARRIVED')
+                // ->where('ecomstatus', 'ARRIVED')
+                ->join('statuses', 'statuses.id', '=', 'orders.status_id')
+                ->select('orders.id as id','ecomordid','consigneename','statuses.name as statusname','note','orders.created_at','awb')
+                ->where('statuses.flag', '1')
+                ->orWhere('statuses.flag', '2')
                 ->get();
         // $user = User::all();
         // var_dump($data);
@@ -63,6 +71,20 @@ class OrderController extends Controller
         ->make(true);
 
         // <a href="/admin/order/'.$data->id.'/edit" class="btn btn-xs btn-danger"><i class="fas fa-edit"></i></a>';
+    }
+
+    public function statuslist(Request $request){
+        $selstat = (isset($_GET['selectedstatus']) ? $_GET['selectedstatus'] : '');
+        // $status = App\Status::find($selectedstatus);
+        // $statusflag = $status->flag;
+        // var_dump($statusflag);
+        // $specstatusg = App\Status::find($selstat);
+        // $statusflag = $specstatusg->flag;
+
+        $statusrow = Status::find($selstat);
+        $statusflag = $statusrow->flag;
+
+        return response($statusflag);
     }
 
     public function create(){
@@ -82,7 +104,7 @@ class OrderController extends Controller
         $ord->consigneeaddrs = $request->consigneeaddrsf;
         $ord->ecomprdtraclnk = $request->ecomprdtraclnke;
         $ord->ecomsppngpriority = $request->ecomsppngpriorityq;
-        $ord->ecomstatus = 'NOT ARRIVED';
+        $ord->status_id = '3';
         $ord->updatedby = Auth::id();
         $ord->save();
 
@@ -117,7 +139,7 @@ class OrderController extends Controller
         $ord->consigneeaddrs = $request->consigneeaddrsf;
         $ord->ecomprdtraclnk = $request->ecomprdtraclnke;
         $ord->ecomsppngpriority = $request->ecomsppngpriorityq;
-        $ord->ecomstatus = $request->ecomstatuss;
+        $ord->status_id = $request->ecomstatuss;
         $ord->note = $request->note;
         $ord->awb = $request->awbd;
         $ord->updatedby = Auth::id();

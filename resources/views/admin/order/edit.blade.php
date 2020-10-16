@@ -10,7 +10,7 @@
 
                 <div class="card-body bg-orange">
 
-                    <form action="/admin/order/{{ $order->id}}" method="POST">
+                    <form action="/admin/order/{{ $order->id}}" method="POST" id="orderform">
                         {{-- <form action="{{ route('order.store') }}" method="POST"> --}}
                         @csrf
                         @method('PUT')
@@ -76,31 +76,21 @@
                         <div class="form-group">
                             <label for="ecomstatuss">STATUS</label>
                             <select class="form-control form-control-sm" name="ecomstatuss" id="ecomstatuss">
-                                <option value="{{$order->ecomstatus}}" selected>{{$order->ecomstatus}}</option>
-                                <option value="ARRIVED">ARRIVED</option>
-                                <option value="NOT ARRIVED">NOT ARRIVED</option>
-                                <option value="OTHERS">OTHERS</option>
+                                <option value="{{$order->status->id}}" selected>{{$order->status->name}}</option>
+                                @foreach ($status as $item)
+                                    @if ($order->status_id  !== $item->id)
+                                            <option value="{{ $item->id }}">{{ $item->name }}</option>
+                                    @endif
+                                @endforeach
                             </select>
                         </div>
 
                         <div class="form-group">
-                            {{-- <label for="note">NOTE</label> --}}
                             <textarea class="form-control" id="note" name="note" rows="3" style="display:none" placeholder="Must fillup if you select status as OTHERS...">{{$order->note}}</textarea>
                         </div>
 
                         <div class="form-group">
-                            {{-- <label for="ecomprdtraclnke">PRODUCT TRACKING LINK (IF AVAILABLE)</label> --}}
                             <input type="text" class="form-control" id="awbd" name="awbd" value="{{$order->awb}}" style="display:none" placeholder="Insert AWB...">
-                        </div>
-
-                        <div class="form-group">
-                            <label for="ecomstatuss">STATUS</label>
-                            <select class="form-control form-control-sm" name="ecomstatuss" id="ecomstatuss">
-                                <option value="{{$order->ecomstatus}}" selected>{{$order->ecomstatus}}</option>
-                                <option value="ARRIVED">ARRIVED</option>
-                                <option value="NOT ARRIVED">NOT ARRIVED</option>
-                                <option value="OTHERS">OTHERS</option>
-                            </select>
                         </div>
 
                         <button type="submit" class="btn btn-dark" id="submit_button">UPDATE</button>
@@ -113,5 +103,42 @@
     </div>
 </div>
 
+
+{{-- On Admin Order Edit when select status as ARRIVED/OTHERS etc --}}
+<script>
+    jQuery(document).ready(function(){
+      $("#ecomstatuss").change(function() {
+
+        var selectedstatus = $(this).val();
+        // console.log(selectedstatus);
+
+        $.ajax({
+          type: 'get',
+          url: "{{ url('/admin/statuslist') }}",
+          data: {selectedstatus:selectedstatus},
+          success:function(data){
+            // console.log(data)
+            var st = $('#orderform');
+            if(data == '1'){
+                st.find('#awbd').show();
+                st.find('#awbd').prop('required',true);
+                st.find('#note').hide();
+                st.find('#note').prop('required',false);
+            }else if(data == '2'){
+                st.find('#note').show();
+                st.find('#note').prop('required',true);
+                st.find('#awbd').hide();
+                st.find('#awbd').prop('required',false);
+            }else{
+                st.find('#note').hide();
+                st.find('#awbd').hide();
+                st.find('#note').prop('required',false);
+                st.find('#awbd').prop('required',false);
+            }
+          }
+      })
+      });
+    });
+  </script>
 
 @endsection

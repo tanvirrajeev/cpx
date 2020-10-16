@@ -29,7 +29,7 @@ class CreateOrdersTable extends Migration
                 $table->string('ecomrcvby')->nullable();
                 $table->string('ecomawb')->nullable();
                 $table->string('note')->nullable();
-                $table->string('ecomstatus');
+                $table->unsignedbigInteger('status_id');
                 $table->string('awb')->nullable();
                 $table->string('updatedby');
                 $table->timestamps();

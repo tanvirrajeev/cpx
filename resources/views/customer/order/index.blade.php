@@ -32,6 +32,24 @@
     </div>
 </div>
 
-
+{{-- DataTable for Customer Order Page --}}
+<script>
+    $(document).ready( function () {
+    $('#orderlist').DataTable({
+        processing: true,
+        serverSide: true,
+        responsive: true,
+        order: [0, 'desc'],
+        ajax: '{!! route('customer.order.orderlist') !!}',
+        columns: [
+            { data: 'id', name: 'id' },
+            { data: 'ecomordid', name: 'ecomordid' },
+            { data: 'consigneename', name: 'consigneename' },
+            { data: 'statusname', name: 'statuses.name' },
+            { data: 'awb', name: 'awb' }
+        ]
+    });
+} );
+</script>
 
 @endsection

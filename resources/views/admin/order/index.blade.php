@@ -28,6 +28,28 @@
     </div>
 </div>
 
+{{-- DataTalbe for Admin Order page --}}
+<script>
+    $(document).ready( function () {
+    $('#orderlistadmin').DataTable({
+        processing: true,
+        serverSide: true,
+        responsive: true,
+        order: [0, 'desc'],
+        ajax: '{!! route('admin.order.orderlist') !!}',
+        columns: [
+            { data: 'id', name: 'id' },
+            { data: 'ecomordid', name: 'ecomordid' },
+            { data: 'consigneename', name: 'consigneename' },
+            { data: 'statusname', name: 'statuses.name' },
+            { data: 'note', name: 'note' },
+            { data: 'created_at', name: 'created_at' },
+            { data: 'awb', name: 'awb' },
+            { data: 'action', name: 'action' }
 
+        ]
+    });
+} );
+</script>
 
 @endsection

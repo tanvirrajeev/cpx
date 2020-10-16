@@ -12,6 +12,9 @@
   <link rel="stylesheet" href="/css/app.css">
   <link rel="stylesheet" href="https://cdn.datatables.net/1.10.22/css/jquery.dataTables.min.css">
 
+  <script src="https://code.jquery.com/jquery-3.5.1.min.js" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
+  <script src='https://cdn.datatables.net/1.10.22/js/jquery.dataTables.min.js'></script>
+
 </head>
 <body class="hold-transition sidebar-mini">
 <div class="wrapper">
@@ -201,29 +204,8 @@
 {{-- Datetime picker --}}
 <link href="{{ asset('css/datepicker.css') }}" rel="stylesheet">
 
-<script src="https://code.jquery.com/jquery-3.5.1.min.js" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
-<script src='https://cdn.datatables.net/1.10.22/js/jquery.dataTables.min.js'></script>
-{{-- <script src="{{ asset('js/app.js') }}" defer></script> --}}
 
-{{-- DataTable for Customer Order Page --}}
-<script>
-    $(document).ready( function () {
-    $('#orderlist').DataTable({
-        processing: true,
-        serverSide: true,
-        responsive: true,
-        order: [0, 'desc'],
-        ajax: '{!! route('customer.order.orderlist') !!}',
-        columns: [
-            { data: 'id', name: 'id' },
-            { data: 'ecomordid', name: 'ecomordid' },
-            { data: 'consigneename', name: 'consigneename' },
-            { data: 'ecomstatus', name: 'ecomstatus' },
-            { data: 'awb', name: 'awb' }
-        ]
-    });
-} );
-</script>
+{{-- <script src="{{ asset('js/app.js') }}" defer></script> --}}
 
 {{-- Datepicker  --}}
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.7.1/js/bootstrap-datepicker.min.js"></script>
@@ -239,77 +221,6 @@ $('#datetimepicker2').datepicker({
     autoclose: true
 });
 </script>
-
-{{-- DataTalbe for Admin Order page --}}
-<script>
-    $(document).ready( function () {
-    $('#orderlistadmin').DataTable({
-        processing: true,
-        serverSide: true,
-        responsive: true,
-        order: [0, 'desc'],
-        ajax: '{!! route('admin.order.orderlist') !!}',
-        columns: [
-            { data: 'id', name: 'id' },
-            { data: 'ecomordid', name: 'ecomordid' },
-            { data: 'consigneename', name: 'consigneename' },
-            { data: 'ecomstatus', name: 'ecomstatus' },
-            { data: 'note', name: 'note' },
-            { data: 'created_at', name: 'created_at' },
-            { data: 'awb', name: 'awb' },
-            { data: 'action', name: 'action' }
-
-        ]
-    });
-} );
-</script>
-
-{{-- DataTables for Admin Dashborad  --}}
-<script>
-    $(document).ready( function () {
-    $('#admindashboard').DataTable({
-        processing: true,
-        serverSide: true,
-        responsive: true,
-        order: [0, 'desc'],
-        ajax: '{!! route('admin.order.dashboardlist') !!}',
-        columns: [
-            { data: 'id', name: 'id' },
-            { data: 'ecomordid', name: 'ecomordid' },
-            { data: 'consigneename', name: 'consigneename' },
-            { data: 'ecomstatus', name: 'ecomstatus' },
-            { data: 'note', name: 'note' },
-            { data: 'created_at', name: 'created_at' },
-            { data: 'action', name: 'action' }
-
-        ]
-    });
-} );
-</script>
-
-{{-- On Order Edit when select status as OTHERS --}}
-<script>
-    jQuery(document).ready(function(){
-      $("#ecomstatuss").change(function() {
-          if($(this).val() == 'OTHERS'){
-            $('#note').show();
-            $('#note').prop('required',true);
-            $('#awbd').hide();
-            $('#awbd').prop('required',false);
-          }else if($(this).val() == 'ARRIVED'){
-            $('#awbd').show();
-            $('#awbd').prop('required',true);
-            $('#note').hide();
-            $('#note').prop('required',false);
-          }else{
-            $('#note').hide();
-            $('#awbd').hide();
-            $('#note').prop('required',false);
-            $('#awbd').prop('required',false);
-          }
-      });
-    });
-  </script>
 
 </body>
 </html>

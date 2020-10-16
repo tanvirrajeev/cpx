@@ -20,7 +20,11 @@ class OrderController extends Controller
     }
 
     public function orderlist(){
-        $data = DB::table('orders')->where('users_id', Auth::id())->get();
+        $data = DB::table('orders')
+            ->where('users_id', Auth::id())
+            ->join('statuses', 'statuses.id', '=', 'orders.status_id')
+            ->select('orders.id as id','ecomordid','consigneename','statuses.name as statusname','awb')
+            ->get();
         // $user = User::all();
         // var_dump($data);
         return Datatables::of($data)
@@ -50,7 +54,7 @@ class OrderController extends Controller
         $ord->consigneeaddrs = $request->consigneeaddrsf;
         $ord->ecomprdtraclnk = $request->ecomprdtraclnke;
         $ord->ecomsppngpriority = $request->ecomsppngpriorityq;
-        $ord->ecomstatus = 'NOT ARRIVED';
+        $ord->status_id = '3';
         $ord->updatedby = Auth::id();
         $ord->save();
 
