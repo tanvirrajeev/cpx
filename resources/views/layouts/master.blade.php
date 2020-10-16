@@ -87,7 +87,7 @@
         </ul>
           <ul class="nav nav-sidebar flex-column">
             <li class="nav-item">
-                <a href="/admin/home" class="nav-link {{ Request::is('admin/home') ? 'active' : ''}}">
+                <a href="/admin/cpx" class="nav-link {{ Request::is('admin/cpx') ? 'active' : ''}}">
                   <i class="fas fa-shipping-fast nav-icon"></i>
                   <p>
                     CPX Order
@@ -108,7 +108,7 @@
         @if(Request::is('customer*'))
         <ul class="nav nav-sidebar flex-column">
             <li class="nav-item">
-                <a href="/customer/home" class="nav-link {{ Request::is('customer/home') ? 'active' : ''}}">
+                <a href="/customer/cpx" class="nav-link {{ Request::is('customer/cpx') ? 'active' : ''}}">
                   {{-- <i class="nav-icon fas fa-tachometer-alt"></i> --}}
                   <i class="fas fa-shipping-fast nav-icon"></i>
                   <p>

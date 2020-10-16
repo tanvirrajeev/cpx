@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Order;
+use App\Status;
+
 use Auth;
 use Illuminate\Http\Request;
 use Yajra\DataTables\DataTables;
@@ -86,7 +88,7 @@ class OrderController extends Controller
 
         // return redirect(route('customer.index'));
         // return view('admin.index');
-        return redirect(route('admin.home'))->with('toast_success','Order Created');
+        return redirect(route('admin.cpx'))->with('toast_success','Order Created');
     }
 
     public function show(Order $order){
@@ -98,8 +100,9 @@ class OrderController extends Controller
     }
 
     public function edit(Order $order){
-        // var_dump($order);
-        return view('admin.order.edit',compact('order'));
+        $status = Status::all();
+        // var_dump($status);
+        return view('admin.order.edit',compact('order','status'));
     }
 
     public function update(Request $request, $order){

@@ -93,6 +93,16 @@
                             <input type="text" class="form-control" id="awbd" name="awbd" value="{{$order->awb}}" style="display:none" placeholder="Insert AWB...">
                         </div>
 
+                        <div class="form-group">
+                            <label for="ecomstatuss">STATUS</label>
+                            <select class="form-control form-control-sm" name="ecomstatuss" id="ecomstatuss">
+                                <option value="{{$order->ecomstatus}}" selected>{{$order->ecomstatus}}</option>
+                                <option value="ARRIVED">ARRIVED</option>
+                                <option value="NOT ARRIVED">NOT ARRIVED</option>
+                                <option value="OTHERS">OTHERS</option>
+                            </select>
+                        </div>
+
                         <button type="submit" class="btn btn-dark" id="submit_button">UPDATE</button>
                       </form>
 

@@ -17,6 +17,7 @@ class CreateStatusesTable extends Migration
             Schema::create('statuses', function (Blueprint $table) {
                 $table->id();
                 $table->unsignedInteger('branch_id')->nullable();
+                $table->integer('flag');
                 $table->string('name');
                 $table->timestamps();
             });
