@@ -16,7 +16,7 @@ class CreateOrdersTable extends Migration
         if (!Schema::hasTable('orders')) {
             Schema::create('orders', function (Blueprint $table) {
                 $table->id();
-                $table->unsignedbigInteger('users_id');
+                $table->unsignedBigInteger('users_id');
                 $table->string('ecomordid');
                 $table->string('ecomname');
                 $table->string('ecomproddesc');
@@ -29,7 +29,7 @@ class CreateOrdersTable extends Migration
                 $table->string('ecomrcvby')->nullable();
                 $table->string('ecomawb')->nullable();
                 $table->string('note')->nullable();
-                $table->unsignedbigInteger('status_id');
+                $table->unsignedBigInteger('status_id');
                 $table->string('awb')->nullable();
                 $table->string('updatedby');
                 $table->timestamps();

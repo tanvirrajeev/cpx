@@ -16,9 +16,10 @@ class CreateShippingchargesTable extends Migration
         if (!Schema::hasTable('shippingcharges')) {
             Schema::create('shippingcharges', function (Blueprint $table) {
                 $table->id();
-                $table->integer('weight');
+                $table->decimal('weight',5,2);
                 $table->integer('factor');
-                $table->integer('amount');
+                $table->decimal('rate',5,2);
+                $table->decimal('amount',10,3);
                 $table->timestamps();
             });
         }

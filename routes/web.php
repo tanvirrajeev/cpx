@@ -38,6 +38,12 @@ Route::group([ 'as'=>'admin.', 'prefix' => 'admin', 'namespace'=>'Admin', 'middl
         Route::get('orderlist', 'OrderController@orderlist')->name('order.orderlist');
         Route::get('dashboardlist', 'OrderController@dashboardlist')->name('order.dashboardlist');
         Route::get('statuslist', 'OrderController@statuslist')->name('order.statuslist');
+        Route::resource('billing', 'BillingController');
+        Route::get('billinglist', 'BillingController@billinglist')->name('billing.billinglist');
+        Route::get('shippingchargelist', 'BillingController@shippingchargelist')->name('shippingchargelist');
+
+
+
 });
 
 Route::group([ 'as'=>'branch.', 'prefix' => 'branch', 'namespace'=>'Branch', 'middleware'=>['auth','branch']],
@@ -59,3 +65,5 @@ Route::group([ 'as'=>'customer.', 'prefix' => 'customer', 'namespace'=>'Customer
         Route::resource('order', 'OrderController');
         Route::get('orderlist', 'OrderController@orderlist')->name('order.orderlist');
 });
+
+

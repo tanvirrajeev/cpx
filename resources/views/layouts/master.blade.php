@@ -105,6 +105,18 @@
                 </a>
             </li>
         </ul>
+        <ul class="nav nav-sidebar flex-column">
+            <li class="nav-item">
+                <a href="/admin/billing" class="nav-link {{ Request::is('admin/billing') ? 'active' : ''}}">
+                    <div style="font-size: 1.33rem;">
+                        &nbsp;<i class="fas fa-dollar-sign "></i>
+                        <p style="font-size: 1rem;">Billing</p>
+                    </div>
+
+
+                </a>
+            </li>
+        </ul>
           @endif
 
         {{-- For Branch Sidebar      --}}

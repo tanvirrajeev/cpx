@@ -16,11 +16,13 @@ class CreateBillingsTable extends Migration
         if (!Schema::hasTable('billings')) {
             Schema::create('billings', function (Blueprint $table) {
                 $table->id();
-                $table->integer('weight');
-                $table->integer('shippingcharge');
-                $table->integer('dutytax');
-                $table->integer('nettotal');
-                $table->string('paymentstatus');
+                $table->unsignedBigInteger('shippingcharge_id')->nullable();
+                $table->unsignedBigInteger('order_id');
+                $table->decimal('shippingcharge', 8, 2)->default(0)->nullable();
+                $table->decimal('productprice',10,2)->default(0)->nullable();
+                $table->decimal('dutytax',10,2)->default(0)->nullable();
+                $table->decimal('nettotal',10,2)->default(0)->nullable();
+                $table->string('paymentstatus')->default('NOT PAYED')->nullable();
                 $table->timestamps();
             });
         }
