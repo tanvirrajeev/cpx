@@ -13,11 +13,10 @@
                         <thead>
                             <th>SHIPPING CODE</th>
                             <th>NET TOTAL</th>
-                            <th>PAYMENT STATUS</th>
-                            <th>VIEW</th>
-                            <th>EDIT</th>
+                            <th>STATUS</th>
+                            <th>ACTION</th>
+                            <th>ENTRY</th>
                         </thead>
-
                     </table>
                 </div>
             </div>
@@ -40,7 +39,6 @@
             { data: 'paymentstatus', name: 'paymentstatus' },
             { data: 'action1', name: 'action1' },
             { data: 'action2', name: 'action2' }
-
         ],
         rowCallback: function(row, data, index) {
                     if (data.paymentstatus == "PAYED"){
@@ -48,10 +46,10 @@
                         }
 
                     if (data.paymentstatus == "PAYED"){
-                        $('td:eq(2)', row).css('background-color','#99ff9c');
+                        $('td:eq(2)', row).css('background-color','#4BBF28');
                         }
                         else{
-                            $('td:eq(2)', row).css('background-color','#87CEEB');
+                            $('td:eq(2)', row).css('background-color','#BF2828');
                             }
                     }
     });
