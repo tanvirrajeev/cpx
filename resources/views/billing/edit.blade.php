@@ -30,7 +30,7 @@
                                 <div class="form-group">
                                     <label for="spchargeid">SHIPPING WEIGHT (KG)</label>
                                     <select class="form-control form-control-sm" name="spchargeid" id="spchargeid">
-                                        <option selected disabled>{{$billing->shippingcharge_id}}</option>
+                                        <option value="{{$billing->shippingcharge_id}}" selected></option>
                                         @foreach ($spcharge as $item)
                                         <option value="{{$item->id}}">{{$item->weight}}</option>
                                         @endforeach
@@ -58,25 +58,27 @@
 
                         <div class="form-group">
                             <label for="ntotal">NET TOTAL ($)</label>
-                            <input type="text" class="form-control" id="ntotal" name="ntotal" value="{{$billing->dutytax}}">
+                            <input type="text" class="form-control" id="ntotal" name="ntotal" value="{{$billing->nettotal}}">
                         </div>
                         <div class="form-group">
                             <label for="paystatus">PAYMENT STATUS</label>
                             <select class="form-control form-control-sm" name="paystatus" id="nettotal">
-                                <option value="NOT PAYED" selected>NOT PAYED</option>
-                                <option value="PAYED">PAYED</option>
+                                <option value="{{$billing->paymentstatus}}" selected>{{$billing->paymentstatus}}</option>
+                                @if ($billing->paymentstatus  === "PAYED")
+                                    <option value="NOT PAYED">NOT PAYED</option>
+                                @endif
+                                {{-- <option value="NOT PAYED">NOT PAYED</option> --}}
+                                {{-- <option value="PAYED">PAYED</option> --}}
                             </select>
                         </div>
 
-                        <button type="submit" class="btn btn-dark" id="submit_button">ENTRY</button>
+                        <button type="submit" class="btn btn-dark" id="submit_button">UPDATE</button>
                       </form>
                 </div>
             </div>
         </div>
     </div>
 </div>
-
-
 <script>
     jQuery(document).ready(function(){
       $("#spchargeid").change(function() {

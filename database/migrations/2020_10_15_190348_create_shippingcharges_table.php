@@ -19,7 +19,8 @@ class CreateShippingchargesTable extends Migration
                 $table->decimal('weight',5,2);
                 $table->integer('factor');
                 $table->decimal('rate',5,2);
-                $table->decimal('amount',10,3);
+                $table->decimal('amount',10,2);
+                $table->string('updatedby');
                 $table->timestamps();
             });
         }

@@ -3,7 +3,7 @@
 
 
 namespace App\Http\Controllers\Admin;
-
+use Auth;
 use App\Http\Controllers\Controller;
 use App\Billing;
 use App\Shippingcharge;
@@ -68,14 +68,14 @@ class BillingController extends Controller
     {
         // $spcharge = New Shippingcharge;
         // $spcharge = Shippingcharge::all();
-        // $spcharge = DB::table('shippingcharges')
-            // ->select('shippingcharges.id as id','shippingcharges.weight as weight')
-            // ->get();
+        $spcharge = DB::table('shippingcharges')
+            ->select('shippingcharges.id as id','shippingcharges.weight as weight')
+            ->get();
         // dd($billing);
         // dd($spcharge);
         // $status = Status::all();
         // var_dump($status);
-        // return view('billing.edit',compact('billing','spcharge'));
+        return view('billing.edit',compact('billing','spcharge'));
     }
 
     public function update(Request $request, $billing){
@@ -88,6 +88,7 @@ class BillingController extends Controller
         $bill->dutytax = $request->dutax;
         $bill->nettotal = $request->ntotal;
         $bill->paymentstatus = $request->paystatus;
+        $bill->updatedby = Auth::id();
         $bill->save();
 
         return redirect(route('admin.billing.index'))->with('toast_success','Bill Updated');

@@ -23,6 +23,7 @@ class CreateBillingsTable extends Migration
                 $table->decimal('dutytax',10,2)->default(0)->nullable();
                 $table->decimal('nettotal',10,2)->default(0)->nullable();
                 $table->string('paymentstatus')->default('NOT PAYED')->nullable();
+                $table->string('updatedby')->nullable();
                 $table->timestamps();
             });
         }

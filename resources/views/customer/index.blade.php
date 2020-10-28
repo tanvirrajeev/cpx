@@ -44,8 +44,8 @@
                                 </div>
                             </div>
                             <div class="col-3">
-                                <label for="ecompurchaseamto">PRODUCT PRICE</label><label class="text-danger">*</label>
-                                <input type="text" class="form-control" id="ecompurchaseamto" name="ecompurchaseamto" placeholder="Product purchase price" value="{{ old('ecompurchaseamto') }}" required>
+                                {{-- <label for="ecompurchaseamto">PRODUCT PRICE</label><label class="text-danger">*</label> --}}
+                                {{-- <input type="text" class="form-control" id="ecompurchaseamto" name="ecompurchaseamto" placeholder="Product purchase price" value="{{ old('ecompurchaseamto') }}" required> --}}
                             </div>
                             <div class="col-5">
                                 <label for="ecomorddtt">DATE OF THE PRODUCT ORDERED</label><label class="text-danger">*</label>
