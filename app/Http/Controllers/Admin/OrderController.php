@@ -61,13 +61,21 @@ class OrderController extends Controller
         // $user = User::all();
         // var_dump($data);
         return Datatables::of($data)
+        //setting up id to every row for passing it through route('assetdetails', $data->id) to get specific data for display on Modal
+        ->setRowId(function ($data) {
+            return $data->id;
+            })
+        ->editColumn('statusname', function ($data)  {
+            // This will set a link to Name field on Datatables and also call a Modal from resources\views\fixedasset\asset\details.blade.php with asset id data-id='.$data->id.'
+            return '<a data-id='.$data->id.' data-target="#status" data-toggle="modal" id="status" href="">'.$data->statusname.'</a>';
+        })
         ->editColumn('created_at', function ($data) {
             return $data->created_at ? with(new Carbon($data->created_at))->format('d/m/Y') : '';
         })
         ->addColumn('action', function( $data) {
             return  '<a href="/admin/order/'.$data->id.'" class="btn btn-xs btn-primary"><i class="fas fa-eye"></i></a>';
         })
-        ->rawColumns(['action'])
+        ->rawColumns(['action','statusname'])
         ->make(true);
 
         // <a href="/admin/order/'.$data->id.'/edit" class="btn btn-xs btn-danger"><i class="fas fa-edit"></i></a>';

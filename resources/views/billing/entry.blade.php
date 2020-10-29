@@ -74,15 +74,24 @@
             </div>
         </div>
     </div>
+
+
+    <Div id="hiddenfld">
+        <input type="hidden" id="hidspcharge" name="hidspcharge">
+        <input type="hidden" id="hidprdprice" name="hidprdprice">
+        <input type="hidden" id="hiddutax" name="hiddutax">
+        <input type="hidden" id="hidntotal" name="hidntotal">
+
+    </Div>
+
+
 </div>
 
-
+{{-- Shipping Charge Autocomplete based on weight --}}
 <script>
     jQuery(document).ready(function(){
       $("#spchargeid").change(function() {
-
         var selectedstatus = $(this).val();
-        // console.log(selectedstatus);
         $.ajax({
           type: 'get',
           url: "{{ url('/admin/shippingchargelist') }}",
@@ -90,11 +99,35 @@
           success:function(data){
             var st = $('#billingform');
             st.find('#spcharge').val(data.amount);
+            $('#hiddenfld').find('#hidspcharge').val(data.amount);
           }
       })
-
       });
     });
+</script>
+
+{{-- NetTotal auto calculation --}}
+<script>
+    $( "#prdprice" ).change(function() {
+        var prdpricehid = $(this).val();
+        $('#hiddenfld').find('#hidprdprice').val(prdpricehid);
+    });
+
+    $( "#dutax" ).change(function() {
+        var dutaxhid = $(this).val();
+        $('#hiddenfld').find('#hiddutax').val(dutaxhid);
+
+        var duty = parseFloat($('#hiddenfld').find('#hiddutax').val());
+        var price = parseFloat($('#hiddenfld').find('#hidprdprice').val());
+        var spc = parseFloat($('#hiddenfld').find('#hidspcharge').val());
+
+        var ntotal = duty + price + spc;
+        $('#hiddenfld').find('#hidntotal').val(ntotal);
+
+        $('#billingform').find('#ntotal').val(ntotal);
+
+    });
+
 </script>
 
 @endsection
