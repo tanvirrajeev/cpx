@@ -67,7 +67,7 @@ class OrderController extends Controller
             })
         ->editColumn('statusname', function ($data)  {
             // This will set a link to Name field on Datatables and also call a Modal from resources\views\fixedasset\asset\details.blade.php with asset id data-id='.$data->id.'
-            return '<a data-id='.$data->id.' data-target="#status" data-toggle="modal" id="status" href="">'.$data->statusname.'</a>';
+            return '<a data-id='.$data->id.' data-target="#order-created" data-toggle="modal" id="status" href="">'.$data->statusname.'</a>';
         })
         ->editColumn('created_at', function ($data) {
             return $data->created_at ? with(new Carbon($data->created_at))->format('d/m/Y') : '';

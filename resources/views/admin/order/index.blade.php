@@ -2,7 +2,10 @@
 
 @section('content')
 <div class="container">
-    @include('admin.status.index')
+    @include('admin.status.order-created')
+    {{-- @include('admin.status.rcvhub')
+    @include('admin.status.rcvdsthub')
+    @include('admin.status.dlvrd') --}}
     <div class="row justify-content-center">
         <div class="col-md-12">
             <div class="card">
