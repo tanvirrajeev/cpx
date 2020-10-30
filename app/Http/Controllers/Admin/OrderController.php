@@ -57,6 +57,8 @@ class OrderController extends Controller
                 ->select('orders.id as id','ecomordid','consigneename','statuses.name as statusname','note','orders.created_at','awb')
                 ->where('statuses.flag', '1')
                 ->orWhere('statuses.flag', '2')
+                ->orWhere('statuses.flag', '9')
+                ->orWhere('statuses.flag', '0')
                 ->get();
         // $user = User::all();
         // var_dump($data);
@@ -67,13 +69,25 @@ class OrderController extends Controller
             })
         ->editColumn('statusname', function ($data)  {
             // This will set a link to Name field on Datatables and also call a Modal from resources\views\fixedasset\asset\details.blade.php with asset id data-id='.$data->id.'
-            return '<a data-id='.$data->id.' data-target="#order-created" data-toggle="modal" id="status" href="">'.$data->statusname.'</a>';
+            // return '<a data-id='.$data->id.' data-target="#order-created" data-toggle="modal" id="status" href="">'.$data->statusname.'</a>';
+            if ($data->statusname == "NOT ARRIVED"){
+                return '<a data-id='.$data->id.' data-target="#order-created" data-toggle="modal" id="status" href="">'.$data->statusname.'</a>';
+            }else if ($data->statusname == "ARRIVED AT DELHI"){
+                return '<a data-id='.$data->id.' data-target="#received-at-hub" data-toggle="modal" id="status" href="">'.$data->statusname.'</a>';
+            }else if ($data->statusname == "ARRIVED AT DHAKA"){
+                return '<a data-id='.$data->id.' data-target="#destination-hub" data-toggle="modal" id="status" href="">'.$data->statusname.'</a>';
+            }else if ($data->statusname == "DELIVERED"){
+                return '<a data-id='.$data->id.' data-target="#delivered" data-toggle="modal" id="status" href="">'.$data->statusname.'</a>';
+            }else{
+                return '<a data-id='.$data->id.' data-target="#status" data-toggle="modal" id="status" href="">'.$data->statusname.'</a>';
+            }
         })
         ->editColumn('created_at', function ($data) {
             return $data->created_at ? with(new Carbon($data->created_at))->format('d/m/Y') : '';
         })
         ->addColumn('action', function( $data) {
-            return  '<a href="/admin/order/'.$data->id.'" class="btn btn-xs btn-primary"><i class="fas fa-eye"></i></a>';
+            return  '<a href="/admin/order/'.$data->id.'" class="btn btn-xs btn-primary"><i class="fas fa-eye"></i></a>
+            <a href="/admin/order/'.$data->id.'/edit" class="btn btn-xs btn-danger"><i class="fas fa-edit"></i></a>';
         })
         ->rawColumns(['action','statusname'])
         ->make(true);
@@ -147,7 +161,7 @@ class OrderController extends Controller
         $ord->updatedby = Auth::id();
         $ord->save();
 
-        return redirect(route('admin.dashboard'))->with('toast_success','Order Updated');
+        return redirect(route('admin.order.index'))->with('toast_success','Order Updated');
     }
 
     public function destroy(Order $order)

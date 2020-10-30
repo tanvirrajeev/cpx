@@ -2,10 +2,13 @@
 
 @section('content')
 <div class="container">
+    <link href="{{ asset('css/progress-wizard.min.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/vertical-bar.css') }}" rel="stylesheet">
     @include('admin.status.order-created')
-    {{-- @include('admin.status.rcvhub')
-    @include('admin.status.rcvdsthub')
-    @include('admin.status.dlvrd') --}}
+    @include('admin.status.received-at-hub')
+    @include('admin.status.destination-hub')
+    @include('admin.status.delivered')
+            {{-- @include('admin.status.dlvrd') --}}
     <div class="row justify-content-center">
         <div class="col-md-12">
             <div class="card">

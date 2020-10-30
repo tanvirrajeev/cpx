@@ -1,5 +1,5 @@
-  <!-- Modal Tracking Details-->
-  <div class="modal fade" id="order-created" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <!-- Modal Asset Details-->
+  <div class="modal fade" id="received-at-hub" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg" role="document">
       <div class="modal-content">
         <div class="modal-header bg-navy">
@@ -26,11 +26,13 @@
                             <span class="subdued"></span>
                         </span>
                     </li>
-                    <li >
+                    <li class="completed warning">
+                        <span class="time">27/10/2020 02:48 AM</span>
                         <span class="bubble"></span>
                         <span class="stacked-text">
                             Receiving HUB
-                            <span class="subdued"></span>
+                            <span class="subdued">ARRIVED AT DELHI</span>
+                            <span class="subdued">AWB: 23423434</span>
                         </span>
                     </li>
                     <span style="font-size: 3em; color: Orange;">
@@ -44,6 +46,10 @@
                       </span>
                 </ul>
             </div>
+
+
+
+
         </div>
         <div class="modal-footer">
           <button type="button" class="btn bg-orange" data-dismiss="modal">Close</button>

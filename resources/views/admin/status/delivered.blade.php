@@ -1,5 +1,5 @@
-  <!-- Modal Tracking Details-->
-  <div class="modal fade" id="order-created" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <!-- Modal Asset Details-->
+  <div class="modal fade" id="delivered" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg" role="document">
       <div class="modal-content">
         <div class="modal-header bg-navy">
@@ -12,25 +12,29 @@
             <div id="timeline-speaker-example">
                 <h4>PACKAGE TRACKING</h4><br>
                 <ul class="progress-indicator stacked dark">
-                    <li class="current-time">
+                    <li class="completed warning">
+                        <span class="time">30/10/2020 05:32 PM</span>
                         <span class="bubble"></span>
                         <span class="stacked-text">
-                            Delivered
-                            <span class="subdued"></span>
+                            Delivered &nbsp; &nbsp; <span style="color: rgb(78, 184, 78);"><i class="fas fa-check-circle"></i></span>
+                            <span class="subdued">Received By: Mr. Hasibul Hasan</span>
                         </span>
                     </li>
-                    <li>
+                    <li class="completed warning">
+                        <span class="time">29/10/2020 12:08 PM</span>
                         <span class="bubble"></span>
                         <span class="stacked-text">
                             Destination HUB
-                            <span class="subdued"></span>
+                            <span class="subdued">ARRIVED AT DHAKA</span>
                         </span>
                     </li>
-                    <li >
+                    <li class="completed warning">
+                        <span class="time">27/10/2020 02:48 PM</span>
                         <span class="bubble"></span>
                         <span class="stacked-text">
                             Receiving HUB
-                            <span class="subdued"></span>
+                            <span class="subdued">ARRIVED AT DELHI</span>
+                            <span class="subdued">AWB: 23423434</span>
                         </span>
                     </li>
                     <span style="font-size: 3em; color: Orange;">
@@ -44,6 +48,10 @@
                       </span>
                 </ul>
             </div>
+
+
+
+
         </div>
         <div class="modal-footer">
           <button type="button" class="btn bg-orange" data-dismiss="modal">Close</button>
