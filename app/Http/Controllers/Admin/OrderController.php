@@ -36,8 +36,6 @@ class OrderController extends Controller
                 ->where('statuses.flag', '0')
                 // ->orWhere('ecomstatus', 'OTHERS')
                 ->get();
-        // $data = Order::select();
-        // var_dump($data);
         return Datatables::of($data)
         ->editColumn('created_at', function ($data) {
             return $data->created_at ? with(new Carbon($data->created_at))->format('d/m/Y') : '';
@@ -60,16 +58,12 @@ class OrderController extends Controller
                 ->orWhere('statuses.flag', '9')
                 ->orWhere('statuses.flag', '0')
                 ->get();
-        // $user = User::all();
-        // var_dump($data);
         return Datatables::of($data)
-        //setting up id to every row for passing it through route('assetdetails', $data->id) to get specific data for display on Modal
+        //setting up id to every row
         ->setRowId(function ($data) {
             return $data->id;
             })
         ->editColumn('statusname', function ($data)  {
-            // This will set a link to Name field on Datatables and also call a Modal from resources\views\fixedasset\asset\details.blade.php with asset id data-id='.$data->id.'
-            // return '<a data-id='.$data->id.' data-target="#order-created" data-toggle="modal" id="status" href="">'.$data->statusname.'</a>';
             if ($data->statusname == "NOT ARRIVED"){
                 return '<a data-id='.$data->id.' data-target="#order-created" data-toggle="modal" id="status" href="">'.$data->statusname.'</a>';
             }else if ($data->statusname == "ARRIVED AT DELHI"){
@@ -91,8 +85,6 @@ class OrderController extends Controller
         })
         ->rawColumns(['action','statusname'])
         ->make(true);
-
-        // <a href="/admin/order/'.$data->id.'/edit" class="btn btn-xs btn-danger"><i class="fas fa-edit"></i></a>';
     }
 
     public function statuslist(Request $request){
@@ -101,6 +93,29 @@ class OrderController extends Controller
         $statusflag = $statusrow->flag;
 
         return response($statusflag);
+    }
+
+    public function tracking(Request $request){
+        $id = (isset($_GET['id']) ? $_GET['id'] : '');
+        // $ord = Order::find($id);
+
+        $ord = DB::table('orders')
+                ->join('statuses', 'statuses.id', '=', 'orders.status_id')
+                ->join('users', 'users.id', '=', 'orders.users_id')
+                ->select('orders.id as ordid','users.name as createdby','orders.created_at','statuses.name as status','awb')
+                ->where('orders.id', $id)
+                ->get();
+
+
+        $his = DB::table('histories')
+                ->join('orders', 'orders.id', '=', 'histories.order_id')
+                ->select('histories.created_at as delhi-receive-dt')
+                ->where('histories.status_id', '2')
+                ->Where('histories.order_id', $id)
+                ->get();
+
+        // return response($his);
+        return response()->json([$ord, $his]);
     }
 
     public function create(){
@@ -123,9 +138,6 @@ class OrderController extends Controller
         $ord->status_id = '3';
         $ord->updatedby = Auth::id();
         $ord->save();
-
-        // return redirect(route('customer.index'));
-        // return view('admin.index');
         return redirect(route('admin.cpx'))->with('toast_success','Order Created');
     }
 

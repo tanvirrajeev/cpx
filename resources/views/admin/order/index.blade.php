@@ -2,6 +2,7 @@
 
 @section('content')
 <div class="container">
+
     <link href="{{ asset('css/progress-wizard.min.css') }}" rel="stylesheet">
     <link href="{{ asset('css/vertical-bar.css') }}" rel="stylesheet">
     @include('admin.status.order-created')
@@ -56,5 +57,6 @@
     });
 } );
 </script>
+
 
 @endsection
