@@ -70,28 +70,19 @@
                 for (i in data) {
                     // console.log(data[i]);
                     if (data[i].status_id  == 1){
-                        console.log("ARRIVED AT DHAKA: ");
-                        console.log(data[i]);
                         st.find('#sts-rcvdsthub').text(data[i].status);
                         st.find('#created-at-rcvdsthub').text($.format.date(data[i].created_at, "dd/MM/yyyy HH:mm a"));
 
                         }else if (data[i].status_id  == 2){
-                            console.log("ARRIVED AT DELHI: ");
-                            console.log(data[i]);
                             st.find('#sts-rcvhub').text(data[i].status);
                             st.find('#awb').text("AWB: " + data[i].awb);
                             st.find('#created-at-rcvhub').text($.format.date(data[i].created_at, "dd/MM/yyyy HH:mm a"));
                         }else if (data[i].status_id  == 3){
-                            console.log("NOT ARRIVED: ");
-                            console.log(data[i]);
                             st.find('#cpxid').text("CPX ID: " + data[i].order_id);
                             st.find('#created-by').text("Created By: " + data[i].name);
                             st.find('#created-at').text("Created At: " + $.format.date(data[i].created_at, "dd/MM/yyyy HH:mm a"));
 
                         }else if (data[i].status_id  == 7){
-                            console.log("DELIVERED: ");
-                            console.log(data[i]);
-                            // st.find('#sts-dlvrd').text(data[i].status);
                             st.find('#created-at-dlvrd').text($.format.date(data[i].created_at, "dd/MM/yyyy HH:mm a"));
                             st.find('#reveived_by').text("Received By: " + data[i].reveived_by);
                         };
