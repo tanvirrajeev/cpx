@@ -33,25 +33,21 @@
                         <span class="bubble"></span>
                         <span class="stacked-text">
                             Receiving HUB
-                            <span class="subdued">ARRIVED AT DELHI</span>
-                            <span class="subdued">AWB: 23423434</span>
+                            <span class="subdued" id="sts"></span>
+                            <span class="subdued" id="awb"></span>
                         </span>
                     </li>
                     <span style="font-size: 3em; color: Orange;">
                         <i class="fas fa-truck-moving"></i> &nbsp;
                         <span style="font-size: 0.4em; font-family: 'Lato'; color: White;" class="stacked-text">
                             Order Created
-                            <span class="subdued">CPX ID: 232</span>
-                            <span class="subdued">By: tanvir@abc.com</span>
-                            <span class="subdued">created at: 29/10/2020 12:34 PM</span>
+                            <span class="subdued" id="cpxid"></span>
+                            <span class="subdued" id="created-by"></span>
+                            <span class="subdued" id="created-at"></span>
                         </span>
                       </span>
                 </ul>
             </div>
-
-
-
-
         </div>
         <div class="modal-footer">
           <button type="button" class="btn bg-orange" data-dismiss="modal">Close</button>
@@ -59,3 +55,39 @@
       </div>
     </div>
   </div>
+
+<script>
+    $('#delivered').on('show.bs.modal', function (event) {
+    var id = $(event.relatedTarget).data('id');
+    // console.log(id);
+        $.ajax({
+            type: 'get',
+            url: "{{ url('/admin/tracking') }}",
+            data: {id:id},
+            success:function(data){
+                console.log(data);
+                var st = $('#delivered');
+                // for (i in data) {
+                //     console.log(data[0][i].ordid);
+                //     st.find('#cpxid').text("CPX ID: " + data[0][i].ordid);
+                //     st.find('#created-by').text("Created By: " + data[0][i].createdby);
+                //     st.find('#created-at').text("Created At: " + $.format.date(data[0][i].created_at, "dd/MM/yyyy HH:mm a"));
+                //     st.find('#sts').text(data[0][i].status);
+                //     st.find('#awb').text("AWB: " + data[0][i].awb);
+
+                // }
+
+                for (i in data) {
+                    console.log("From For Loop", i);
+                    console.log(data[i]);
+                    // st.find('#cpxid').text("CPX ID: " + data[0][i].ordid);
+                    // st.find('#created-by').text("Created By: " + data[0][i].createdby);
+                    // st.find('#created-at').text("Created At: " + $.format.date(data[0][i].created_at, "dd/MM/yyyy HH:mm a"));
+                    // st.find('#sts').text(data[0][i].status);
+                    // st.find('#awb').text("AWB: " + data[0][i].awb);
+
+                }
+            }
+        })
+    });
+</script>

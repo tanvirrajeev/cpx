@@ -65,14 +65,15 @@
             success:function(data){
                 console.log(data);
                 var st = $('#received-at-hub');
-                for (i in data) {
-                    st.find('#cpxid').text("CPX ID: " + data[0][i].ordid);
-                    st.find('#created-by').text("Created By: " + data[0][i].createdby);
-                    st.find('#created-at').text("Created At: " + $.format.date(data[0][i].created_at, "dd/MM/yyyy HH:mm a"));
-                    st.find('#sts').text(data[0][i].status);
-                    st.find('#awb').text("AWB: " + data[0][i].awb);
+                // for (i in data) {
+                //     console.log(data[0][i].ordid);
+                //     st.find('#cpxid').text("CPX ID: " + data[0][i].ordid);
+                //     st.find('#created-by').text("Created By: " + data[0][i].createdby);
+                //     st.find('#created-at').text("Created At: " + $.format.date(data[0][i].created_at, "dd/MM/yyyy HH:mm a"));
+                //     st.find('#sts').text(data[0][i].status);
+                //     st.find('#awb').text("AWB: " + data[0][i].awb);
 
-                }
+                // }
             }
         })
     });

@@ -33,6 +33,9 @@ class Order extends Model
             $his->order_id = $order->id;
             $his->status_id = $order->status_id;
             $his->user_id = $order->updatedby;
+            $his->note = $order->note;
+            $his->awb = $order->awb;
+            $his->reveived_by = $order->ecomrcvby;
             $his->save();
         });
 

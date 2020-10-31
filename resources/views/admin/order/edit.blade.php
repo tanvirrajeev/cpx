@@ -93,6 +93,10 @@
                             <input type="text" class="form-control" id="awbd" name="awbd" value="{{$order->awb}}" style="display:none" placeholder="Insert AWB...">
                         </div>
 
+                        <div class="form-group">
+                            <input type="text" class="form-control" id="rcvby" name="rcvby" value="{{$order->ecomrcvby}}" style="display:none" placeholder="Receiver's Name">
+                        </div>
+
                         <button type="submit" class="btn btn-dark" id="submit_button">UPDATE</button>
                       </form>
 
@@ -124,11 +128,22 @@
                 st.find('#awbd').prop('required',true);
                 st.find('#note').hide();
                 st.find('#note').prop('required',false);
+                st.find('#rcvby').hide();
+                st.find('#rcvby').prop('required',false);
             }else if(data == '2'){
                 st.find('#note').show();
                 st.find('#note').prop('required',true);
                 st.find('#awbd').hide();
                 st.find('#awbd').prop('required',false);
+                st.find('#rcvby').hide();
+                st.find('#rcvby').prop('required',false);
+            }else if(data == '9'){
+                st.find('#rcvby').show();
+                st.find('#rcvby').prop('required',true);
+                st.find('#awbd').hide();
+                st.find('#awbd').prop('required',false);
+                st.find('#note').hide();
+                st.find('#note').prop('required',false);
             }else{
                 st.find('#note').hide();
                 st.find('#awbd').hide();

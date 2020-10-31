@@ -99,23 +99,26 @@ class OrderController extends Controller
         $id = (isset($_GET['id']) ? $_GET['id'] : '');
         // $ord = Order::find($id);
 
-        $ord = DB::table('orders')
-                ->join('statuses', 'statuses.id', '=', 'orders.status_id')
-                ->join('users', 'users.id', '=', 'orders.users_id')
-                ->select('orders.id as ordid','users.name as createdby','orders.created_at','statuses.name as status','awb')
-                ->where('orders.id', $id)
-                ->get();
+        // $ord = DB::table('orders')
+        //         ->join('statuses', 'statuses.id', '=', 'orders.status_id')
+        //         ->join('users', 'users.id', '=', 'orders.users_id')
+        //         ->select('orders.id as ordid','users.name as createdby','orders.created_at','statuses.name as status','awb')
+        //         ->where('orders.id', $id)
+        //         ->get();
 
+        // $rcvhub = DB::table('histories')
+        //         ->join('orders', 'orders.id', '=', 'histories.order_id')
+        //         ->select('histories.created_at as delhi-receive-dt','histories.status_id as statusid')
+        //         // ->where('histories.status_id', '2')
+        //         ->Where('histories.order_id', $id)
+        //         ->get();
 
         $his = DB::table('histories')
-                ->join('orders', 'orders.id', '=', 'histories.order_id')
-                ->select('histories.created_at as delhi-receive-dt')
-                ->where('histories.status_id', '2')
-                ->Where('histories.order_id', $id)
+                ->where('histories.order_id', $id)
                 ->get();
 
-        // return response($his);
-        return response()->json([$ord, $his]);
+        return response($his);
+        // return response()->json([$ord, $rcvhub]);
     }
 
     public function create(){
@@ -170,6 +173,7 @@ class OrderController extends Controller
         $ord->status_id = $request->ecomstatuss;
         $ord->note = $request->note;
         $ord->awb = $request->awbd;
+        $ord->ecomrcvby = $request->rcvby;
         $ord->updatedby = Auth::id();
         $ord->save();
 

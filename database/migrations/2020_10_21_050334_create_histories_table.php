@@ -20,6 +20,9 @@ class CreateHistoriesTable extends Migration
                 $table->unsignedBigInteger('status_id');
                 $table->unsignedBigInteger('user_id');
                 $table->unsignedBigInteger('branch_id')->nullable();
+                $table->string('awb')->nullable();
+                $table->string('note')->nullable();
+                $table->string('reveived_by')->nullable();
                 $table->timestamps();
             });
         }
