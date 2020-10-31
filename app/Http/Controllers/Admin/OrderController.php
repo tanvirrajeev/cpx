@@ -114,6 +114,9 @@ class OrderController extends Controller
         //         ->get();
 
         $his = DB::table('histories')
+                ->join('users', 'users.id', '=', 'histories.user_id')
+                ->join('statuses', 'statuses.id', '=', 'histories.status_id')
+                ->select('histories.order_id','histories.status_id','users.name','statuses.name as status','histories.awb','histories.note','histories.created_at')
                 ->where('histories.order_id', $id)
                 ->get();
 

@@ -59,27 +59,42 @@
 <script>
     $('#delivered').on('show.bs.modal', function (event) {
     var id = $(event.relatedTarget).data('id');
-    // console.log(id);
         $.ajax({
             type: 'get',
             url: "{{ url('/admin/tracking') }}",
             data: {id:id},
             success:function(data){
-                console.log(data);
+                // console.log(data);
                 var st = $('#delivered');
-                // for (i in data) {
-                //     console.log(data[0][i].ordid);
-                //     st.find('#cpxid').text("CPX ID: " + data[0][i].ordid);
-                //     st.find('#created-by').text("Created By: " + data[0][i].createdby);
-                //     st.find('#created-at').text("Created At: " + $.format.date(data[0][i].created_at, "dd/MM/yyyy HH:mm a"));
-                //     st.find('#sts').text(data[0][i].status);
-                //     st.find('#awb').text("AWB: " + data[0][i].awb);
-
-                // }
 
                 for (i in data) {
-                    console.log("From For Loop", i);
-                    console.log(data[i]);
+                    // console.log(data[i]);
+                    if (data[i].status_id  == 1){
+                        console.log("ARRIVED AT DHAKA: ");
+                        console.log(data[i]);
+                        }else if (data[i].status_id  == 2){
+                            console.log("ARRIVED AT DELHI: ");
+                            console.log(data[i]);
+                            st.find('#sts').text(data[i].status);
+                            st.find('#awb').text("AWB: " + data[i].awb);
+                        }else if (data[i].status_id  == 3){
+                            console.log("NOT ARRIVED: ");
+                            console.log(data[i]);
+                            st.find('#cpxid').text("CPX ID: " + data[i].order_id);
+                            st.find('#created-by').text("Created By: " + data[i].name);
+                            st.find('#created-at').text("Created At: " + $.format.date(data[i].created_at, "dd/MM/yyyy HH:mm a"));
+
+                        }else if (data[i].status_id  == 7){
+                            console.log("DELIVERED: ");
+                            console.log(data[i]);
+                        };
+
+                    // else{
+                    //     console.log("OTHERS: ");
+                    //     console.log(data[i]);
+                    // };
+
+
                     // st.find('#cpxid').text("CPX ID: " + data[0][i].ordid);
                     // st.find('#created-by').text("Created By: " + data[0][i].createdby);
                     // st.find('#created-at').text("Created At: " + $.format.date(data[0][i].created_at, "dd/MM/yyyy HH:mm a"));
