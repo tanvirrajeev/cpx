@@ -59,7 +59,7 @@
     var id = $(event.relatedTarget).data('id');
         $.ajax({
             type: 'get',
-            url: "{{ url('/admin/tracking') }}",
+            url: "{{ url('/customer/tracking') }}",
             data: {id:id},
             success:function(data){
                 // console.log(data);

@@ -1,5 +1,5 @@
-  <!-- Modal Asset Details-->
-  <div class="modal fade" id="received-at-hub" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <!-- Modal Tracking Details-->
+  <div class="modal fade" id="order-created" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg" role="document">
       <div class="modal-content">
         <div class="modal-header bg-navy">
@@ -26,13 +26,11 @@
                             <span class="subdued"></span>
                         </span>
                     </li>
-                    <li class="completed warning">
-                        <span class="time" id="created-at-rcvhub"></span>
+                    <li >
                         <span class="bubble"></span>
                         <span class="stacked-text">
                             Receiving HUB
-                            <span class="subdued" id="sts-rcvhub"></span>
-                            <span class="subdued" id="awb"></span>
+                            <span class="subdued"></span>
                         </span>
                     </li>
                     <span style="font-size: 3em; color: Orange;">
@@ -54,16 +52,17 @@
     </div>
   </div>
 
+
   <script>
-    $('#received-at-hub').on('show.bs.modal', function (event) {
+    $('#order-created').on('show.bs.modal', function (event) {
     var id = $(event.relatedTarget).data('id');
         $.ajax({
             type: 'get',
-            url: "{{ url('/admin/tracking') }}",
+            url: "{{ url('/customer/tracking') }}",
             data: {id:id},
             success:function(data){
                 // console.log(data);
-                var st = $('#received-at-hub');
+                var st = $('#order-created');
 
                 for (i in data) {
                     // console.log(data[i]);

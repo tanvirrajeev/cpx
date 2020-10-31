@@ -2,7 +2,14 @@
 
 @section('content')
 <div class="container">
-
+    {{-- Status progress modal --}}
+    <link href="{{ asset('css/progress-wizard.min.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/vertical-bar.css') }}" rel="stylesheet">
+    @include('customer.status.order-created')
+    @include('customer.status.received-at-hub')
+    @include('customer.status.destination-hub')
+    @include('customer.status.delivered')
+    {{-- !!Status progress modal --}}
     <div class="row">
         <div>
 

@@ -64,6 +64,7 @@ Route::group([ 'as'=>'customer.', 'prefix' => 'customer', 'namespace'=>'Customer
         Route::get('cpx','CpxController@index')->name('cpx');
         Route::resource('order', 'OrderController');
         Route::get('orderlist', 'OrderController@orderlist')->name('order.orderlist');
+        Route::get('tracking', 'OrderController@tracking')->name('order.tracking');
 });
 
 

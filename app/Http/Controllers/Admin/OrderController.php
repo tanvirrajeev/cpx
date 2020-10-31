@@ -97,21 +97,6 @@ class OrderController extends Controller
 
     public function tracking(Request $request){
         $id = (isset($_GET['id']) ? $_GET['id'] : '');
-        // $ord = Order::find($id);
-
-        // $ord = DB::table('orders')
-        //         ->join('statuses', 'statuses.id', '=', 'orders.status_id')
-        //         ->join('users', 'users.id', '=', 'orders.users_id')
-        //         ->select('orders.id as ordid','users.name as createdby','orders.created_at','statuses.name as status','awb')
-        //         ->where('orders.id', $id)
-        //         ->get();
-
-        // $rcvhub = DB::table('histories')
-        //         ->join('orders', 'orders.id', '=', 'histories.order_id')
-        //         ->select('histories.created_at as delhi-receive-dt','histories.status_id as statusid')
-        //         // ->where('histories.status_id', '2')
-        //         ->Where('histories.order_id', $id)
-        //         ->get();
 
         $his = DB::table('histories')
                 ->join('users', 'users.id', '=', 'histories.user_id')

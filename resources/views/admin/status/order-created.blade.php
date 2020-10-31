@@ -33,7 +33,7 @@
                             <span class="subdued"></span>
                         </span>
                     </li>
-                    <span id="sts-order-created" style="font-size: 3em; color: Orange;">
+                    <span style="font-size: 3em; color: Orange;">
                         <i class="fas fa-truck-moving"></i> &nbsp;
                         <span style="font-size: 0.4em; font-family: 'Lato'; color: White;" class="stacked-text">
                             Order Created
@@ -52,10 +52,10 @@
     </div>
   </div>
 
+
   <script>
     $('#order-created').on('show.bs.modal', function (event) {
     var id = $(event.relatedTarget).data('id');
-    // console.log(id);
         $.ajax({
             type: 'get',
             url: "{{ url('/admin/tracking') }}",
@@ -63,10 +63,32 @@
             success:function(data){
                 // console.log(data);
                 var st = $('#order-created');
+
                 for (i in data) {
-                    st.find('#cpxid').text("CPX ID: " + data[0][i].ordid);
-                    st.find('#created-by').text("Created By: " + data[0][i].createdby);
-                    st.find('#created-at').text("Created At: " + $.format.date(data[0][i].created_at, "dd/MM/yyyy HH:mm a"));
+                    // console.log(data[i]);
+                    if (data[i].status_id  == 1){
+                        st.find('#sts-rcvdsthub').text(data[i].status);
+                        st.find('#created-at-rcvdsthub').text($.format.date(data[i].created_at, "dd/MM/yyyy HH:mm a"));
+
+                        }else if (data[i].status_id  == 2){
+                            st.find('#sts-rcvhub').text(data[i].status);
+                            st.find('#awb').text("AWB: " + data[i].awb);
+                            st.find('#created-at-rcvhub').text($.format.date(data[i].created_at, "dd/MM/yyyy HH:mm a"));
+                        }else if (data[i].status_id  == 3){
+                            st.find('#cpxid').text("CPX ID: " + data[i].order_id);
+                            st.find('#created-by').text("Created By: " + data[i].name);
+                            st.find('#created-at').text("Created At: " + $.format.date(data[i].created_at, "dd/MM/yyyy HH:mm a"));
+
+                        }else if (data[i].status_id  == 7){
+                            st.find('#created-at-dlvrd').text($.format.date(data[i].created_at, "dd/MM/yyyy HH:mm a"));
+                            st.find('#reveived_by').text("Received By: " + data[i].reveived_by);
+                        };
+
+                    // else{
+                    //     console.log("OTHERS: ");
+                    //     console.log(data[i]);
+                    // };
+
                 }
             }
         })

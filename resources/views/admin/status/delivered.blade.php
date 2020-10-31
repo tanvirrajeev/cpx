@@ -56,6 +56,8 @@
     </div>
   </div>
 
+<script src='/js/jquery-dateFormat.min.js'></script>
+
 <script>
     $('#delivered').on('show.bs.modal', function (event) {
     var id = $(event.relatedTarget).data('id');

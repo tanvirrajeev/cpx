@@ -1,5 +1,5 @@
   <!-- Modal Asset Details-->
-  <div class="modal fade" id="received-at-hub" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal fade" id="delivered" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg" role="document">
       <div class="modal-content">
         <div class="modal-header bg-navy">
@@ -12,18 +12,20 @@
             <div id="timeline-speaker-example">
                 <h4>PACKAGE TRACKING</h4><br>
                 <ul class="progress-indicator stacked dark">
-                    <li class="current-time">
+                    <li class="completed warning">
+                        <span class="time" id="created-at-dlvrd"></span>
                         <span class="bubble"></span>
                         <span class="stacked-text">
-                            Delivered
-                            <span class="subdued"></span>
+                            Delivered &nbsp; &nbsp; <span style="color: rgb(78, 184, 78);"><i class="fas fa-check-circle"></i></span>
+                            <span class="subdued" id="reveived_by"></span>
                         </span>
                     </li>
-                    <li>
+                    <li class="completed warning">
+                        <span class="time" id="created-at-rcvdsthub"></span>
                         <span class="bubble"></span>
                         <span class="stacked-text">
                             Destination HUB
-                            <span class="subdued"></span>
+                            <span class="subdued" id="sts-rcvdsthub"></span>
                         </span>
                     </li>
                     <li class="completed warning">
@@ -54,16 +56,18 @@
     </div>
   </div>
 
-  <script>
-    $('#received-at-hub').on('show.bs.modal', function (event) {
+<script src='/js/jquery-dateFormat.min.js'></script>
+
+<script>
+    $('#delivered').on('show.bs.modal', function (event) {
     var id = $(event.relatedTarget).data('id');
         $.ajax({
             type: 'get',
-            url: "{{ url('/admin/tracking') }}",
+            url: "{{ url('/customer/tracking') }}",
             data: {id:id},
             success:function(data){
                 // console.log(data);
-                var st = $('#received-at-hub');
+                var st = $('#delivered');
 
                 for (i in data) {
                     // console.log(data[i]);

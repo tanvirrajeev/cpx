@@ -28,13 +28,43 @@ class OrderController extends Controller
         // $user = User::all();
         // var_dump($data);
         return Datatables::of($data)
+        ->setRowId(function ($data) {
+            return $data->id;
+            })
+        ->editColumn('statusname', function ($data)  {
+            if ($data->statusname == "NOT ARRIVED"){
+                return '<a data-id='.$data->id.' data-target="#order-created" data-toggle="modal" id="status" href="">'.$data->statusname.'</a>';
+            }else if ($data->statusname == "ARRIVED AT DELHI"){
+                return '<a data-id='.$data->id.' data-target="#received-at-hub" data-toggle="modal" id="status" href="">'.$data->statusname.'</a>';
+            }else if ($data->statusname == "ARRIVED AT DHAKA"){
+                return '<a data-id='.$data->id.' data-target="#destination-hub" data-toggle="modal" id="status" href="">'.$data->statusname.'</a>';
+            }else if ($data->statusname == "DELIVERED"){
+                return '<a data-id='.$data->id.' data-target="#delivered" data-toggle="modal" id="status" href="">'.$data->statusname.'</a>';
+            }else{
+                return '<a data-id='.$data->id.' data-target="#status" data-toggle="modal" id="status" href="">'.$data->statusname.'</a>';
+            }
+        })
         ->addColumn('action', function( $data) {
             return  '<a href="branch/'.$data->id.'/edit" class="btn btn-xs btn-warning"><i class="glyphicon glyphicon-edit"></i><i class="fas fa-edit"></i></a>
             <button class="btn btn-xs btn-danger btn-delete" data-remote="/branch/'. $data->id . '"><i class="fas fa-trash-alt"></i></button>
             ';
         })
-        ->rawColumns(['action'])
+        ->rawColumns(['action','statusname'])
         ->make(true);
+    }
+
+    public function tracking(Request $request){
+        $id = (isset($_GET['id']) ? $_GET['id'] : '');
+
+        $his = DB::table('histories')
+                ->join('users', 'users.id', '=', 'histories.user_id')
+                ->join('statuses', 'statuses.id', '=', 'histories.status_id')
+                ->select('histories.order_id','histories.status_id','users.name','statuses.name as status','histories.awb','histories.note','histories.created_at','histories.reveived_by')
+                ->where('histories.order_id', $id)
+                ->get();
+
+        return response($his);
+        // return response()->json([$ord, $rcvhub]);
     }
 
     public function create(){
