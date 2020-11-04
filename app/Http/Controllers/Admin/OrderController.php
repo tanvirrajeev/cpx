@@ -34,6 +34,7 @@ class OrderController extends Controller
                 ->join('statuses', 'statuses.id', '=', 'orders.status_id')
                 ->select('orders.id as id','ecomordid','consigneename','statuses.name as statusname','note','orders.created_at')
                 ->where('statuses.flag', '0')
+                ->orWhere('statuses.flag', '1')
                 // ->orWhere('ecomstatus', 'OTHERS')
                 ->get();
         return Datatables::of($data)
@@ -53,10 +54,6 @@ class OrderController extends Controller
                 // ->where('ecomstatus', 'ARRIVED')
                 ->join('statuses', 'statuses.id', '=', 'orders.status_id')
                 ->select('orders.id as id','ecomordid','consigneename','statuses.name as statusname','note','orders.created_at','awb')
-                ->where('statuses.flag', '1')
-                ->orWhere('statuses.flag', '2')
-                ->orWhere('statuses.flag', '9')
-                ->orWhere('statuses.flag', '0')
                 ->get();
         return Datatables::of($data)
         //setting up id to every row

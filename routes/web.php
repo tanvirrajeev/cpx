@@ -44,6 +44,10 @@ Route::group([ 'as'=>'admin.', 'prefix' => 'admin', 'namespace'=>'Admin', 'middl
         Route::get('shippingchargelist', 'BillingController@shippingchargelist')->name('shippingchargelist');
         Route::get('entry', 'BillingController@billentry')->name('billentry');
         Route::get('billing/{id}/entry', 'BillingController@billentry')->name('billentry');
+        Route::resource('search', 'SearchController');
+        Route::get('awb', 'SearchController@getawb')->name('search.awb');
+        Route::post('statusupdate', 'SearchController@statusupdate')->name('search.statusupdate');
+
 });
 
 Route::group([ 'as'=>'branch.', 'prefix' => 'branch', 'namespace'=>'Branch', 'middleware'=>['auth','branch']],

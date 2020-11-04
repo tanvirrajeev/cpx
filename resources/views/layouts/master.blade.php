@@ -125,6 +125,16 @@
                 </a>
             </li>
         </ul>
+        <ul class="nav nav-sidebar flex-column">
+            <li class="nav-item">
+                <a href="/admin/search" class="nav-link {{ Request::is('admin/search') ? 'active' : ''}}">
+                    <div style="font-size: 1.33rem;">
+                        &nbsp;<i class="fas fa-search"></i>
+                        <p style="font-size: 1rem;">Search</p>
+                    </div>
+                </a>
+            </li>
+        </ul>
           @endif
 
         {{-- For Branch Sidebar      --}}

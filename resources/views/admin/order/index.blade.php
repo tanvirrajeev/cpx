@@ -28,6 +28,18 @@
                             <th>AWB</th>
                             <th>ACTION</th>
                         </thead>
+                        {{-- <tfoot>
+                            <tr>
+                                <th>SHIPPING CODE</th>
+                                <th>ECOM ORD NO</th>
+                                <th>CONSIGNEE NAME</th>
+                                <th>STATUS</th>
+                                <th>NOTE</th>
+                                <th>CREATED AT</th>
+                                <th>AWB</th>
+                                <th>ACTION</th>
+                            </tr>
+                        </tfoot> --}}
 
                     </table>
                 </div>
@@ -55,10 +67,23 @@
             { data: 'awb', name: 'awb' },
             { data: 'action', name: 'action' }
 
-        ]
+        ] //,
+        // initComplete: function () {
+        //     this.api().columns().every(function () {
+        //     var column = this;
+        //     var input = document.createElement("input");
+        //     $(input).appendTo($(column.footer()).empty())
+        //     .on('change', function () {
+        //         column.search($(this).val(), false, false, true).draw();
+        //         });
+        //     });
+        // }
+
     });
 } );
 </script>
 
 
 @endsection
+
+
