@@ -55,20 +55,20 @@ class OrderController extends Controller
                 ->join('statuses', 'statuses.id', '=', 'orders.status_id')
                 ->select('orders.id as id','ecomordid','consigneename','statuses.name as statusname','note','orders.created_at','awb')
                 ->get();
-        return Datatables::of($data)
+        return Datatables::of($data)     // View Order Page Datatable
         //setting up id to every row
         ->setRowId(function ($data) {
             return $data->id;
             })
-        ->editColumn('statusname', function ($data)  {
+        ->editColumn('statusname', function ($data)  { //set Tracking Modal based on status
             if ($data->statusname == "NOT ARRIVED"){
-                return '<a data-id='.$data->id.' data-target="#order-created" data-toggle="modal" id="status" href="">'.$data->statusname.'</a>';
+                return '<a data-id='.$data->id.' data-target="#tracking" data-toggle="modal" id="status" href="">'.$data->statusname.'</a>';
             }else if ($data->statusname == "ARRIVED AT DELHI"){
-                return '<a data-id='.$data->id.' data-target="#received-at-hub" data-toggle="modal" id="status" href="">'.$data->statusname.'</a>';
+                return '<a data-id='.$data->id.' data-target="#tracking" data-toggle="modal" id="status" href="">'.$data->statusname.'</a>';
             }else if ($data->statusname == "ARRIVED AT DHAKA"){
-                return '<a data-id='.$data->id.' data-target="#destination-hub" data-toggle="modal" id="status" href="">'.$data->statusname.'</a>';
+                return '<a data-id='.$data->id.' data-target="#tracking" data-toggle="modal" id="status" href="">'.$data->statusname.'</a>';
             }else if ($data->statusname == "DELIVERED"){
-                return '<a data-id='.$data->id.' data-target="#delivered" data-toggle="modal" id="status" href="">'.$data->statusname.'</a>';
+                return '<a data-id='.$data->id.' data-target="#tracking" data-toggle="modal" id="status" href="">'.$data->statusname.'</a>';
             }else{
                 return '<a data-id='.$data->id.' data-target="#status" data-toggle="modal" id="status" href="">'.$data->statusname.'</a>';
             }
@@ -92,6 +92,7 @@ class OrderController extends Controller
         return response($statusflag);
     }
 
+    // Get status for Tracking Modal
     public function tracking(Request $request){
         $id = (isset($_GET['id']) ? $_GET['id'] : '');
 

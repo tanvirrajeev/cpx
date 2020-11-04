@@ -54,7 +54,7 @@
     </div>
   </div>
 
-  <script>
+<script>
     $('#received-at-hub').on('show.bs.modal', function (event) {
     var id = $(event.relatedTarget).data('id');
         $.ajax({

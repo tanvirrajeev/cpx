@@ -60,7 +60,7 @@
 
 <script>
     $('#delivered').on('show.bs.modal', function (event) {
-    var id = $(event.relatedTarget).data('id');
+    var id = $(event.relatedTarget).data('id'); //get status id from controller editcolumn
         $.ajax({
             type: 'get',
             url: "{{ url('/admin/tracking') }}",
