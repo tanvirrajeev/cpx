@@ -12,7 +12,7 @@
             <div id="timeline-speaker-example">
                 <h4>PACKAGE TRACKING</h4><br>
                 <ul class="progress-indicator stacked dark" id="tracking-ul">
-                    {{-- <li class="completed warning">
+                    {{-- <li id="dlvrd">
                         <span class="time" id="created-at-dlvrd"></span>
                         <span class="bubble"></span>
                         <span class="stacked-text">
@@ -82,7 +82,7 @@
                         // st.find('#created-at-rcvdsthub').text($.format.date(data[i].created_at, "dd/MM/yyyy HH:mm a"));
                         var time = $.format.date(data[i].created_at, "dd/MM/yyyy HH:mm a");
 
-                        st.find('#tracking-ul').append("<li class=\"completed warning\">" +
+                        st.find('#rcvdsthub').replaceWith("<li class=\"completed warning\"id=\"rcvdsthub\">" +
                                 "<span class=\"time\" id=\"created-at-rcvdsthub\">"+time+"</span>" +
                                 "<span class=\"bubble\"></span>" +
                                 "<span class=\"stacked-text\">Destination HUB" +
@@ -99,7 +99,7 @@
 
                             var time = $.format.date(data[i].created_at, "dd/MM/yyyy HH:mm a");
 
-                            st.find('#tracking-ul').append("<li class=\"completed warning\">" +
+                            st.find('#rcvhub').replaceWith("<li class=\"completed warning\"id=\"rcvhub\">" +
                                 "<span class=\"time\" id=\"created-at-rcvhub\">"+time+"</span>" +
                                 "<span class=\"bubble\"></span>" +
                                 "<span class=\"stacked-text\">Receiving HUB" +
@@ -115,14 +115,43 @@
                             // st.find('#created-by').text("Created By: " + data[i].name);
                             // st.find('#created-at').text("Created At: " + $.format.date(data[i].created_at, "dd/MM/yyyy HH:mm a"));
 
-                            st.find('#tracking-ul').append("<span style=\"font-size: 3em; color: Orange;\">" +
-                                "<i class=\"fas fa-truck-moving\"></i> &nbsp;" +
-                                "<span style=\"font-size: 0.4em; font-family: 'Lato'; color: White;\" class=\"stacked-text\">Order Created" +
+                            // st.find('#tracking-ul').append("<span id=\"ordcrt\" style=\"font-size: 3em; color: Orange;\">" +
+                            //     "<i class=\"fas fa-truck-moving\"></i> &nbsp;" +
+                            //     "<span style=\"font-size: 0.4em; font-family: 'Lato'; color: White;\" class=\"stacked-text\">Order Created" +
+                            //     "<span class=\"subdued\" id=\"cpxid\">CPX ID: " +data[i].order_id+"</span>" +
+                            //     "<span class=\"subdued\" id=\"created-by\">Created By: " + data[i].name +"</span>" +
+                            //     "<span class=\"subdued\" id=\"created-at\">Created At: "+ time +"</span>" +
+                            //     "</span>" +
+                            //     "</span>");
+
+                            st.find('#tracking-ul').append("<li class=\"completed warning\" id=\"ordcrt\">" +
+                                "<i style=\"font-size: 3em; color: Orange; margin-left: 50%; margin-right: 50%;\" class=\"fas fa-truck-moving\"></i>" +
+                                "<span class=\"time\" id=\"created-at-rcvhub\">"+time+"</span>" +
+                                "<span class=\"bubble\"></span>" +
+                                "<span class=\"stacked-text\">Order Created" +
+                                "<span class=\"subdued\" id=\"sts-rcvhub\">"+data[i].status+"</span>" +
                                 "<span class=\"subdued\" id=\"cpxid\">CPX ID: " +data[i].order_id+"</span>" +
                                 "<span class=\"subdued\" id=\"created-by\">Created By: " + data[i].name +"</span>" +
-                                "<span class=\"subdued\" id=\"created-at\">Created At: "+ time +"</span>" +
-                                "</span>" +
-                                "</span>");
+                                "</span>"+
+                                "</li>");
+
+                            st.find('#tracking-ul').append("<li id=\"rcvhub\">" +
+                                "<span class=\"bubble\"></span>" +
+                                "<span class=\"stacked-text\">Receiving HUB" +
+                                "</span>"+
+                                "</li>");
+
+                            st.find('#tracking-ul').append("<li id=\"rcvdsthub\">" +
+                                "<span class=\"bubble\"></span>" +
+                                "<span class=\"stacked-text\">Destination HUB" +
+                                "</span>"+
+                                "</li>");
+
+                            st.find('#tracking-ul').append("<li id=\"dlvrd\">" +
+                                "<span class=\"bubble\"></span>" +
+                                "<span class=\"stacked-text\"> Delivered</span>" +
+                                "</span>"+
+                                "</li>");
 
 
 
@@ -131,21 +160,27 @@
                             // st.find('#reveived_by').text("Received By: " + data[i].reveived_by);
                             var time = $.format.date(data[i].created_at, "dd/MM/yyyy HH:mm a");
 
-                            st.find('#tracking-ul').append("<li class=\"completed warning\">" +
+                            st.find('#dlvrd').replaceWith("<li class=\"completed warning\"id=\"dlvrd\">" +
                                 "<span class=\"time\" id=\"created-at-dlvrd\">"+time+"</span>" +
                                 "<span class=\"bubble\"></span>" +
                                 "<span class=\"stacked-text\"> Delivered &nbsp; &nbsp; <span style=\"color: rgb(78, 184, 78);\"><i class=\"fas fa-check-circle\"></i></span>" +
                                 "<span class=\"subdued\" id=\"reveived_by\">Received By: "+data[i].reveived_by+"</span>" +
                                 "</span>"+
+                                "<i style=\"font-size: 3em; color: Orange; margin-left: 52%; margin-right: 48%;\" class=\"fas fa-people-carry\"></i>" +
                                 "</li>");
+                        }
 
+                    else{
+                        var time = $.format.date(data[i].created_at, "dd/MM/yyyy HH:mm a");
+                        st.find('#dlvrd').before("<li class=\"completed warning\ id=\"others\">" +
+                            "<span class=\"time\" id=\"created-at-dlvrd\">"+time+"</span>" +
+                            "<span class=\"bubble\"></span>" +
+                            "<span class=\"stacked-text\">"+ data[i].status +
+                            "<span class=\"subdued\" id=\"sts-rcvhub\">"+data[i].note+"</span>" +
+                            "</span>"+
+                            "</li>");
 
-
-                        };
-
-                    // else{
-                    //     $('#tracking-body').empty();
-                    // };
+                    };
 
                 }
             }

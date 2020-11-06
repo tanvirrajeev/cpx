@@ -70,7 +70,7 @@ class OrderController extends Controller
             }else if ($data->statusname == "DELIVERED"){
                 return '<a data-id='.$data->id.' data-target="#tracking" data-toggle="modal" id="status" href="">'.$data->statusname.'</a>';
             }else{
-                return '<a data-id='.$data->id.' data-target="#status" data-toggle="modal" id="status" href="">'.$data->statusname.'</a>';
+                return '<a data-id='.$data->id.' data-target="#tracking" data-toggle="modal" id="status" href="">'.$data->statusname.'</a>';
             }
         })
         ->editColumn('created_at', function ($data) {
