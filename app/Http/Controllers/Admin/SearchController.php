@@ -25,79 +25,51 @@ class SearchController extends Controller
         ->where('orders.awb', $sltawb)
         ->get();
 
+        // return Datatables::of($data)->make(true);
+
         return response($getsltawb);
     }
 
     public function statusupdate(Request $request){
         // $sltawb = (isset($_GET['awbchg']) ? $_GET['awbchg'] : '');
 
-        $sltawb = $request->awbchg;
+        // Check if the request is empty
+        if(!empty($request->awbchg)){
+            $sltawb = $request->awbchg;
+            // dd($sltawb);
 
-        // dd($sltawb);
+            $getsltawb = DB::table('orders')
+                        ->join('statuses', 'statuses.id', '=', 'orders.status_id')
+                        ->select('orders.id')
+                        ->where('orders.awb', $sltawb)
+                        ->where('statuses.name', '<>', 'PACKAGE ON-HOLD')
+                        ->where('statuses.name', '<>', 'DELIVERED')
+                        ->where('statuses.name', '<>', 'ARRIVED AT DHAKA')
+                        ->get();
 
-        $getsltawb = DB::table('orders')
-        ->select('orders.id')
-        ->where('orders.awb', $sltawb)
-        ->get();
 
-        foreach ($getsltawb as $item) {
-            $ord = New Order;
-            $ord = Order::find($item->id);
-            $ord->ecomordid = $ord->ecomordid;
-            $ord->ecomname = $ord->ecomname;
-            $ord->ecomproddesc = $ord->ecomproddesc;
-            $ord->ecompurchaseamt = $ord->ecompurchaseamt;
-            $ord->ecomorddt = $ord->ecomorddt;
-            $ord->consigneename = $ord->consigneename;
-            $ord->consigneeaddrs = $ord->consigneeaddrs;
-            $ord->ecomprdtraclnk = $ord->ecomprdtraclnk;
-            $ord->ecomsppngpriority = $ord->ecomsppngpriority;
-            $ord->status_id = '1';
-            $ord->note = $ord->note;
-            $ord->awb = $ord->awb;
-            $ord->ecomrcvby = $ord->ecomrcvby;
-            $ord->updatedby = Auth::id();
-            $ord->save();
+            foreach ($getsltawb as $item) {
+                $ord = New Order;
+                $ord = Order::find($item->id);
+                $ord->ecomordid = $ord->ecomordid;
+                $ord->ecomname = $ord->ecomname;
+                $ord->ecomproddesc = $ord->ecomproddesc;
+                $ord->ecompurchaseamt = $ord->ecompurchaseamt;
+                $ord->ecomorddt = $ord->ecomorddt;
+                $ord->consigneename = $ord->consigneename;
+                $ord->consigneeaddrs = $ord->consigneeaddrs;
+                $ord->ecomprdtraclnk = $ord->ecomprdtraclnk;
+                $ord->ecomsppngpriority = $ord->ecomsppngpriority;
+                $ord->status_id = '1';
+                $ord->note = $ord->note;
+                $ord->awb = $ord->awb;
+                $ord->ecomrcvby = $ord->ecomrcvby;
+                $ord->updatedby = Auth::id();
+                $ord->save();
+            }
+            return response("All CPX ID Updated!");
         }
-
-        return response("All CPX ID Updated!");
-    }
-
-    // Updae from table form
-    public function statusupdatet(Request $request){
-        // $sltawb = (isset($_GET['awbchg']) ? $_GET['awbchg'] : '');
-        // dd($request->id);
-
-        // $sltawb = $request->awbchg;
-
-        // dd($sltawb);
-
-        // $getsltawb = DB::table('orders')
-        // ->select('orders.id')
-        // ->where('orders.awb', $sltawb)
-        // ->get();
-
-        // foreach ($getsltawb as $item) {
-        //     $ord = New Order;
-        //     $ord = Order::find($item->id);
-        //     $ord->ecomordid = $ord->ecomordid;
-        //     $ord->ecomname = $ord->ecomname;
-        //     $ord->ecomproddesc = $ord->ecomproddesc;
-        //     $ord->ecompurchaseamt = $ord->ecompurchaseamt;
-        //     $ord->ecomorddt = $ord->ecomorddt;
-        //     $ord->consigneename = $ord->consigneename;
-        //     $ord->consigneeaddrs = $ord->consigneeaddrs;
-        //     $ord->ecomprdtraclnk = $ord->ecomprdtraclnk;
-        //     $ord->ecomsppngpriority = $ord->ecomsppngpriority;
-        //     $ord->status_id = '1';
-        //     $ord->note = $ord->note;
-        //     $ord->awb = $ord->awb;
-        //     $ord->ecomrcvby = $ord->ecomrcvby;
-        //     $ord->updatedby = Auth::id();
-        //     $ord->save();
-        // }
-
-        return response($request);
+        // return redirect()->route('admin.search.statusupdate')->with('success','CPX Updated Successfully!');
     }
 
     public function create()

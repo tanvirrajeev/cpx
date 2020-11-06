@@ -28,30 +28,31 @@
                         <button type="button" class="btn btn-dark" id="searchawb">SEARCH</button>
                         <button type="button" class="btn btn-dark" id="chgsts">CHANGE STATUS</button>
                       </form>
+                      <br>
 
+                      <p style="color:blue;">***DO NOT FORGET TO CHANGE STATUS <span style="color:red; font-weight:bold;">"PACKAGE ON-HOLD"</span> BEFORE CHANGE THE STATUS BY AWB</p>
 
-                      <form action="/admin/statusupdatet" method="POST" id="updateawb">
-                        @csrf
-                        <table id="showcpxbyawbtbl" class="table table-striped table-bordered hover" style="width:100%">
-                            <thead class="bg-warning">
-                                <tr>
-                                    <th>SHIPPING CODE</th>
-                                    <th>ECOM ORDER</th>
-                                    <th>STATUS</th>
-                                    <th>AWB</th>
-                                </tr>
-                            </thead>
-                            <tbody>
+                      <table id="showcpxbyawbtbl" class="table table-striped table-bordered hover" style="width:100%">
+                        <thead class="bg-warning">
+                            <tr>
+                                <th>SHIPPING CODE</th>
+                                <th>ECOM ORDER</th>
+                                <th>STATUS</th>
+                                <th>AWB</th>
+                            </tr>
+                        </thead>
+                        <tbody>
 
-                            </tbody>
-                        </table>
-                        <button type="submit" class="btn btn-dark" id="searchawb">UPDATE</button>
-                      </form>
+                        </tbody>
+                    </table>
                 </div>
             </div>
         </div>
     </div>
 </div>
+
+{{-- For Sweetalert2 calling from JS  --}}
+{{-- <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script> --}}
 
 
 <script>
@@ -73,22 +74,14 @@
                     url: "{{ url('/admin/awb') }}",
                     data: {awb:awb},
                     success:function(data){
-                        // console.log("Reply from Controller $data..."+data);
-                        // console.log("Data Length: " + data.length);
                         var length = data.length;
                         var s = $('#getawb').find('#datalength').val(length);
                         for (i in data){
-                            // console.log(data[i]);
-
                             var cpxid = data[i].cpxid;
                             var ecom = data[i].ecomid;
                             var sts = data[i].status;
                             var awb = data[i].awb;
                             var id = i;
-                        // console.log("cpx: "+ cpxid);
-                            // console.log("ecom: "+ ecom);
-                            // console.log("status: "+ sts);
-                            // console.log("AWB: "+ awb);
                         var tr_str = "<tr>"+
                             "<td align='center'><input type='text' value='" + cpxid + "' id='cpxid"+id+"' disabled ></td>" +
                             "<td align='center'><input type='text' value='" + ecom + "' id='ecomid"+id+"' disabled></td>" +
@@ -110,18 +103,91 @@
             var awbchg = $('#getawb').find('#awbsrc1').val();
             console.log("Getting AWB from Input Box..."+awbchg);
 
-            $.ajax({
-                    type: 'post',
-                    url: "{{ url('/admin/statusupdate') }}",
-                    // data: {awb:awb},
-                    data: {_token: CSRF_TOKEN,awbchg: awbchg},
-                    success:function(data){
-                        console.log("Reply from Controller $data..."+data);
-                        alert(data);
+            //SweetAlert2 Toast for CPX Update confirmation
+            const Toast = Swal.mixin({
+                toast: true,
+                position: 'top-end',
+                showConfirmButton: false,
+                timer: 2000
+            });
+
+            // Check if ABW field is blank
+            if($('#getawb').find('#awbsrc1').val()){
+                Swal.fire({
+                title: 'Are you sure?',
+                text: "You want to update all CPX Status!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Yes, Update!'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+
+                        $.ajax({
+                        type: 'post',
+                        url: "{{ url('/admin/statusupdate') }}",
+                        // data: {awb:awb},
+                        data: {_token: CSRF_TOKEN,awbchg: awbchg},
+                        success:function(data){
+                            // alert(data);
+                            // location.reload();
+                            // $('#getawb').find('#awbsrc1').val(awbchg);
+                            $("#showcpxbyawbtbl tbody").empty();
 
 
+                            var awb = $('#getawb').find('#awbsrc1').val();
+                            // console.log("Getting AWB from Input Box..."+awb);
+                                $.ajax({
+                                    type: 'get',
+                                    url: "{{ url('/admin/awb') }}",
+                                    data: {awb:awb},
+                                    success:function(data){
+                                        // console.log("Reply from Controller $data..."+data);
+                                        // console.log("Data Length: " + data.length);
+                                        var length = data.length;
+                                        var s = $('#getawb').find('#datalength').val(length);
+                                        for (i in data){
+                                            // console.log(data[i]);
+
+                                            var cpxid = data[i].cpxid;
+                                            var ecom = data[i].ecomid;
+                                            var sts = data[i].status;
+                                            var awb = data[i].awb;
+                                            var id = i;
+                                        // console.log("cpx: "+ cpxid);
+                                            // console.log("ecom: "+ ecom);
+                                            // console.log("status: "+ sts);
+                                            // console.log("AWB: "+ awb);
+                                        var tr_str = "<tr>"+
+                                            "<td align='center'><input type='text' value='" + cpxid + "' id='cpxid"+id+"' disabled ></td>" +
+                                            "<td align='center'><input type='text' value='" + ecom + "' id='ecomid"+id+"' disabled></td>" +
+                                            "<td align='center'><input type='email' value='" + sts + "' id='status"+id+"' disabled></td>" +
+                                            "<td align='center'><input type='email' value='" + awb + "' id='awb"+id+"' disabled></td>" +
+                                            "</tr>";
+                                            $("#showcpxbyawbtbl tbody").append(tr_str);
+                                        }
+                                    }
+                                })
+
+                            Toast.fire({
+                            type: 'success',
+                            icon: 'success',
+                            title: 'CPX UPDATED!'
+                            });
+                            }
+                        })
                     }
                 })
+            }else{
+                Swal.fire({
+                title: 'Error!',
+                text: "AWB field can not be left blank",
+                icon: 'error',
+                confirmButtonColor: '#3085d6',
+                confirmButtonText: 'OK'
+                })
+            }
 
         });
         }

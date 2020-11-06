@@ -125,7 +125,6 @@
         $('#hiddenfld').find('#hidntotal').val(ntotal);
 
         $('#billingform').find('#ntotal').val(ntotal);
-
     });
 
 </script>

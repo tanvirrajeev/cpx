@@ -270,6 +270,8 @@
 {{-- Datepicker  --}}
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.7.1/js/bootstrap-datepicker.min.js"></script>
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.7.1/locales/bootstrap-datepicker.es.min.js"></script>
+<script src="/js/sweetalert2.js"></script>
+
 <script >
 $('#datetimepicker2').datepicker({
     format: 'dd/mm/yyyy',

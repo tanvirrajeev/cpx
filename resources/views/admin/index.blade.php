@@ -72,10 +72,10 @@
                         </div>
 
                         <div>
-                            <p><input type="checkbox" id="terms_and_conditions" value="1" onclick="terms_changed(this)" />&nbsp; I AGREE TO PAY DUTY/TAX AND OTHER SURCHARGE TO BE PAID TO THE GOVERNMENT OF INDIA AND BANGLADESH TO SHIP MY PRODUCT <br> <br></p>
+                            <p><input type="checkbox" id="terms_and_conditions" value="1" onclick="terms_changed(this)" checked/>&nbsp; I AGREE TO PAY DUTY/TAX AND OTHER SURCHARGE TO BE PAID TO THE GOVERNMENT OF INDIA AND BANGLADESH TO SHIP MY PRODUCT <br> <br></p>
                         </div>
 
-                        <button type="submit" class="btn btn-dark" id="submit_button" disabled>SUBMIT</button>
+                        <button type="submit" class="btn btn-dark" id="submit_button" >SUBMIT</button>
                       </form>
 
 
@@ -88,14 +88,15 @@
 {{-- Terms & Condition check box --}}
 <script>
     function terms_changed(termsCheckBox){
-    //If the checkbox has been checked
-    if(termsCheckBox.checked){
-        //Set the disabled property to FALSE and enable the button.
         document.getElementById("submit_button").disabled = false;
-    } else{
-        //Otherwise, disable the submit button.
-        document.getElementById("submit_button").disabled = true;
-    }
+        //If the checkbox has been checked
+        if(termsCheckBox.checked){
+            //Set the disabled property to FALSE and enable the button.
+            document.getElementById("submit_button").disabled = false;
+        } else{
+            //Otherwise, disable the submit button.
+            document.getElementById("submit_button").disabled = true;
+        }
 }
 </script>
 @endsection

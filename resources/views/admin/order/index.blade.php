@@ -24,7 +24,6 @@
                             <th>ECOM ORD NO</th>
                             <th>CONSIGNEE NAME</th>
                             <th>STATUS</th>
-                            <th>NOTE</th>
                             <th>CREATED AT</th>
                             <th>AWB</th>
                             <th>ACTION</th>
@@ -63,7 +62,6 @@
             { data: 'ecomordid', name: 'ecomordid' },
             { data: 'consigneename', name: 'consigneename' },
             { data: 'statusname', name: 'statuses.name' },
-            { data: 'note', name: 'note' },
             { data: 'created_at', name: 'created_at' },
             { data: 'awb', name: 'awb' },
             { data: 'action', name: 'action' }

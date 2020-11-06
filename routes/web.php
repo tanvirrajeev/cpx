@@ -47,7 +47,6 @@ Route::group([ 'as'=>'admin.', 'prefix' => 'admin', 'namespace'=>'Admin', 'middl
         Route::resource('search', 'SearchController');
         Route::get('awb', 'SearchController@getawb')->name('search.awb');
         Route::post('statusupdate', 'SearchController@statusupdate')->name('search.statusupdate');
-        Route::post('statusupdatet', 'SearchController@statusupdatet')->name('search.statusupdatet');
 
 });
 
