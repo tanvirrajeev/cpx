@@ -41,10 +41,6 @@ class SearchController extends Controller
         ->get();
 
         foreach ($getsltawb as $item) {
-            // echo("\n");
-            // echo($item->id);
-            // echo("\n");
-
             $ord = New Order;
             $ord = Order::find($item->id);
             $ord->ecomordid = $ord->ecomordid;
@@ -67,6 +63,42 @@ class SearchController extends Controller
         return response("All CPX ID Updated!");
     }
 
+    // Updae from table form
+    public function statusupdatet(Request $request){
+        // $sltawb = (isset($_GET['awbchg']) ? $_GET['awbchg'] : '');
+        // dd($request->id);
+
+        // $sltawb = $request->awbchg;
+
+        // dd($sltawb);
+
+        // $getsltawb = DB::table('orders')
+        // ->select('orders.id')
+        // ->where('orders.awb', $sltawb)
+        // ->get();
+
+        // foreach ($getsltawb as $item) {
+        //     $ord = New Order;
+        //     $ord = Order::find($item->id);
+        //     $ord->ecomordid = $ord->ecomordid;
+        //     $ord->ecomname = $ord->ecomname;
+        //     $ord->ecomproddesc = $ord->ecomproddesc;
+        //     $ord->ecompurchaseamt = $ord->ecompurchaseamt;
+        //     $ord->ecomorddt = $ord->ecomorddt;
+        //     $ord->consigneename = $ord->consigneename;
+        //     $ord->consigneeaddrs = $ord->consigneeaddrs;
+        //     $ord->ecomprdtraclnk = $ord->ecomprdtraclnk;
+        //     $ord->ecomsppngpriority = $ord->ecomsppngpriority;
+        //     $ord->status_id = '1';
+        //     $ord->note = $ord->note;
+        //     $ord->awb = $ord->awb;
+        //     $ord->ecomrcvby = $ord->ecomrcvby;
+        //     $ord->updatedby = Auth::id();
+        //     $ord->save();
+        // }
+
+        return response($request);
+    }
 
     public function create()
     {

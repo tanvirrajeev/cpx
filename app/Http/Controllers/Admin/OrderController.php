@@ -55,6 +55,7 @@ class OrderController extends Controller
                 ->join('statuses', 'statuses.id', '=', 'orders.status_id')
                 ->select('orders.id as id','ecomordid','consigneename','statuses.name as statusname','note','orders.created_at','awb')
                 ->get();
+
         return Datatables::of($data)     // View Order Page Datatable
         //setting up id to every row
         ->setRowId(function ($data) {

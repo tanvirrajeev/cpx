@@ -77,12 +77,13 @@
 
                 for (i in data) {
                     console.log(data[i]);
-                    if (data[i].status_id  == 1){
+                    if (data[i].status  == 'ARRIVED AT DHAKA'){
                         // st.find('#sts-rcvdsthub').text(data[i].status);
                         // st.find('#created-at-rcvdsthub').text($.format.date(data[i].created_at, "dd/MM/yyyy HH:mm a"));
                         var time = $.format.date(data[i].created_at, "dd/MM/yyyy HH:mm a");
 
-                        st.find('#rcvdsthub').replaceWith("<li class=\"completed warning\"id=\"rcvdsthub\">" +
+                        st.find('#dlvrd').before("<li class=\"completed warning\"id=\"rcvdsthub\">" +
+                        // st.find('#rcvdsthub').replaceWith("<li class=\"completed warning\"id=\"rcvdsthub\">" +
                                 "<span class=\"time\" id=\"created-at-rcvdsthub\">"+time+"</span>" +
                                 "<span class=\"bubble\"></span>" +
                                 "<span class=\"stacked-text\">Destination HUB" +
@@ -92,14 +93,15 @@
 
 
 
-                        }else if (data[i].status_id  == 2){
+                        }else if (data[i].status  == 'ARRIVED AT DELHI'){
                             // st.find('#sts-rcvhub').text(data[i].status);
                             // st.find('#awb').text("AWB: " + data[i].awb);
                             // st.find('#created-at-rcvhub').text($.format.date(data[i].created_at, "dd/MM/yyyy HH:mm a"));
 
                             var time = $.format.date(data[i].created_at, "dd/MM/yyyy HH:mm a");
 
-                            st.find('#rcvhub').replaceWith("<li class=\"completed warning\"id=\"rcvhub\">" +
+                            st.find('#dlvrd').before("<li class=\"completed warning\"id=\"rcvhub\">" +
+                            // st.find('#rcvhub').replaceWith("<li class=\"completed warning\"id=\"rcvhub\">" +
                                 "<span class=\"time\" id=\"created-at-rcvhub\">"+time+"</span>" +
                                 "<span class=\"bubble\"></span>" +
                                 "<span class=\"stacked-text\">Receiving HUB" +
@@ -109,7 +111,7 @@
                                 "</li>");
 
 
-                        }else if (data[i].status_id  == 3){
+                        }else if (data[i].status  == 'NOT ARRIVED'){
                             var time = $.format.date(data[i].created_at, "dd/MM/yyyy HH:mm a");
                             // st.find('#cpxid').text("CPX ID: " + data[i].order_id);
                             // st.find('#created-by').text("Created By: " + data[i].name);
@@ -135,17 +137,17 @@
                                 "</span>"+
                                 "</li>");
 
-                            st.find('#tracking-ul').append("<li id=\"rcvhub\">" +
-                                "<span class=\"bubble\"></span>" +
-                                "<span class=\"stacked-text\">Receiving HUB" +
-                                "</span>"+
-                                "</li>");
+                            // st.find('#tracking-ul').append("<li id=\"rcvhub\">" +
+                            //     "<span class=\"bubble\"></span>" +
+                            //     "<span class=\"stacked-text\">Receiving HUB" +
+                            //     "</span>"+
+                            //     "</li>");
 
-                            st.find('#tracking-ul').append("<li id=\"rcvdsthub\">" +
-                                "<span class=\"bubble\"></span>" +
-                                "<span class=\"stacked-text\">Destination HUB" +
-                                "</span>"+
-                                "</li>");
+                            // st.find('#tracking-ul').append("<li id=\"rcvdsthub\">" +
+                            //     "<span class=\"bubble\"></span>" +
+                            //     "<span class=\"stacked-text\">Destination HUB" +
+                            //     "</span>"+
+                            //     "</li>");
 
                             st.find('#tracking-ul').append("<li id=\"dlvrd\">" +
                                 "<span class=\"bubble\"></span>" +
@@ -155,7 +157,7 @@
 
 
 
-                        }else if (data[i].status_id  == 7){
+                        }else if (data[i].status  == 'DELIVERED'){
                             // st.find('#created-at-dlvrd').text($.format.date(data[i].created_at, "dd/MM/yyyy HH:mm a"));
                             // st.find('#reveived_by').text("Received By: " + data[i].reveived_by);
                             var time = $.format.date(data[i].created_at, "dd/MM/yyyy HH:mm a");
