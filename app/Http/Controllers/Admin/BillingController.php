@@ -59,9 +59,12 @@ class BillingController extends Controller
         //
     }
 
-    public function show(Billing $billing)
-    {
-        //
+    public function show(Billing $billing){
+        $spcharge = DB::table('shippingcharges')
+        ->select('shippingcharges.id as id','shippingcharges.weight as weight')
+        ->get();
+
+        return view('billing.show',compact('billing','spcharge'));
     }
 
     public function edit(Billing $billing)
