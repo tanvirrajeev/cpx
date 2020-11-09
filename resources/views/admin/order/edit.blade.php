@@ -97,7 +97,7 @@
                             <input type="text" class="form-control" id="rcvby" name="rcvby" value="{{$order->ecomrcvby}}" style="display:none" placeholder="Receiver's Name">
                         </div>
 
-                        <button type="submit" class="btn btn-dark" id="submit_button">UPDATE</button>
+                        <button type="submit" class="btn btn-warning" id="submit_button">UPDATE</button>
                       </form>
 
 

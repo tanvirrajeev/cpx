@@ -42,7 +42,7 @@
         ],
         rowCallback: function(row, data, index) {
                     if (data.paymentstatus == "PAYED"){
-                        $('td:eq(4)', row).hide();
+                        $('td:eq(4)', row).replaceWith("<td><button href=\"#\" class=\"btn btn-xs btn-primary\" disabled>ENTRY</button><td>");
                         }
 
                     if (data.paymentstatus == "PAYED"){

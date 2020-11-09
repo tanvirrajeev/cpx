@@ -166,6 +166,7 @@ return [
          * Package Service Providers...
          */
         Yajra\Datatables\DatatablesServiceProvider::class,
+        Yajra\DataTables\ButtonsServiceProvider::class,
         RealRashid\SweetAlert\SweetAlertServiceProvider::class,
         /*
          * Application Service Providers...

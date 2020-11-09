@@ -78,8 +78,9 @@ class OrderController extends Controller
             return $data->created_at ? with(new Carbon($data->created_at))->format('d/m/Y') : '';
         })
         ->addColumn('action', function( $data) {
-            return  '<a href="/admin/order/'.$data->id.'" class="btn btn-xs btn-primary"><i class="fas fa-eye"></i></a>
-            <a href="/admin/order/'.$data->id.'/edit" class="btn btn-xs btn-danger"><i class="fas fa-edit"></i></a>';
+            return  '<a data-id='.$data->id.' data-target="#chgstatusmodal" data-toggle="modal" id="status" class="btn btn-xs bg-maroon" href=""><i class="fas fa-exchange-alt"></i></a>
+            <a href="/admin/order/'.$data->id.'" class="btn btn-xs btn-primary"><i class="fas fa-eye"></i></a>
+            <a href="/admin/order/'.$data->id.'/edit" class="btn btn-xs bg-purple"><i class="fas fa-edit"></i></a>';
         })
         ->rawColumns(['action','statusname'])
         ->make(true);
@@ -165,6 +166,38 @@ class OrderController extends Controller
         $ord->save();
 
         return redirect(route('admin.order.index'))->with('toast_success','Order Updated');
+    }
+
+    public function chgstatusmodal(Request $request){
+        $id = (isset($_GET['id']) ? $_GET['id'] : '');
+
+        if($id !== ''){
+            $allstatus = DB::table('statuses')
+                        ->select('statuses.id as status_id', 'statuses.name as status_name')
+                        ->get();
+
+            $sltord = DB::table('Orders')
+                    ->join('statuses', 'statuses.id', '=', 'orders.status_id')
+                    ->select('orders.id as cpxid','statuses.id as selected_status_id','statuses.name as selectes_status')
+                    ->where('orders.id', $id)
+                    ->get();
+            $status = $allstatus->toArray();
+            $ord = $sltord->toArray();
+
+            // return response($allstatus);
+            // return Response::json(array('status'=>$status,'order'=>$ord));
+            // return ['status'=>$status, 'order'=>$ord];
+            return response()->json(['status'=>$status, 'order'=>$ord ]);
+        }else{
+            $sltord = DB::table('Orders')
+                    ->join('statuses', 'statuses.id', '=', 'orders.status_id')
+                    ->select('statuses.id as id', 'statuses.name as status')
+                    ->where('orders.id', $id)
+                    ->get();
+            return response($sltord);
+        }
+
+
     }
 
     public function destroy(Order $order)

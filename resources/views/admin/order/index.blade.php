@@ -7,6 +7,7 @@
     <link href="{{ asset('css/progress-wizard.min.css') }}" rel="stylesheet">
     <link href="{{ asset('css/vertical-bar.css') }}" rel="stylesheet">
     @include('admin.status.tracking')
+    @include('admin.status.chgstatusmodal')
     {{-- @include('admin.status.order-created')
     @include('admin.status.received-at-hub')
     @include('admin.status.destination-hub')
@@ -22,7 +23,7 @@
                         <thead>
                             <th>SHIPPING CODE</th>
                             <th>ECOM ORD NO</th>
-                            <th>CONSIGNEE NAME</th>
+                            {{-- <th>CONSIGNEE NAME</th> --}}
                             <th>STATUS</th>
                             <th>CREATED AT</th>
                             <th>AWB</th>
@@ -60,7 +61,7 @@
         columns: [
             { data: 'id', name: 'id' },
             { data: 'ecomordid', name: 'ecomordid' },
-            { data: 'consigneename', name: 'consigneename' },
+            // { data: 'consigneename', name: 'consigneename' },
             { data: 'statusname', name: 'statuses.name' },
             { data: 'created_at', name: 'created_at' },
             { data: 'awb', name: 'awb' },
