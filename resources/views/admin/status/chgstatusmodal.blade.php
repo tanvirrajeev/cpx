@@ -152,22 +152,23 @@
                         var awb = $('#chgstatusmodal').find('#awbd').val();
                         var note = $('#chgstatusmodal').find('#note').val();
                         var rcvby = $('#chgstatusmodal').find('#rcvby').val();
-                        // console.log("cpxid "+id);
-                        // console.log("Selected Status ID: " +status);
-                        // console.log("AWB : " +awb);
-                        // console.log("NOTE : " +note);
-                        // console.log("RCVBY : " +rcvby);
-                        // var st = $("#chgstatusmodal");
 
+                        //Check if the field are not blank
                         if (data == '1' && $('#chgstatusmodal').find('#awbd').val()){
                             update();
+                        }else if (data == '2' && $('#chgstatusmodal').find('#note').val()){
+                            update();
+                        }else if (data == '9' && $('#chgstatusmodal').find('#rcvby').val()){
+                            update();
                         }else{
-                            alert('Error! Blank');
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'Field Missing',
+                                text: 'Please fill up all fields'
+                                })
                         }
 
-
-
-
+                    //Actual update function()
                     function update(){
                         //SweetAlert2 Toast for CPX Update confirmation
                         const Toast = Swal.mixin({
@@ -190,10 +191,6 @@
                             confirmButtonText: 'Yes, Update!'
                             }).then((result) => {
                                 if (result.isConfirmed) {
-
-
-
-
 
                                     $.ajax({
                                     type: 'post',
