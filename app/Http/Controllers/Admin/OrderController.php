@@ -168,7 +168,7 @@ class OrderController extends Controller
         return redirect(route('admin.order.index'))->with('toast_success','Order Updated');
     }
 
-    public function chgstatusmodal(Request $request){
+    public function getstatusmodal(Request $request){
         $id = (isset($_GET['id']) ? $_GET['id'] : '');
 
         if($id !== ''){
@@ -178,7 +178,7 @@ class OrderController extends Controller
 
             $sltord = DB::table('Orders')
                     ->join('statuses', 'statuses.id', '=', 'orders.status_id')
-                    ->select('orders.id as cpxid','statuses.id as selected_status_id','statuses.name as selectes_status')
+                    ->select('orders.id as cpxid','orders.awb as awb','orders.note as note','orders.ecomrcvby as rcvby','statuses.id as selected_status_id','statuses.name as selectes_status')
                     ->where('orders.id', $id)
                     ->get();
             $status = $allstatus->toArray();
@@ -189,15 +189,77 @@ class OrderController extends Controller
             // return ['status'=>$status, 'order'=>$ord];
             return response()->json(['status'=>$status, 'order'=>$ord ]);
         }else{
-            $sltord = DB::table('Orders')
-                    ->join('statuses', 'statuses.id', '=', 'orders.status_id')
-                    ->select('statuses.id as id', 'statuses.name as status')
-                    ->where('orders.id', $id)
-                    ->get();
-            return response($sltord);
+            return response("Error. Form Blank!");
         }
+    }
 
 
+    public function chgstatusmodal(Request $request){
+        if(!empty($request->id)){
+            $cpxid = $request->id;
+            $sts = $request->status;
+
+            $getord = DB::table('orders')
+                        ->where('orders.id', $cpxid)
+                        ->get();
+            // $ordarry =  $getord->toArray();
+
+            foreach ($getord as $item) {
+                $ord = New Order;
+                $ord = Order::find($item->id);
+                $ord->ecomordid = $ord->ecomordid;
+                $ord->ecomname = $ord->ecomname;
+                $ord->ecomproddesc = $ord->ecomproddesc;
+                $ord->ecompurchaseamt = $ord->ecompurchaseamt;
+                $ord->ecomorddt = $ord->ecomorddt;
+                $ord->consigneename = $ord->consigneename;
+                $ord->consigneeaddrs = $ord->consigneeaddrs;
+                $ord->ecomprdtraclnk = $ord->ecomprdtraclnk;
+                $ord->ecomsppngpriority = $ord->ecomsppngpriority;
+                $ord->status_id = $sts;
+                $ord->note = $request->note;
+                $ord->awb = $request->awb;
+                $ord->ecomrcvby = $request->rcvby;
+                $ord->updatedby = Auth::id();
+                $ord->save();
+            }
+
+            // $sltawb = $request->awbchg;
+            // // dd($sltawb);
+
+            // $getsltawb = DB::table('orders')
+            //             ->join('statuses', 'statuses.id', '=', 'orders.status_id')
+            //             ->select('orders.id')
+            //             ->where('orders.awb', $sltawb)
+            //             ->where('statuses.name', '<>', 'PACKAGE ON-HOLD')
+            //             ->where('statuses.name', '<>', 'DELIVERED')
+            //             ->where('statuses.name', '<>', 'ARRIVED AT DHAKA')
+            //             ->get();
+
+
+            // foreach ($getsltawb as $item) {
+            //     $ord = New Order;
+            //     $ord = Order::find($item->id);
+            //     $ord->ecomordid = $ord->ecomordid;
+            //     $ord->ecomname = $ord->ecomname;
+            //     $ord->ecomproddesc = $ord->ecomproddesc;
+            //     $ord->ecompurchaseamt = $ord->ecompurchaseamt;
+            //     $ord->ecomorddt = $ord->ecomorddt;
+            //     $ord->consigneename = $ord->consigneename;
+            //     $ord->consigneeaddrs = $ord->consigneeaddrs;
+            //     $ord->ecomprdtraclnk = $ord->ecomprdtraclnk;
+            //     $ord->ecomsppngpriority = $ord->ecomsppngpriority;
+            //     $ord->status_id = '1';
+            //     $ord->note = $ord->note;
+            //     $ord->awb = $ord->awb;
+            //     $ord->ecomrcvby = $ord->ecomrcvby;
+            //     $ord->updatedby = Auth::id();
+            //     $ord->save();
+            // }
+            return response("CPX Updated!");
+        }
+        // return response("All CPX ID Updated!");
+        // return redirect()->route('admin.search.statusupdate')->with('success','CPX Updated Successfully!');
     }
 
     public function destroy(Order $order)

@@ -100,8 +100,8 @@
         function changestatus(){
             // $(document).on("click", "#chgsts", function() {
             $(document).on("click", "#chgsts" , function() {
+            // get the awb whihc needs to be changed
             var awbchg = $('#getawb').find('#awbsrc1').val();
-            console.log("Getting AWB from Input Box..."+awbchg);
 
             //SweetAlert2 Toast for CPX Update confirmation
             const Toast = Swal.mixin({
@@ -135,30 +135,21 @@
                             // $('#getawb').find('#awbsrc1').val(awbchg);
                             $("#showcpxbyawbtbl tbody").empty();
 
-
+                            // Populating the list after changing the status
                             var awb = $('#getawb').find('#awbsrc1').val();
-                            // console.log("Getting AWB from Input Box..."+awb);
                                 $.ajax({
                                     type: 'get',
                                     url: "{{ url('/admin/awb') }}",
                                     data: {awb:awb},
                                     success:function(data){
-                                        // console.log("Reply from Controller $data..."+data);
-                                        // console.log("Data Length: " + data.length);
                                         var length = data.length;
                                         var s = $('#getawb').find('#datalength').val(length);
                                         for (i in data){
-                                            // console.log(data[i]);
-
                                             var cpxid = data[i].cpxid;
                                             var ecom = data[i].ecomid;
                                             var sts = data[i].status;
                                             var awb = data[i].awb;
                                             var id = i;
-                                        // console.log("cpx: "+ cpxid);
-                                            // console.log("ecom: "+ ecom);
-                                            // console.log("status: "+ sts);
-                                            // console.log("AWB: "+ awb);
                                         var tr_str = "<tr>"+
                                             "<td align='center'><input type='text' value='" + cpxid + "' id='cpxid"+id+"' disabled ></td>" +
                                             "<td align='center'><input type='text' value='" + ecom + "' id='ecomid"+id+"' disabled></td>" +

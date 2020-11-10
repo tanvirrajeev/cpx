@@ -39,7 +39,8 @@ Route::group([ 'as'=>'admin.', 'prefix' => 'admin', 'namespace'=>'Admin', 'middl
         Route::get('dashboardlist', 'OrderController@dashboardlist')->name('order.dashboardlist');
         Route::get('statuslist', 'OrderController@statuslist')->name('order.statuslist');
         Route::get('tracking', 'OrderController@tracking')->name('order.tracking');
-        Route::get('chgstatusmodal', 'OrderController@chgstatusmodal')->name('order.chgstatusmodal');
+        Route::get('getstatusmodal', 'OrderController@getstatusmodal')->name('order.getstatusmodal');
+        Route::post('chgstatusmodal', 'OrderController@chgstatusmodal')->name('order.chgstatusmodal');
         Route::resource('billing', 'BillingController');
         Route::get('billinglist', 'BillingController@billinglist')->name('billing.billinglist');
         Route::get('shippingchargelist', 'BillingController@shippingchargelist')->name('shippingchargelist');
