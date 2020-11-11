@@ -61,7 +61,10 @@ class OrderController extends Controller
         ->setRowId(function ($data) {
             return $data->id;
             })
-        ->editColumn('statusname', function ($data)  { //set Tracking Modal based on status
+        ->editColumn('id', function ($data)  { //set Tracking Modal based on status
+            return '<a data-id='.$data->id.' data-target="#cpx" data-toggle="modal" id="cpx" href="">'.$data->id.'</a>';
+        })
+        ->editColumn('statusname', function ($data)  { //set Tracking Modal based on status status->tracking.blade
             if ($data->statusname == "NOT ARRIVED"){
                 return '<a data-id='.$data->id.' data-target="#tracking" data-toggle="modal" id="status" href="">'.$data->statusname.'</a>';
             }else if ($data->statusname == "ARRIVED AT DELHI"){
@@ -75,14 +78,16 @@ class OrderController extends Controller
             }
         })
         ->editColumn('created_at', function ($data) {
-            return $data->created_at ? with(new Carbon($data->created_at))->format('d/m/Y') : '';
+            // return $data->created_at ? with(new Carbon($data->created_at))->format('d-M-Y') : '';
+            $date = $data->created_at ? with(new Carbon($data->created_at))->format('d-M-Y') : '';
+            return '<a data-id='.$data->id.' data-target="#history" data-toggle="modal" id="cpx" href="">'.$date.'</a>';
         })
         ->addColumn('action', function( $data) {
             return  '<a data-id='.$data->id.' data-target="#chgstatusmodal" data-toggle="modal" id="status" class="btn btn-xs bg-maroon" href=""><i class="fas fa-exchange-alt"></i></a>
             <a href="/admin/order/'.$data->id.'" class="btn btn-xs btn-primary"><i class="fas fa-eye"></i></a>
             <a href="/admin/order/'.$data->id.'/edit" class="btn btn-xs bg-purple"><i class="fas fa-edit"></i></a>';
         })
-        ->rawColumns(['action','statusname'])
+        ->rawColumns(['action','statusname','id','created_at'])
         ->make(true);
     }
 
@@ -168,6 +173,25 @@ class OrderController extends Controller
         return redirect(route('admin.order.index'))->with('toast_success','Order Updated');
     }
 
+    //Get Order from CPX Modal
+    public function getorder(Request $request){
+        $id = (isset($_GET['id']) ? $_GET['id'] : '');
+
+        if($id !== ''){
+
+            $ord = DB::table('orders')
+                    ->where('orders.id', $id)
+                    ->get();
+
+            // return response()->json(['status'=>$status, 'order'=>$ord ]);
+            return response($ord);
+        }else{
+            return response("Error. Form Blank!");
+        }
+    }
+
+
+    //Get Status to change from Order page Modal chgstatusmodal.blade
     public function getstatusmodal(Request $request){
         $id = (isset($_GET['id']) ? $_GET['id'] : '');
 
@@ -184,16 +208,13 @@ class OrderController extends Controller
             $status = $allstatus->toArray();
             $ord = $sltord->toArray();
 
-            // return response($allstatus);
-            // return Response::json(array('status'=>$status,'order'=>$ord));
-            // return ['status'=>$status, 'order'=>$ord];
             return response()->json(['status'=>$status, 'order'=>$ord ]);
         }else{
             return response("Error. Form Blank!");
         }
     }
 
-
+    //Status change from Order page Modal chgstatusmodal.blade
     public function chgstatusmodal(Request $request){
         if(!empty($request->id)){
             $cpxid = $request->id;
@@ -224,43 +245,30 @@ class OrderController extends Controller
                 $ord->save();
             }
 
-            // $sltawb = $request->awbchg;
-            // // dd($sltawb);
-
-            // $getsltawb = DB::table('orders')
-            //             ->join('statuses', 'statuses.id', '=', 'orders.status_id')
-            //             ->select('orders.id')
-            //             ->where('orders.awb', $sltawb)
-            //             ->where('statuses.name', '<>', 'PACKAGE ON-HOLD')
-            //             ->where('statuses.name', '<>', 'DELIVERED')
-            //             ->where('statuses.name', '<>', 'ARRIVED AT DHAKA')
-            //             ->get();
-
-
-            // foreach ($getsltawb as $item) {
-            //     $ord = New Order;
-            //     $ord = Order::find($item->id);
-            //     $ord->ecomordid = $ord->ecomordid;
-            //     $ord->ecomname = $ord->ecomname;
-            //     $ord->ecomproddesc = $ord->ecomproddesc;
-            //     $ord->ecompurchaseamt = $ord->ecompurchaseamt;
-            //     $ord->ecomorddt = $ord->ecomorddt;
-            //     $ord->consigneename = $ord->consigneename;
-            //     $ord->consigneeaddrs = $ord->consigneeaddrs;
-            //     $ord->ecomprdtraclnk = $ord->ecomprdtraclnk;
-            //     $ord->ecomsppngpriority = $ord->ecomsppngpriority;
-            //     $ord->status_id = '1';
-            //     $ord->note = $ord->note;
-            //     $ord->awb = $ord->awb;
-            //     $ord->ecomrcvby = $ord->ecomrcvby;
-            //     $ord->updatedby = Auth::id();
-            //     $ord->save();
-            // }
             return response("CPX Updated!");
         }
-        // return response("All CPX ID Updated!");
-        // return redirect()->route('admin.search.statusupdate')->with('success','CPX Updated Successfully!');
     }
+
+        //Get History from history Modal
+        public function gethistory(Request $request){
+            $id = (isset($_GET['id']) ? $_GET['id'] : '');
+
+            if($id !== ''){
+
+                $ord = DB::table('histories')
+                        ->join('users', 'users.id', '=', 'histories.user_id')
+                        ->join('branches', 'branches.id', '=', 'users.branch_id')
+                        ->join('statuses', 'statuses.id', '=', 'histories.status_id')
+                        ->select('histories.id as hisid','histories.created_at as date','statuses.name as status','histories.note as note','users.name as updateby','branches.name as branch')
+                        ->where('histories.order_id', $id)
+                        ->get();
+
+                // return response()->json(['status'=>$status, 'order'=>$ord ]);
+                return response($ord);
+            }else{
+                return response("Error. Form Blank!");
+            }
+        }
 
     public function destroy(Order $order)
     {

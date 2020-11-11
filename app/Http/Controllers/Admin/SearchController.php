@@ -30,6 +30,7 @@ class SearchController extends Controller
         return response($getsltawb);
     }
 
+    //Status update by AWB from AJAX call search-by-awb.blade
     public function statusupdate(Request $request){
         // $sltawb = (isset($_GET['awbchg']) ? $_GET['awbchg'] : '');
 

@@ -76,7 +76,7 @@
                 st.find('#tracking-ul').empty(); //Refresh view everytime to display a new CPX tracking
 
                 for (i in data) {
-                    console.log(data[i]);
+                    // console.log(data[i]);
                     if (data[i].status  == 'ARRIVED AT DHAKA'){
                         // st.find('#sts-rcvdsthub').text(data[i].status);
                         // st.find('#created-at-rcvdsthub').text($.format.date(data[i].created_at, "dd/MM/yyyy HH:mm a"));

@@ -153,8 +153,8 @@
                                         var tr_str = "<tr>"+
                                             "<td align='center'><input type='text' value='" + cpxid + "' id='cpxid"+id+"' disabled ></td>" +
                                             "<td align='center'><input type='text' value='" + ecom + "' id='ecomid"+id+"' disabled></td>" +
-                                            "<td align='center'><input type='email' value='" + sts + "' id='status"+id+"' disabled></td>" +
-                                            "<td align='center'><input type='email' value='" + awb + "' id='awb"+id+"' disabled></td>" +
+                                            "<td align='center'><input type='text' value='" + sts + "' id='status"+id+"' disabled></td>" +
+                                            "<td align='center'><input type='text' value='" + awb + "' id='awb"+id+"' disabled></td>" +
                                             "</tr>";
                                             $("#showcpxbyawbtbl tbody").append(tr_str);
                                         }
