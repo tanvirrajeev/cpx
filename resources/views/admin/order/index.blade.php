@@ -20,26 +20,26 @@
                 <div class="card-body">
                     <table class="table border" id="orderlistadmin">
                         <thead>
-                            <th>SHIPPING CODE</th>
-                            <th>ECOM ORD NO</th>
-                            {{-- <th>CONSIGNEE NAME</th> --}}
-                            <th>STATUS</th>
-                            <th>AWB</th>
-                            <th>CREATED AT</th>
-                            <th>ACTION</th>
+                                <th>SHIPPING CODE</th>
+                                <th>ECOM ORD NO</th>
+                                {{-- <th>CONSIGNEE NAME</th> --}}
+                                <th>STATUS</th>
+                                <th>AWB</th>
+                                <th>CREATED AT</th>
+                                <th>ACTION</th>
                         </thead>
-                        {{-- <tfoot>
+                        <tfoot>
                             <tr>
                                 <th>SHIPPING CODE</th>
                                 <th>ECOM ORD NO</th>
-                                <th>CONSIGNEE NAME</th>
+                                {{-- <th>CONSIGNEE NAME</th> --}}
                                 <th>STATUS</th>
-                                <th>NOTE</th>
-                                <th>CREATED AT</th>
+                                {{-- <th>NOTE</th> --}}
                                 <th>AWB</th>
+                                <th>CREATED AT</th>
                                 <th>ACTION</th>
                             </tr>
-                        </tfoot> --}}
+                        </tfoot>
 
                     </table>
                 </div>
@@ -57,26 +57,27 @@
         responsive: true,
         order: [0, 'desc'],
         ajax: '{!! route('admin.order.orderlist') !!}',
+        // columnDefs: [{ "orderable": false, "targets": '_all' }],
         columns: [
             { data: 'id', name: 'id' },
             { data: 'ecomordid', name: 'ecomordid' },
             // { data: 'consigneename', name: 'consigneename' },
-            { data: 'statusname', name: 'statuses.name' },
+            { data: 'statusname', name: 'statusname' },
             { data: 'awb', name: 'awb' },
             { data: 'created_at', name: 'created_at' },
             { data: 'action', name: 'action' }
 
-        ] //,
-        // initComplete: function () {
-        //     this.api().columns().every(function () {
-        //     var column = this;
-        //     var input = document.createElement("input");
-        //     $(input).appendTo($(column.footer()).empty())
-        //     .on('change', function () {
-        //         column.search($(this).val(), false, false, true).draw();
-        //         });
-        //     });
-        // }
+        ],
+        initComplete: function () {
+            this.api().columns([0,1]).every(function () {
+            var column = this;
+            var input = document.createElement("input");
+            $(input).appendTo($(column.footer()).empty())
+            .on('change', function () {
+                column.search($(this).val(), false, false, true).draw();
+                });
+            });
+        }
 
     });
 } );
