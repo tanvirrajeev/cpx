@@ -8,6 +8,9 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Order;
 use Auth;
+use Carbon\Carbon;
+
+use App\DataTables\OrderDataTable;
 
 class SearchController extends Controller
 {
@@ -71,6 +74,37 @@ class SearchController extends Controller
             return response("All CPX ID Updated!");
         }
         // return redirect()->route('admin.search.statusupdate')->with('success','CPX Updated Successfully!');
+    }
+
+    public function order(OrderDataTable $dataTable, Request $request ){
+        // dd($dataTable->request()->all());
+        // $from = date('2020-11-10 00:00:00');
+        // $to = date('2020-11-11 23:59:59');
+        if($request != 'NULL'){
+            dd($request);
+            return $dataTable
+            ->with([
+                'from' => $request->from,
+                'to' => $request->to,
+                ])
+            ->render('admin.search.order');
+        }else{
+            $from = date('2020-08-01 00:00:00');
+            // $to = date('2020-11-11 23:59:59');
+            $to = Carbon::now();;
+            return $dataTable
+            ->with([
+                'from' => $from,
+                'to' => $to,
+                ])
+            ->render('admin.search.order');
+        }
+        // return $dataTable->render('admin.search.order');
+    }
+
+    public function datatable(){
+        $ord = Order::all();
+        return view('admin.search.datatable',compact('ord'));
     }
 
     public function create()

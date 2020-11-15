@@ -23,6 +23,12 @@
 
   <script src='https://cdn.datatables.net/1.10.22/js/jquery.dataTables.min.js'></script>
   <script src='/js/jquery-dateFormat.min.js'></script>
+
+  <link rel="stylesheet" href="https://cdn.datatables.net/buttons/1.0.3/css/buttons.dataTables.min.css">
+  <script src="https://cdn.datatables.net/buttons/1.0.3/js/dataTables.buttons.min.js"></script>
+
+
+
 </head>
 <body class="hold-transition sidebar-mini">
 <div class="wrapper">
@@ -128,6 +134,16 @@
         <ul class="nav nav-sidebar flex-column">
             <li class="nav-item">
                 <a href="/admin/search" class="nav-link {{ Request::is('admin/search') ? 'active' : ''}}">
+                    <div style="font-size: 1.33rem;">
+                        &nbsp;<i class="fas fa-search"></i>
+                        <p style="font-size: 1rem;">Search AWB</p>
+                    </div>
+                </a>
+            </li>
+        </ul>
+        <ul class="nav nav-sidebar flex-column">
+            <li class="nav-item">
+                <a href="/admin/searchorder" class="nav-link {{ Request::is('admin/search') ? 'active' : ''}}">
                     <div style="font-size: 1.33rem;">
                         &nbsp;<i class="fas fa-search"></i>
                         <p style="font-size: 1rem;">Search</p>
@@ -283,6 +299,6 @@ $('#datetimepicker2').datepicker({
     autoclose: true
 });
 </script>
-
+<script src="{{ asset('vendor/datatables/buttons.server-side.js') }}"></script>
 </body>
 </html>
