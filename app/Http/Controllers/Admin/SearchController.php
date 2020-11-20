@@ -6,10 +6,11 @@ use App\Http\Controllers\Controller;
 use App\Search;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Yajra\DataTables\DataTables;
 use App\Order;
 use Auth;
 use Carbon\Carbon;
-
+use Illuminate\Support\Facades\Log;
 use App\DataTables\OrderDataTable;
 
 class SearchController extends Controller
@@ -138,41 +139,54 @@ class SearchController extends Controller
                     ])
                 ->render('admin.search.order');
         }
+    }
+
+    public function searchorderview(){
+        return view('admin.search.searchorder');
+    }
+
+    public function searchorder(Request $request){
+        // $data = DB::table('orders')
+        //         // ->where('ecomstatus', 'ARRIVED')
+        //         ->join('statuses', 'statuses.id', '=', 'orders.status_id')
+        //         ->select('orders.id as id','ecomordid','consigneename','statuses.name as statusname','note','orders.created_at','awb')
+        //         ->get();
+
+        // return Datatables::of($data)
+        // ->make(true);
+
+        // Log::info('date: '.$request->from_date);
 
 
+        // ->when($from_date && $to_date, function ($query, $condition) use($from_date, $to_date) {
+        //     return $query->whereBetween('created_at', [$from_date, $to_date]);
+        // })
 
 
-        // if($request->from_date != '' && $request->to_date != ''){
-        //     dd($request->to_date);
-        //     return $dataTable
-        //     ->with([
-        //         'from' => $request->from_date,
-        //         'to' => $request->to_date,
-        //         ])
-        //     ->render('admin.search.order');
-        // }
+        if(request()->ajax()){
+            if(!empty($request->from_date)){
+                // $start = Carbon::parse($request->start)->startOfDay();
+                $from_date = Carbon::parse($request->from_date)->startOfDay();
+                $to_date = Carbon::parse($request->to_date)->endOfDay();
 
+                $data = DB::table('orders')
+                    ->join('statuses', 'statuses.id', '=', 'orders.status_id')
+                    ->select('orders.id as id','ecomordid','consigneename','statuses.name as statusname','note','orders.created_at','awb')
+                    // ->whereBetween('created_at', array($from_date, $to_date))
+                    ->when($from_date && $to_date, function ($query, $condition) use($from_date, $to_date) {
+                        return $query->whereBetween('orders.created_at', [$from_date, $to_date]);
+                    })
+                    ->get();
+                }else{
+                    $data = DB::table('orders')
+                        ->join('statuses', 'statuses.id', '=', 'orders.status_id')
+                        ->select('orders.id as id','ecomordid','consigneename','statuses.name as statusname','note','orders.created_at','awb')
+                        ->get();;
+                }
+                return datatables()->of($data)->make(true);
+                }
 
-        // if($request == ''){
-        //     // dd($request);
-        //     return $dataTable
-        //     ->with([
-        //         'from' => $request->from,
-        //         'to' => $request->to,
-        //         ])
-        //     ->render('admin.search.order');
-        // }else{
-        //     $from = date('2020-08-01 00:00:00');
-        //     // $to = date('2020-11-11 23:59:59');
-        //     $to = Carbon::now();
-        //     return $dataTable
-        //     ->with([
-        //         'from' => $from,
-        //         'to' => $to,
-        //         ])
-        //     ->render('admin.search.order');
-        // }
-        // return $dataTable->render('admin.search.order');
+            return view('admin.search.searchorder');
     }
 
     public function datatable(){

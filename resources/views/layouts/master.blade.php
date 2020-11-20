@@ -142,7 +142,7 @@
                 </a>
             </li>
         </ul>
-        <ul class="nav nav-sidebar flex-column">
+        {{-- <ul class="nav nav-sidebar flex-column">
             <li class="nav-item">
                 <a href="/admin/searchorderview" class="nav-link {{ Request::is('admin/searchorderview') ? 'active' : ''}}">
                     <div style="font-size: 1.33rem;">
@@ -151,10 +151,10 @@
                     </div>
                 </a>
             </li>
-        </ul>
+        </ul> --}}
         <ul class="nav nav-sidebar flex-column">
             <li class="nav-item">
-                <a href="/admin/searchorder" class="nav-link {{ Request::is('admin/searchorder') ? 'active' : ''}}">
+                <a href="/admin/searchorderr" class="nav-link {{ Request::is('admin/searchorderr') ? 'active' : ''}}">
                     <div style="font-size: 1.33rem;">
                         &nbsp;<i class="fas fa-search"></i>
                         <p style="font-size: 1rem;">Search</p>
@@ -178,6 +178,16 @@
                     <div style="font-size: 1.33rem;">
                         &nbsp;<i class="fas fa-search"></i>
                         <p style="font-size: 1rem;">Order Report</p>
+                    </div>
+                </a>
+            </li>
+          </ul>
+          <ul class="nav nav-sidebar flex-column">
+            <li class="nav-item">
+                <a href="/admin/searchorder" class="nav-link {{ Request::is('admin/searchorder') ? 'active' : ''}}">
+                    <div style="font-size: 1.33rem;">
+                        &nbsp;<i class="fas fa-search"></i>
+                        <p style="font-size: 1rem;">Search Order</p>
                     </div>
                 </a>
             </li>
