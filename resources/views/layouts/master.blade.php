@@ -30,7 +30,7 @@
 
 
 </head>
-<body class="hold-transition sidebar-mini">
+<body class="hold-transition sidebar-mini ">
 <div class="wrapper">
 
   <!-- Navbar -->
@@ -38,7 +38,7 @@
     <!-- Left navbar links -->
     <ul class="navbar-nav">
       <li class="nav-item">
-        <a class="nav-link" data-widget="pushmenu" href="#"><i class="fas fa-bars"></i></a>
+        <a class="nav-link" data-widget="pushmenu" class="sidebar-toggle" data-toggle="push-menu" role="button" href="#"><i class="fas fa-bars"></i></a>
       </li>
       <li class="nav-item d-none d-sm-inline-block">
         <a href="index3.html" class="nav-link">Home</a>
@@ -86,10 +86,11 @@
 
       <!-- Sidebar Menu -->
       <nav class="mt-2">
-        {{-- <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+        <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="true">
           <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
-            </ul> --}}
+
+            </ul>
 
 
           {{-- For Admin Sidebar      --}}
@@ -143,13 +144,60 @@
         </ul>
         <ul class="nav nav-sidebar flex-column">
             <li class="nav-item">
-                <a href="/admin/searchorder" class="nav-link {{ Request::is('admin/search') ? 'active' : ''}}">
+                <a href="/admin/searchorderview" class="nav-link {{ Request::is('admin/searchorderview') ? 'active' : ''}}">
+                    <div style="font-size: 1.33rem;">
+                        &nbsp;<i class="fas fa-search"></i>
+                        <p style="font-size: 1rem;">Search View</p>
+                    </div>
+                </a>
+            </li>
+        </ul>
+        <ul class="nav nav-sidebar flex-column">
+            <li class="nav-item">
+                <a href="/admin/searchorder" class="nav-link {{ Request::is('admin/searchorder') ? 'active' : ''}}">
                     <div style="font-size: 1.33rem;">
                         &nbsp;<i class="fas fa-search"></i>
                         <p style="font-size: 1rem;">Search</p>
                     </div>
                 </a>
             </li>
+        </ul>
+        <ul class="nav nav-sidebar flex-column">
+          <li class="nav-item">
+              <a href="/admin/datatable" class="nav-link {{ Request::is('admin/datatable') ? 'active' : ''}}">
+                  <div style="font-size: 1.33rem;">
+                      &nbsp;<i class="fas fa-search"></i>
+                      <p style="font-size: 1rem;">Datatable</p>
+                  </div>
+              </a>
+          </li>
+        </ul>
+        <ul class="nav nav-sidebar flex-column">
+            <li class="nav-item">
+                <a href="/admin/orderexport" class="nav-link {{ Request::is('admin/orderexport') ? 'active' : ''}}">
+                    <div style="font-size: 1.33rem;">
+                        &nbsp;<i class="fas fa-search"></i>
+                        <p style="font-size: 1rem;">Order Report</p>
+                    </div>
+                </a>
+            </li>
+          </ul>
+        <ul class="nav nav-sidebar flex-column" data-widget="treeview">
+          <li class="treeview">
+            <a href="#">SETTINGS</a>
+            <ul class="treeview-menu">
+              <li><a href="/admin/shippingcharge" class="{{ Request::is('admin/shippingcharge') ? 'active' : ''}}">SHIPPING CHARGE</a></li>
+            </ul>
+            <ul class="treeview-menu">
+              <li><a href="#">USERS</a></li>
+            </ul>
+            <ul class="treeview-menu">
+              <li><a href="#">BRANCH</a></li>
+            </ul>
+            <ul class="treeview-menu">
+              <li><a href="#">STATUS</a></li>
+            </ul>
+          </li>
         </ul>
           @endif
 
@@ -300,5 +348,45 @@ $('#datetimepicker2').datepicker({
 });
 </script>
 <script src="{{ asset('vendor/datatables/buttons.server-side.js') }}"></script>
+
+{{-- Toggle Sidebar  --}}
+<script>
+    $(document).on('click', '[data-toggle="push-menu"]', function () {
+    if (!$('body').hasClass("sidebar-collapse") && $('body').hasClass("sidebar-open")) {
+        $('body').removeClass("sidebar-open");
+        $('body').addClass("sidebar-collapse");
+        $('body').addClass("sidebar-mini");
+    //console.log('menu kapa');
+    } else if($('body').hasClass("sidebar-collapse")) {
+        $('body').removeClass("sidebar-collapse");
+        $('body').addClass("sidebar-open");
+    //console.log('menu ac');
+    } else {
+        $('body').addClass("sidebar-collapse");
+        $('body').addClass("sidebar-open");
+    }
+});
+</script>
+
+{{-- Treeview collapse  --}}
+<script>
+//  $(document).ready(function() {
+
+//     });
+
+
+ /** add active class and stay opened when selected */
+ var url = window.location;
+
+// for sidebar menu entirely but not cover treeview
+$('ul.sidebar-menu a').filter(function() {
+   return this.href == url;
+}).parent().addClass('active');
+
+// for treeview
+$('ul.treeview-menu a').filter(function() {
+   return this.href == url;
+}).parentsUntil(".sidebar-menu > .treeview-menu").addClass('active');
+</script>
 </body>
 </html>

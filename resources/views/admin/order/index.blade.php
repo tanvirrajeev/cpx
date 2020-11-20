@@ -80,10 +80,9 @@
         }
 
     });
-} );
+});
 </script>
 
 
 @endsection
-
 

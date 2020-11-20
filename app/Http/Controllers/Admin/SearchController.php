@@ -76,35 +76,107 @@ class SearchController extends Controller
         // return redirect()->route('admin.search.statusupdate')->with('success','CPX Updated Successfully!');
     }
 
+    public function orderview(OrderDataTable $dataTable ){
+        $from_date = date('2020-01-01 00:00:00');
+        $to_date = Carbon::now();
+        return $dataTable
+            ->with([
+                'from' => $from_date,
+                'to' => $to_date,
+                ])
+            ->render('admin.search.order');
+        // return $dataTable->render('admin.search.order');
+    }
+
+
     public function order(OrderDataTable $dataTable, Request $request ){
         // dd($dataTable->request()->all());
         // $from = date('2020-11-10 00:00:00');
         // $to = date('2020-11-11 23:59:59');
-        if($request != 'NULL'){
-            dd($request);
+
+        if(count($request->all()) < 0){
+            // dd($request->from_date);
+            $from_date = date($request->from_date);
+            $to_date = date($request->to_date);
+            // dd($from_date);
             return $dataTable
-            ->with([
-                'from' => $request->from,
-                'to' => $request->to,
-                ])
-            ->render('admin.search.order');
+                ->with([
+                    'from' => $from_date,
+                    'to' => $to_date,
+                    ])
+                ->render('admin.search.order');
+
         }else{
-            $from = date('2020-08-01 00:00:00');
-            // $to = date('2020-11-11 23:59:59');
-            $to = Carbon::now();;
+            $from_date = date('2020-11-11 00:00:00');
+            $to_date = Carbon::now();
+
             return $dataTable
-            ->with([
-                'from' => $from,
-                'to' => $to,
-                ])
-            ->render('admin.search.order');
+                ->with([
+                    'from' => $from_date,
+                    'to' => $to_date,
+                    ])
+                ->render('admin.search.order');
         }
+
+
+
+        if(count($request->all()) > 0 ){
+            return $dataTable
+                ->with([
+                    'from' => $request->from_date,
+                    'to' => $request->to_date,
+                    ])
+                ->render('admin.search.order');
+        }else{
+            $from_date = date('2020-01-01 00:00:00');
+            $to_date = Carbon::now();
+
+            return $dataTable
+                ->with([
+                    'from' => $request->from_date,
+                    'to' => $request->to_date,
+                    ])
+                ->render('admin.search.order');
+        }
+
+
+
+
+        // if($request->from_date != '' && $request->to_date != ''){
+        //     dd($request->to_date);
+        //     return $dataTable
+        //     ->with([
+        //         'from' => $request->from_date,
+        //         'to' => $request->to_date,
+        //         ])
+        //     ->render('admin.search.order');
+        // }
+
+
+        // if($request == ''){
+        //     // dd($request);
+        //     return $dataTable
+        //     ->with([
+        //         'from' => $request->from,
+        //         'to' => $request->to,
+        //         ])
+        //     ->render('admin.search.order');
+        // }else{
+        //     $from = date('2020-08-01 00:00:00');
+        //     // $to = date('2020-11-11 23:59:59');
+        //     $to = Carbon::now();
+        //     return $dataTable
+        //     ->with([
+        //         'from' => $from,
+        //         'to' => $to,
+        //         ])
+        //     ->render('admin.search.order');
+        // }
         // return $dataTable->render('admin.search.order');
     }
 
     public function datatable(){
-        $ord = Order::all();
-        return view('admin.search.datatable',compact('ord'));
+
     }
 
     public function create()

@@ -82,11 +82,13 @@
     jQuery(document).ready(function(){
       $("#spchargeid").change(function() {
         var selectedstatus = $(this).val();
+        console.log(selectedstatus);
         $.ajax({
           type: 'get',
-          url: "{{ url('/admin/shippingchargelist') }}",
+          url: "{{ url('/admin/spchargelist') }}",
           data: {selectedstatus:selectedstatus},
           success:function(data){
+            //   console.log(data.amount);
             var st = $('#billingform');
             st.find('#spcharge').val(data.amount);
             $('#hiddenfld').find('#hidspcharge').val(data.amount);

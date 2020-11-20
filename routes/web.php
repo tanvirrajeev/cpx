@@ -45,16 +45,21 @@ Route::group([ 'as'=>'admin.', 'prefix' => 'admin', 'namespace'=>'Admin', 'middl
         Route::get('gethistory', 'OrderController@gethistory')->name('order.gethistory');
         Route::resource('billing', 'BillingController');
         Route::get('billinglist', 'BillingController@billinglist')->name('billing.billinglist');
-        Route::get('shippingchargelist', 'BillingController@shippingchargelist')->name('shippingchargelist');
+        Route::get('spchargelist', 'BillingController@shippingchargelist')->name('billing.shippingchargelist');
         Route::get('entry', 'BillingController@billentry')->name('billentry');
         Route::get('billing/{id}/entry', 'BillingController@billentry')->name('billentry');
         Route::resource('search', 'SearchController');
         Route::get('awb', 'SearchController@getawb')->name('search.awb');
         Route::post('statusupdate', 'SearchController@statusupdate')->name('search.statusupdate');
-        Route::get('searchorder', 'SearchController@order')->name('search.order');
-        Route::post('searchorder', 'SearchController@order')->name('search.order');
+        Route::get('searchorderview', 'SearchController@orderview')->name('search.orderview');
+        Route::get('searchorder', 'SearchController@order')->name('search.getorder');
+        Route::post('searchorder', 'SearchController@order')->name('search.postorder');
         Route::get('datatable', 'SearchController@datatable')->name('search.datatable');
-
+        Route::resource('shippingcharge', 'ShippingchargeController');
+        Route::get('shippingchargelist', 'ShippingchargeController@shippingchargelist')->name('shipping.shippingchargelist');
+        // Route::resource('orderexport', 'OrderexportController');
+        Route::get('orderexport', 'OrderexportController@index')->name('orderexport.index');
+        Route::get('orderexport_view', 'OrderexportController@orderexport_view')->name('orderexport.orderexport_view');
 
 });
 
