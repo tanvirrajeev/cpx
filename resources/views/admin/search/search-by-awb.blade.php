@@ -25,8 +25,8 @@
 
                         <input type="hidden" id="datalength" name="datalength">
 
-                        <button type="button" class="btn btn-dark" id="searchawb">SEARCH</button>
-                        <button type="button" class="btn btn-dark" id="chgsts">CHANGE STATUS</button>
+                        <button type="button" class="btn bg-purple" id="searchawb">SEARCH</button>
+                        <button type="button" class="btn bg-maroon" id="chgsts">ARRIVED AT DHAKA</button>
                       </form>
                       <br>
 

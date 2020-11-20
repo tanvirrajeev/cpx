@@ -23,20 +23,16 @@ class OrderDataTable extends DataTable
 
 
     public function query(OrderDataTable $model){
-        // $from = date('2020-11-10 00:00:00');
-        // $to = date('2020-11-11 23:59:59');
-        // $data = Order::where('created_at', '2020-11-11 22:03:13');
-        // $data = Order::select();
         $data = Order::query()
-            // ->whereBetween('created_at', ['2020-11-10 00:00:00', '2020-11-11 23:59:59'])
-            ->whereBetween('created_at', [$this->from, $this->to])
+            ->join('statuses', 'statuses.id', '=', 'orders.status_id')
             ->select([
                 'orders.id',
                 'orders.ecomordid',
-                'orders.status_id',
+                'statuses.name as statusname',
                 'orders.awb',
                 'orders.created_at'
             ]);
+
         return $this->applyScopes($data);
     }
 
@@ -48,7 +44,7 @@ class OrderDataTable extends DataTable
                     ->columns([
                         'id' => [ 'title' => 'SHIPPING CODE' ],
                         'ecomordid' => [ 'title' => 'ECOM ORDER' ],
-                        'status_id' => [ 'title' => 'STATUS' ],
+                        'statusname' => [ 'title' => 'STATUS' ],
                         'awb' => [ 'title' => 'AWB' ],
                         'created_at' => [ 'title' => 'DATE' ],
                     ])
@@ -59,7 +55,7 @@ class OrderDataTable extends DataTable
                         'dom'          => 'Bfrtip',
                         'buttons'      => ['excel', 'print', 'reset', 'reload'],
                         'initComplete' => "function () {
-                            this.api().columns([0,3]).every(function () {
+                            this.api().columns([0,1,3,4]).every(function () {
                                 var column = this;
                                 var input = document.createElement(\"input\");
                                 $(input).appendTo($(column.footer()).empty())
@@ -76,7 +72,7 @@ class OrderDataTable extends DataTable
         return [
             Column::make('id'),
             Column::make('ecomordid'),
-            Column::make('status_id'),
+            Column::make('statusname'),
             Column::make('awb'),
             Column::make('created_at'),
         ];

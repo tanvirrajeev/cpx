@@ -90,82 +90,21 @@ class SearchController extends Controller
     }
 
 
-    public function order(OrderDataTable $dataTable, Request $request ){
+    public function order(OrderDataTable $dataTable ){
         // dd($dataTable->request()->all());
         // $from = date('2020-11-10 00:00:00');
         // $to = date('2020-11-11 23:59:59');
+        return $dataTable->render('admin.search.order');
 
-        if(count($request->all()) < 0){
-            // dd($request->from_date);
-            $from_date = date($request->from_date);
-            $to_date = date($request->to_date);
-            // dd($from_date);
-            return $dataTable
-                ->with([
-                    'from' => $from_date,
-                    'to' => $to_date,
-                    ])
-                ->render('admin.search.order');
-
-        }else{
-            $from_date = date('2020-11-11 00:00:00');
-            $to_date = Carbon::now();
-
-            return $dataTable
-                ->with([
-                    'from' => $from_date,
-                    'to' => $to_date,
-                    ])
-                ->render('admin.search.order');
-        }
-
-
-
-        if(count($request->all()) > 0 ){
-            return $dataTable
-                ->with([
-                    'from' => $request->from_date,
-                    'to' => $request->to_date,
-                    ])
-                ->render('admin.search.order');
-        }else{
-            $from_date = date('2020-01-01 00:00:00');
-            $to_date = Carbon::now();
-
-            return $dataTable
-                ->with([
-                    'from' => $request->from_date,
-                    'to' => $request->to_date,
-                    ])
-                ->render('admin.search.order');
-        }
     }
 
-    public function searchorderview(){
-        return view('admin.search.searchorder');
-    }
+    // public function searchorderview(){
+    //     return view('admin.search.searchorder');
+    // }
 
-    public function searchorder(Request $request){
-        // $data = DB::table('orders')
-        //         // ->where('ecomstatus', 'ARRIVED')
-        //         ->join('statuses', 'statuses.id', '=', 'orders.status_id')
-        //         ->select('orders.id as id','ecomordid','consigneename','statuses.name as statusname','note','orders.created_at','awb')
-        //         ->get();
-
-        // return Datatables::of($data)
-        // ->make(true);
-
-        // Log::info('date: '.$request->from_date);
-
-
-        // ->when($from_date && $to_date, function ($query, $condition) use($from_date, $to_date) {
-        //     return $query->whereBetween('created_at', [$from_date, $to_date]);
-        // })
-
-
+    public function searchorderdate(Request $request){
         if(request()->ajax()){
             if(!empty($request->from_date)){
-                // $start = Carbon::parse($request->start)->startOfDay();
                 $from_date = Carbon::parse($request->from_date)->startOfDay();
                 $to_date = Carbon::parse($request->to_date)->endOfDay();
 
@@ -186,11 +125,7 @@ class SearchController extends Controller
                 return datatables()->of($data)->make(true);
                 }
 
-            return view('admin.search.searchorder');
-    }
-
-    public function datatable(){
-
+            return view('admin.search.searchorderdate');
     }
 
     public function create()

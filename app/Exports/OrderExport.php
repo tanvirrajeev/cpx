@@ -6,6 +6,8 @@ use App\Order;
 use Maatwebsite\Excel\Concerns\FromCollection;
 use Illuminate\Contracts\View\View;
 use Maatwebsite\Excel\Concerns\FromView;
+use Maatwebsite\Excel\Concerns\WithMapping;
+use Maatwebsite\Excel\Concerns\WithHeadings;
 use Illuminate\Support\Facades\DB;
 use Carbon\Carbon;
 
@@ -28,7 +30,9 @@ class OrderExport implements FromView {
         // $to_date   = request()->input('to_date') ;
 
         $ord = DB::table('orders')
-            ->whereBetween('created_at', [ $from_date, $to_date ] )
+            ->join('statuses', 'statuses.id', '=', 'orders.status_id')
+            ->select('orders.id as id','ecomordid','consigneename','statuses.name as statusname','note','orders.created_at','awb')
+            ->whereBetween('orders.created_at', [ $from_date, $to_date ] )
             ->get();
 
         return view('admin.report.ordertbl', [

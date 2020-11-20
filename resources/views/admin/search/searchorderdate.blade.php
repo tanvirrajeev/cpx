@@ -60,42 +60,6 @@
     </div>
 </div>
 
-{{-- DataTalbe for Admin Order page --}}
-{{-- <script>
-    $(document).ready( function () {
-    $('#ordersearch').DataTable({
-        processing: true,
-        serverSide: true,
-        responsive: true,
-        order: [0, 'desc'],
-        ajax: '{!! route('admin.search.searchorder') !!}',
-        // columnDefs: [{ "orderable": false, "targets": '_all' }],
-        columns: [
-            { data: 'id', name: 'id' },
-            { data: 'ecomordid', name: 'ecomordid' },
-            // { data: 'consigneename', name: 'consigneename' },
-            { data: 'statusname', name: 'statusname' },
-            { data: 'awb', name: 'awb' },
-            { data: 'created_at', name: 'created_at' }
-            // { data: 'action', name: 'action' }
-
-        ],
-        initComplete: function () {
-            this.api().columns([0,1]).every(function () {
-            var column = this;
-            var input = document.createElement("input");
-            $(input).appendTo($(column.footer()).empty())
-            .on('change', function () {
-                column.search($(this).val(), false, false, true).draw();
-                });
-            });
-        }
-
-    });
-});
-</script> --}}
-
-
 
 <script>
     $(document).ready(function(){
@@ -115,7 +79,7 @@
        responsive: true,
        order: [0, 'desc'],
        ajax: {
-        url:'{{ route("admin.search.searchorder") }}',
+        url:'{{ route("admin.search.searchorderdate") }}',
         data:{from_date:from_date, to_date:to_date}
        },
        columns: [

@@ -12,7 +12,7 @@
                                     <td>{{$item->id}}</td>
                                     <td>{{$item->ecomordid}}</td>
                                     <td>{{$item->awb}}</td>
-                                    <td>{{$item->status_id}}</td>
+                                    <td>{{$item->statusname}}</td>
                                     <td>{{$item->created_at}}</td>
                                 </tr>
                             @endforeach

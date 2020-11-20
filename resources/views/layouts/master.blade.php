@@ -137,57 +137,27 @@
                 <a href="/admin/search" class="nav-link {{ Request::is('admin/search') ? 'active' : ''}}">
                     <div style="font-size: 1.33rem;">
                         &nbsp;<i class="fas fa-search"></i>
-                        <p style="font-size: 1rem;">Search AWB</p>
-                    </div>
-                </a>
-            </li>
-        </ul>
-        {{-- <ul class="nav nav-sidebar flex-column">
-            <li class="nav-item">
-                <a href="/admin/searchorderview" class="nav-link {{ Request::is('admin/searchorderview') ? 'active' : ''}}">
-                    <div style="font-size: 1.33rem;">
-                        &nbsp;<i class="fas fa-search"></i>
-                        <p style="font-size: 1rem;">Search View</p>
-                    </div>
-                </a>
-            </li>
-        </ul> --}}
-        <ul class="nav nav-sidebar flex-column">
-            <li class="nav-item">
-                <a href="/admin/searchorderr" class="nav-link {{ Request::is('admin/searchorderr') ? 'active' : ''}}">
-                    <div style="font-size: 1.33rem;">
-                        &nbsp;<i class="fas fa-search"></i>
-                        <p style="font-size: 1rem;">Search</p>
+                        <p style="font-size: 1rem;">Update By AWB</p>
                     </div>
                 </a>
             </li>
         </ul>
         <ul class="nav nav-sidebar flex-column">
-          <li class="nav-item">
-              <a href="/admin/datatable" class="nav-link {{ Request::is('admin/datatable') ? 'active' : ''}}">
-                  <div style="font-size: 1.33rem;">
-                      &nbsp;<i class="fas fa-search"></i>
-                      <p style="font-size: 1rem;">Datatable</p>
-                  </div>
-              </a>
-          </li>
-        </ul>
-        <ul class="nav nav-sidebar flex-column">
-            <li class="nav-item">
-                <a href="/admin/orderexport" class="nav-link {{ Request::is('admin/orderexport') ? 'active' : ''}}">
-                    <div style="font-size: 1.33rem;">
-                        &nbsp;<i class="fas fa-search"></i>
-                        <p style="font-size: 1rem;">Order Report</p>
-                    </div>
-                </a>
-            </li>
-          </ul>
-          <ul class="nav nav-sidebar flex-column">
             <li class="nav-item">
                 <a href="/admin/searchorder" class="nav-link {{ Request::is('admin/searchorder') ? 'active' : ''}}">
                     <div style="font-size: 1.33rem;">
                         &nbsp;<i class="fas fa-search"></i>
                         <p style="font-size: 1rem;">Search Order</p>
+                    </div>
+                </a>
+            </li>
+        </ul>
+          <ul class="nav nav-sidebar flex-column">
+            <li class="nav-item">
+                <a href="/admin/searchorderdate" class="nav-link {{ Request::is('admin/searchorderdate') ? 'active' : ''}}">
+                    <div style="font-size: 1.33rem;">
+                        &nbsp;<i class="fas fa-search"></i>
+                        <p style="font-size: 1rem;">Search Order By Date</p>
                     </div>
                 </a>
             </li>
