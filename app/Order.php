@@ -22,7 +22,7 @@ class Order extends Model
 
     protected static function boot(){
         parent::boot();
-        // this triggers everytime an Article model is saved
+        // this triggers everytime an Billing model is saved
         static::created(function (Order $order) {
             $bil = new Billing();
             $bil->order_id = $order->id;

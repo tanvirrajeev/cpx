@@ -77,6 +77,11 @@ Route::group([ 'as'=>'branch.', 'prefix' => 'branch', 'namespace'=>'Branch', 'mi
         Route::get('orderlist', 'OrderController@orderlist')->name('order.orderlist');
         Route::get('dashboardlist', 'OrderController@dashboardlist')->name('order.dashboardlist');
         Route::get('statuslist', 'OrderController@statuslist')->name('order.statuslist');
+        Route::get('tracking', 'OrderController@tracking')->name('order.tracking');
+        Route::get('getstatusmodal', 'OrderController@getstatusmodal')->name('order.getstatusmodal');
+        Route::post('chgstatusmodal', 'OrderController@chgstatusmodal')->name('order.chgstatusmodal');
+        Route::get('getorder', 'OrderController@getorder')->name('order.getorder');
+        Route::get('gethistory', 'OrderController@gethistory')->name('order.gethistory');
 
 });
 
@@ -87,6 +92,7 @@ Route::group([ 'as'=>'customer.', 'prefix' => 'customer', 'namespace'=>'Customer
         Route::resource('order', 'OrderController');
         Route::get('orderlist', 'OrderController@orderlist')->name('order.orderlist');
         Route::get('tracking', 'OrderController@tracking')->name('order.tracking');
+
 });
 
 

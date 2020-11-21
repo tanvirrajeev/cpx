@@ -31,19 +31,19 @@ class OrderController extends Controller
         ->setRowId(function ($data) {
             return $data->id;
             })
-        ->editColumn('statusname', function ($data)  {
+        ->editColumn('statusname', function ($data)  { //set Tracking Modal based on status status->tracking.blade
             if ($data->statusname == "NOT ARRIVED"){
-                return '<a data-id='.$data->id.' data-target="#order-created" data-toggle="modal" id="status" href="">'.$data->statusname.'</a>';
+                return '<a data-id='.$data->id.' data-target="#tracking" data-toggle="modal" id="status" href="">'.$data->statusname.'</a>';
             }else if ($data->statusname == "ARRIVED AT DELHI"){
-                return '<a data-id='.$data->id.' data-target="#received-at-hub" data-toggle="modal" id="status" href="">'.$data->statusname.'</a>';
+                return '<a data-id='.$data->id.' data-target="#tracking" data-toggle="modal" id="status" href="">'.$data->statusname.'</a>';
             }else if ($data->statusname == "ARRIVED AT DHAKA"){
-                return '<a data-id='.$data->id.' data-target="#destination-hub" data-toggle="modal" id="status" href="">'.$data->statusname.'</a>';
+                return '<a data-id='.$data->id.' data-target="#tracking" data-toggle="modal" id="status" href="">'.$data->statusname.'</a>';
             }else if ($data->statusname == "DELIVERED"){
-                return '<a data-id='.$data->id.' data-target="#delivered" data-toggle="modal" id="status" href="">'.$data->statusname.'</a>';
+                return '<a data-id='.$data->id.' data-target="#tracking" data-toggle="modal" id="status" href="">'.$data->statusname.'</a>';
             }else{
-                return '<a data-id='.$data->id.' data-target="#status" data-toggle="modal" id="status" href="">'.$data->statusname.'</a>';
+                return '<a data-id='.$data->id.' data-target="#tracking" data-toggle="modal" id="status" href="">'.$data->statusname.'</a>';
             }
-        })
+            })
         ->addColumn('action', function( $data) {
             return  '<a href="branch/'.$data->id.'/edit" class="btn btn-xs btn-warning"><i class="glyphicon glyphicon-edit"></i><i class="fas fa-edit"></i></a>
             <button class="btn btn-xs btn-danger btn-delete" data-remote="/branch/'. $data->id . '"><i class="fas fa-trash-alt"></i></button>

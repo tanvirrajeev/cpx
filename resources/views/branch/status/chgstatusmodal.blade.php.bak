@@ -128,7 +128,7 @@
                         st.find('#awbd').prop('required',false);
                         st.find('#rcvby').hide();
                         st.find('#rcvby').prop('required',false);
-                    }else if(data == '99'){
+                    }else if(data == '9'){
                         st.find('#rcvby').show();
                         st.find('#rcvby').prop('required',true);
                         st.find('#awbd').hide();
@@ -141,93 +141,84 @@
                         st.find('#note').prop('required',false);
                         st.find('#awbd').prop('required',false);
                     }
-
-
-
-
-                    //Status update by clicing Update button
-                    $(document).on("click", "#updatests" , function() {
-                        // get the selected status from the dropdown
-                        var status = $('#chgstatusmodal').find('#status').val();
-                        var awb = $('#chgstatusmodal').find('#awbd').val();
-                        var note = $('#chgstatusmodal').find('#note').val();
-                        var rcvby = $('#chgstatusmodal').find('#rcvby').val();
-
-                        //Check if the field are not blank
-                        if (data == '1' && $('#chgstatusmodal').find('#awbd').val()){
-                            update();
-                        }else if (data == '2' && $('#chgstatusmodal').find('#note').val()){
-                            update();
-                        }else if (data == '99' && $('#chgstatusmodal').find('#rcvby').val()){
-                            update();
-                        }else{
-                            Swal.fire({
-                                icon: 'error',
-                                title: 'Field Missing',
-                                text: 'Please fill up all fields'
-                                })
-                        }
-
-                    //Actual update function()
-                    function update(){
-                        //SweetAlert2 Toast for CPX Update confirmation
-                        const Toast = Swal.mixin({
-                            toast: true,
-                            position: 'top-end',
-                            showConfirmButton: false,
-                            timer: 2000
-                        });
-
-                        // Check if the field is blank. CPX ID getting from var id = $(event.relatedTarget).data('id');
-                        if(id != ''){
-                            // Sweetalert to check whether it is pressed by accidentally or not
-                            Swal.fire({
-                            title: 'Are you sure?',
-                            text: "You want to update the Status?",
-                            icon: 'warning',
-                            showCancelButton: true,
-                            confirmButtonColor: '#3085d6',
-                            cancelButtonColor: '#d33',
-                            confirmButtonText: 'Yes, Update!'
-                            }).then((result) => {
-                                if (result.isConfirmed) {
-
-                                    $.ajax({
-                                    type: 'post',
-                                    url: "{{ url('/admin/chgstatusmodal') }}",
-                                    data: {_token: CSRF_TOKEN,id: id,status: status, awb: awb, note: note, rcvby: rcvby},
-                                    success:function(data){
-                                        // alert(data);
-                                        // location.reload();
-                                        // $('#getawb').find('#awbsrc1').val(awbchg);
-                                        console.log("$data: "+ data);
-
-
-                                        Toast.fire({
-                                        type: 'success',
-                                        icon: 'success',
-                                        title: 'CPX UPDATED!'
-                                        });
-                                        location.reload();
-                                        }
-                                    })
-                                }
-                            })
-                        }else{
-                            Swal.fire({
-                            title: 'Error!',
-                            text: "AWB field can not be left blank",
-                            icon: 'error',
-                            confirmButtonColor: '#3085d6',
-                            confirmButtonText: 'OK'
-                            })
-                        }
-                    }
-
-                    });
                 }
             })
         });
+
+
+        //Status update by clicing Update button
+        $(document).on("click", "#updatests" , function() {
+            // get the selected status from the dropdown
+            var status = $('#chgstatusmodal').find('#status').val();
+            var awb = $('#chgstatusmodal').find('#awbd').val();
+            var note = $('#chgstatusmodal').find('#note').val();
+            var rcvby = $('#chgstatusmodal').find('#rcvby').val();
+            // console.log("cpxid "+id);
+            console.log("Selected Status ID: " +status);
+            // console.log("AWB : " +awb);
+            // console.log("NOTE : " +note);
+            // console.log("RCVBY : " +rcvby);
+            // var st = $("#chgstatusmodal");
+
+            //SweetAlert2 Toast for CPX Update confirmation
+            const Toast = Swal.mixin({
+                toast: true,
+                position: 'top-end',
+                showConfirmButton: false,
+                timer: 2000
+            });
+
+            // Check if the field is blank. CPX ID getting from var id = $(event.relatedTarget).data('id');
+            if(id != ''){
+                // Sweetalert to check whether it is pressed by accidentally or not
+                Swal.fire({
+                title: 'Are you sure?',
+                text: "You want to update the Status?",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Yes, Update!'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+
+
+
+
+
+                        $.ajax({
+                        type: 'post',
+                        url: "{{ url('/admin/chgstatusmodal') }}",
+                        data: {_token: CSRF_TOKEN,id: id,status: status, awb: awb, note: note, rcvby: rcvby},
+                        success:function(data){
+                            // alert(data);
+                            // location.reload();
+                            // $('#getawb').find('#awbsrc1').val(awbchg);
+                            console.log("$data: "+ data);
+
+
+                            Toast.fire({
+                            type: 'success',
+                            icon: 'success',
+                            title: 'CPX UPDATED!'
+                            });
+                            location.reload();
+                            }
+                        })
+                    }
+                })
+            }else{
+                Swal.fire({
+                title: 'Error!',
+                text: "AWB field can not be left blank",
+                icon: 'error',
+                confirmButtonColor: '#3085d6',
+                confirmButtonText: 'OK'
+                })
+            }
+
+        });
         }
+
     });
 </script>

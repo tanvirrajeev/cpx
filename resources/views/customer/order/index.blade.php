@@ -5,11 +5,12 @@
     {{-- Status progress modal --}}
     <link href="{{ asset('css/progress-wizard.min.css') }}" rel="stylesheet">
     <link href="{{ asset('css/vertical-bar.css') }}" rel="stylesheet">
-    @include('customer.status.order-created')
+    {{-- @include('customer.status.order-created')
     @include('customer.status.received-at-hub')
     @include('customer.status.destination-hub')
-    @include('customer.status.delivered')
+    @include('customer.status.delivered') --}}
     {{-- !!Status progress modal --}}
+    @include('customer.status.tracking')
     <div class="row">
         <div>
 

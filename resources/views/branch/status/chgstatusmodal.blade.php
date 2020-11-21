@@ -60,7 +60,7 @@
 
         $.ajax({
             type: 'get',
-            url: "{{ url('/admin/getstatusmodal') }}",
+            url: "{{ url('/branch/getstatusmodal') }}",
             data: {id:id},
             success:function(data){
                 // var sltstatus = '';
@@ -111,7 +111,7 @@
             //Enable disable field based on dropdown select options. This is based on histories->flag table
             $.ajax({
                 type: 'get',
-                url: "{{ url('/admin/statuslist') }}",
+                url: "{{ url('/branch/statuslist') }}",
                 data: {selectedstatus:selectedstatus},
                 success:function(data){
                     if(data == '1'){
@@ -194,7 +194,7 @@
 
                                     $.ajax({
                                     type: 'post',
-                                    url: "{{ url('/admin/chgstatusmodal') }}",
+                                    url: "{{ url('/branch/chgstatusmodal') }}",
                                     data: {_token: CSRF_TOKEN,id: id,status: status, awb: awb, note: note, rcvby: rcvby},
                                     success:function(data){
                                         // alert(data);

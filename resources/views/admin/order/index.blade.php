@@ -22,7 +22,6 @@
                         <thead>
                                 <th>SHIPPING CODE</th>
                                 <th>ECOM ORD NO</th>
-                                {{-- <th>CONSIGNEE NAME</th> --}}
                                 <th>STATUS</th>
                                 <th>AWB</th>
                                 <th>CREATED AT</th>
@@ -32,12 +31,10 @@
                             <tr>
                                 <th>SHIPPING CODE</th>
                                 <th>ECOM ORD NO</th>
-                                {{-- <th>CONSIGNEE NAME</th> --}}
                                 <th>STATUS</th>
-                                {{-- <th>NOTE</th> --}}
                                 <th>AWB</th>
                                 <th>CREATED AT</th>
-                                <th>ACTION</th>
+                                <th width="170px">ACTION</th>
                             </tr>
                         </tfoot>
 
@@ -66,7 +63,6 @@
             { data: 'awb', name: 'awb' },
             { data: 'created_at', name: 'created_at' },
             { data: 'action', name: 'action' }
-
         ],
         initComplete: function () {
             this.api().columns([0,1]).every(function () {
@@ -78,11 +74,8 @@
                 });
             });
         }
-
     });
 });
 </script>
-
-
 @endsection
 

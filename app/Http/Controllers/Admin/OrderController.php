@@ -28,32 +28,57 @@ class OrderController extends Controller
     }
 
     public function dashboardlist(){
+
         $data = DB::table('orders')
-                // ->where('status_id', 'NOT ARRIVED')
-                // ->orWhere('ecomstatus', 'OTHERS')
-                ->join('statuses', 'statuses.id', '=', 'orders.status_id')
-                ->select('orders.id as id','ecomordid','consigneename','statuses.name as statusname','note','orders.created_at')
-                ->where('statuses.flag', '0')
-                ->orWhere('statuses.flag', '1')
-                // ->orWhere('ecomstatus', 'OTHERS')
-                ->get();
-        return Datatables::of($data)
-        ->editColumn('created_at', function ($data) {
-            return $data->created_at ? with(new Carbon($data->created_at))->format('d/m/Y') : '';
-        })
-        ->addColumn('action', function( $data) {
-            return  '<a href="/admin/order/'.$data->id.'" class="btn btn-xs btn-primary"><i class="fas fa-eye"></i></a>
-            <a href="/admin/order/'.$data->id.'/edit" class="btn btn-xs btn-danger"><i class="fas fa-edit"></i></a>';
-        })
-        ->rawColumns(['action'])
-        ->make(true);
+        // ->where('ecomstatus', 'ARRIVED')
+            ->join('statuses', 'statuses.id', '=', 'orders.status_id')
+            ->select('orders.id as id','ecomordid','consigneename','statuses.name as statusname','note','orders.created_at','awb')
+            ->whereBetween('statuses.flag', [0, 98])
+            ->get();
+
+        return Datatables::of($data)     // View Order Page Datatable
+            //setting up id to every row
+            ->setRowId(function ($data) {
+                return $data->id;
+                })
+            ->editColumn('id', function ($data)  { //set Tracking Modal based on status
+                return '<a data-id='.$data->id.' data-target="#cpx" data-toggle="modal" id="cpx" href="">'.$data->id.'</a>';
+            })
+            ->editColumn('statusname', function ($data)  { //set Tracking Modal based on status status->tracking.blade
+                if ($data->statusname == "NOT ARRIVED"){
+                    return '<a data-id='.$data->id.' data-target="#tracking" data-toggle="modal" id="status" href="">'.$data->statusname.'</a>';
+                }else if ($data->statusname == "ARRIVED AT DELHI"){
+                    return '<a data-id='.$data->id.' data-target="#tracking" data-toggle="modal" id="status" href="">'.$data->statusname.'</a>';
+                }else if ($data->statusname == "ARRIVED AT DHAKA"){
+                    return '<a data-id='.$data->id.' data-target="#tracking" data-toggle="modal" id="status" href="">'.$data->statusname.'</a>';
+                }else if ($data->statusname == "DELIVERED"){
+                    return '<a data-id='.$data->id.' data-target="#tracking" data-toggle="modal" id="status" href="">'.$data->statusname.'</a>';
+                }else{
+                    return '<a data-id='.$data->id.' data-target="#tracking" data-toggle="modal" id="status" href="">'.$data->statusname.'</a>';
+                }
+            })
+            ->editColumn('created_at', function ($data) {
+                // return $data->created_at ? with(new Carbon($data->created_at))->format('d-M-Y') : '';
+                $date = $data->created_at ? with(new Carbon($data->created_at))->format('d-M-Y') : '';
+                return '<a data-id='.$data->id.' data-target="#history" data-toggle="modal" id="cpx" href="">'.$date.'</a>';
+            })
+            ->addColumn('action', function( $data) {
+                return  '<a data-id='.$data->id.' data-target="#chgstatusmodal" data-toggle="modal" id="status" class="btn btn-xs bg-maroon" href=""><i class="fas fa-exchange-alt"></i></a>
+                <a href="/admin/order/'.$data->id.'" class="btn btn-xs btn-primary"><i class="fas fa-eye"></i></a>
+                <a href="/admin/order/'.$data->id.'/edit" class="btn btn-xs bg-purple"><i class="fas fa-edit"></i></a>';
+            })
+            ->rawColumns(['action','statusname','id','created_at'])
+            ->make(true);
+
     }
 
+    //View Orders Datatable
     public function orderlist(){
         $data = DB::table('orders')
                 // ->where('ecomstatus', 'ARRIVED')
                 ->join('statuses', 'statuses.id', '=', 'orders.status_id')
                 ->select('orders.id as id','ecomordid','consigneename','statuses.name as statusname','note','orders.created_at','awb')
+                ->where('statuses.flag', '99')
                 ->get();
 
         return Datatables::of($data)     // View Order Page Datatable
@@ -83,9 +108,8 @@ class OrderController extends Controller
             return '<a data-id='.$data->id.' data-target="#history" data-toggle="modal" id="cpx" href="">'.$date.'</a>';
         })
         ->addColumn('action', function( $data) {
-            return  '<a data-id='.$data->id.' data-target="#chgstatusmodal" data-toggle="modal" id="status" class="btn btn-xs bg-maroon" href=""><i class="fas fa-exchange-alt"></i></a>
-            <a href="/admin/order/'.$data->id.'" class="btn btn-xs btn-primary"><i class="fas fa-eye"></i></a>
-            <a href="/admin/order/'.$data->id.'/edit" class="btn btn-xs bg-purple"><i class="fas fa-edit"></i></a>';
+            return  '<a href="/admin/order/'.$data->id.'" class="btn btn-xs btn-primary"><i class="fas fa-eye"></i></a>
+            <a href="/admin/order/'.$data->id.'/edit" class="btn btn-xs bg-maroon"><i class="fas fa-edit"></i></a>';
         })
         ->rawColumns(['action','statusname','id','created_at'])
         ->make(true);

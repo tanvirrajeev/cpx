@@ -137,7 +137,7 @@
                 st.find('#awbd').prop('required',false);
                 st.find('#rcvby').hide();
                 st.find('#rcvby').prop('required',false);
-            }else if(data == '9'){
+            }else if(data == '99'){
                 st.find('#rcvby').show();
                 st.find('#rcvby').prop('required',true);
                 st.find('#awbd').hide();
