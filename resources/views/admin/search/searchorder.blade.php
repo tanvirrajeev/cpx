@@ -7,7 +7,7 @@
         <div class="col-md-12">
 
             <div class="card">
-                <div class="card-header bg-orange"><h3>{{ __('Update By AWB') }}</h3></div>
+                <div class="card-header bg-orange"><h3>{{ __('SEARRCH ORDERS') }}</h3></div>
                 <div class="card-body">
 
                     <div class="table-responsive">

@@ -162,6 +162,17 @@
                 </a>
             </li>
           </ul>
+        </ul>
+        <ul class="nav nav-sidebar flex-column">
+          <li class="nav-item">
+              <a href="/admin/searchbillingdate" class="nav-link {{ Request::is('admin/searchbillingdate') ? 'active' : ''}}">
+                  <div style="font-size: 1.33rem;">
+                      &nbsp;<i class="fas fa-search"></i>
+                      <p style="font-size: 1rem;">Search Billing By Date</p>
+                  </div>
+              </a>
+          </li>
+        </ul>
         <ul class="nav nav-sidebar flex-column" data-widget="treeview">
           <li class="treeview">
             <a href="#">SETTINGS</a>

@@ -15,7 +15,8 @@ class OrderexportController extends Controller
     public function index(){
         // $ord = Order::paginate(10);
         $ord = DB::table('orders')
-            // ->where('id', 65)
+        ->join('statuses', 'statuses.id', '=', 'orders.status_id')
+        ->select('orders.id as id','ecomordid','consigneename','statuses.name as statusname','note','orders.created_at','awb')
             ->paginate(15);
         return view('admin.report.order', compact('ord'));
     }

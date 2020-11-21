@@ -6,10 +6,10 @@
     <div class="row justify-content-center">
         <div class="col-md-12">
             <div class="card">
-                <div class="card-header bg-orange"><h3>{{ __('SEARCH ORDER BY DATE') }}</h3></div>
+                <div class="card-header bg-orange"><h3>{{ __('SEARCH BILL BY DATE') }}</h3></div>
                 <div class="card-body">
 
-                    <form method="get" action="{{ route('admin.orderexport.orderexport_view') }}">
+                    <form method="get" action="{{ route('admin.search.searchbillingexport') }}">
                         <div class="form-group">
                             <div class="row">
                                 <div class="col-md-4"><b><span id="total_records"></span></b></div>
@@ -31,29 +31,16 @@
                     </form>
 
 
-                    <table class="table border" id="ordersearch">
+                    <table class="table border" id="billingsearch">
                         <thead>
                                 <th>SHIPPING CODE</th>
-                                <th>ECOM ORD NO</th>
-                                {{-- <th>CONSIGNEE NAME</th> --}}
-                                <th>STATUS</th>
-                                <th>AWB</th>
+                                <th>SHIPPING($)</th>
+                                <th>PRODUCT($)</th>
+                                <th>DUTYTAX($)</th>
+                                <th>NET TOTAL($)</th>
+                                <th>PAYMENT</th>
                                 <th>CREATED AT</th>
-                                {{-- <th>ACTION</th> --}}
                         </thead>
-                        <tfoot>
-                            <tr>
-                                <th>SHIPPING CODE</th>
-                                <th>ECOM ORD NO</th>
-                                {{-- <th>CONSIGNEE NAME</th> --}}
-                                <th>STATUS</th>
-                                {{-- <th>NOTE</th> --}}
-                                <th>AWB</th>
-                                <th>CREATED AT</th>
-                                {{-- <th>ACTION</th> --}}
-                            </tr>
-                        </tfoot>
-
                     </table>
                 </div>
             </div>
@@ -73,24 +60,24 @@
      load_data();
 
      function load_data(from_date = '', to_date = ''){
-      $('#ordersearch').DataTable({
+      $('#billingsearch').DataTable({
        processing: true,
        serverSide: true,
     //    bDestroy: true,
        responsive: true,
        order: [0, 'desc'],
        ajax: {
-        url:'{{ route("admin.search.searchorderdate") }}',
+        url:'{{ route("admin.search.searchbillingdate") }}',
         data:{from_date:from_date, to_date:to_date}
        },
        columns: [
-            { data: 'id', name: 'id' },
-            { data: 'ecomordid', name: 'ecomordid' },
-            // { data: 'consigneename', name: 'consigneename' },
-            { data: 'statusname', name: 'statusname' },
-            { data: 'awb', name: 'awb' },
+            { data: 'order_id', name: 'order_id' },
+            { data: 'shippingcharge', name: 'shippingcharge' },
+            { data: 'productprice', name: 'productprice' },
+            { data: 'dutytax', name: 'dutytax' },
+            { data: 'nettotal', name: 'nettotal' },
+            { data: 'paymentstatus', name: 'paymentstatus' },
             { data: 'created_at', name: 'created_at' }
-            // { data: 'action', name: 'action' }
 
         ],
         initComplete: function () {
@@ -112,7 +99,7 @@
       var to_date = $('#to_date').val();
       console.log(to_date);
       if(from_date != '' &&  to_date != ''){
-        $('#ordersearch').DataTable().destroy();
+        $('#billingsearch').DataTable().destroy();
         console.log('load_data function calling...');
         load_data(from_date, to_date);
       }
@@ -125,7 +112,7 @@
      $('#refresh').click(function(){
       $('#from_date').val('');
       $('#to_date').val('');
-      $('#ordersearch').DataTable().destroy();
+      $('#billingsearch').DataTable().destroy();
       load_data();
      });
 

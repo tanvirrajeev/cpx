@@ -12,6 +12,8 @@ use Auth;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Log;
 use App\DataTables\OrderDataTable;
+use App\Exports\SearchbillingExport;
+use Maatwebsite\Excel\Facades\Excel;
 
 class SearchController extends Controller
 {
@@ -89,18 +91,12 @@ class SearchController extends Controller
         // return $dataTable->render('admin.search.order');
     }
 
-
-    public function order(OrderDataTable $dataTable ){
-        // dd($dataTable->request()->all());
-        // $from = date('2020-11-10 00:00:00');
-        // $to = date('2020-11-11 23:59:59');
-        return $dataTable->render('admin.search.order');
-
+    // Yajra Datatables as Service App\DataTables\OrderDataTable.php
+    //To search Orders
+    public function searchorder(OrderDataTable $dataTable ){
+        // dd($dataTable);
+        return $dataTable->render('admin.search.searchorder');
     }
-
-    // public function searchorderview(){
-    //     return view('admin.search.searchorder');
-    // }
 
     public function searchorderdate(Request $request){
         if(request()->ajax()){
@@ -128,33 +124,52 @@ class SearchController extends Controller
             return view('admin.search.searchorderdate');
     }
 
-    public function create()
-    {
+
+    public function searchbillingdate(Request $request){
+        if(request()->ajax()){
+            if(!empty($request->from_date)){
+                $from_date = Carbon::parse($request->from_date)->startOfDay();
+                $to_date = Carbon::parse($request->to_date)->endOfDay();
+
+                $data = DB::table('billings')
+                    ->when($from_date && $to_date, function ($query, $condition) use($from_date, $to_date) {
+                        return $query->whereBetween('billings.created_at', [$from_date, $to_date]);
+                    })
+                    ->get();
+                }else{
+                    $data = DB::table('billings')->get();;
+                }
+                return datatables()->of($data)->make(true);
+                }
+
+            return view('admin.search.searchbillingdate');
+    }
+
+    public function searchbillingexport(){
+        return Excel::download(new SearchbillingExport, 'billing.xlsx');
+    }
+
+    public function create(){
         //
     }
 
-    public function store(Request $request)
-    {
+    public function store(Request $request){
         //
     }
 
-    public function show(Search $search)
-    {
+    public function show(Search $search){
         //
     }
 
-    public function edit(Search $search)
-    {
+    public function edit(Search $search){
         //
     }
 
-    public function update(Request $request, Search $search)
-    {
+    public function update(Request $request, Search $search){
         //
     }
 
-    public function destroy(Search $search)
-    {
+    public function destroy(Search $search){
         //
     }
 }

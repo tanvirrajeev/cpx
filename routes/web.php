@@ -52,11 +52,14 @@ Route::group([ 'as'=>'admin.', 'prefix' => 'admin', 'namespace'=>'Admin', 'middl
         Route::get('awb', 'SearchController@getawb')->name('search.awb');
         Route::post('statusupdate', 'SearchController@statusupdate')->name('search.statusupdate');
         Route::get('searchorderview', 'SearchController@orderview')->name('search.orderview');
-        Route::get('searchorder', 'SearchController@order')->name('search.getorder');
+        Route::get('searchorder', 'SearchController@searchorder')->name('search.searchorder');
         // Route::post('searchorderr', 'SearchController@order')->name('search.postorder');
         // Route::get('datatable', 'SearchController@datatable')->name('search.datatable');
         // Route::get('searchorderview', 'SearchController@searchorderview')->name('search.searchorderview');
         Route::get('searchorderdate', 'SearchController@searchorderdate')->name('search.searchorderdate');
+        Route::get('searchbillingdate', 'SearchController@searchbillingdate')->name('search.searchbillingdate');
+        Route::get('searchbillingexport', 'SearchController@searchbillingexport')->name('search.searchbillingexport');
+        // Route::get('searchbilling', 'SearchController@searchbilling')->name('search.searchbilling');
         Route::resource('shippingcharge', 'ShippingchargeController');
         Route::get('shippingchargelist', 'ShippingchargeController@shippingchargelist')->name('shipping.shippingchargelist');
         // Route::resource('orderexport', 'OrderexportController');
