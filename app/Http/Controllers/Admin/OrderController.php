@@ -8,6 +8,7 @@ use App\Status;
 
 use Auth;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 use Yajra\DataTables\DataTables;
 use Illuminate\Support\Facades\DB;
 use Carbon\Carbon;
@@ -144,15 +145,27 @@ class OrderController extends Controller
 
 
     public function store(Request $request){
+
+        $this->validate($request,[
+            'ecomordid'=>'required|unique:orders|max:255',
+            'ecomname'=>'required',
+            'ecomproddesc'=>'required',
+            'ecomorddt'=>'required',
+            'consigneename'=>'required',
+            'consigneeaddrs'=>'required'
+         ]);
+
+
+
         $ord = New Order;
         $ord->users_id = Auth::id();
-        $ord->ecomordid = $request->ecomordida;
-        $ord->ecomname = $request->ecomnames;
-        $ord->ecomproddesc = $request->ecomproddescd;
+        $ord->ecomordid = $request->ecomordid;
+        $ord->ecomname = $request->ecomname;
+        $ord->ecomproddesc = $request->ecomproddesc;
         $ord->ecompurchaseamt = $request->ecompurchaseamto;
-        $ord->ecomorddt = $request->ecomorddtt;
-        $ord->consigneename = $request->consigneenamer;
-        $ord->consigneeaddrs = $request->consigneeaddrsf;
+        $ord->ecomorddt = $request->ecomorddt;
+        $ord->consigneename = $request->consigneename;
+        $ord->consigneeaddrs = $request->consigneeaddrs;
         $ord->ecomprdtraclnk = $request->ecomprdtraclnke;
         $ord->ecomsppngpriority = $request->ecomsppngpriorityq;
         $ord->status_id = '3';
@@ -176,15 +189,24 @@ class OrderController extends Controller
     }
 
     public function update(Request $request, $order){
+
+        $this->validate($request,[
+            'ecomname'=>'required',
+            'ecomproddesc'=>'required',
+            'ecomorddt'=>'required',
+            'consigneename'=>'required',
+            'consigneeaddrs'=>'required'
+         ]);
+
         $ord = New Order;
         $ord = Order::find($order);
-        $ord->ecomordid = $request->ecomordida;
-        $ord->ecomname = $request->ecomnames;
-        $ord->ecomproddesc = $request->ecomproddescd;
+        $ord->ecomordid = $request->ecomordid;
+        $ord->ecomname = $request->ecomname;
+        $ord->ecomproddesc = $request->ecomproddesc;
         $ord->ecompurchaseamt = $request->ecompurchaseamto;
-        $ord->ecomorddt = $request->ecomorddtt;
-        $ord->consigneename = $request->consigneenamer;
-        $ord->consigneeaddrs = $request->consigneeaddrsf;
+        $ord->ecomorddt = $request->ecomorddt;
+        $ord->consigneename = $request->consigneename;
+        $ord->consigneeaddrs = $request->consigneeaddrs;
         $ord->ecomprdtraclnk = $request->ecomprdtraclnke;
         $ord->ecomsppngpriority = $request->ecomsppngpriorityq;
         $ord->status_id = $request->ecomstatuss;

@@ -6,6 +6,18 @@
 
         <div class="col-md-9">
             <div class="card">
+
+                {{-- Validation Error Message --}}
+                @if ($errors->any())
+                    <div class="alert alert-danger">
+                        <ul>
+                            @foreach ($errors->all() as $error)
+                                <li>{{ $error }}</li>
+                            @endforeach
+                        </ul>
+                    </div>
+                @endif
+
                 <div class="card-header bg-dark"><h3>{{ __('Order Now') }}</h3></div>
 
                 <div class="card-body bg-orange">
@@ -17,20 +29,20 @@
                             <div class="col-6">
                                 <div class="form-group">
                                     <label for="ecomordida">PRODUCT ORDER NO</label><label class="text-danger">*</label>
-                                    <input type="text" class="form-control" id="ecomordida" name="ecomordida" placeholder="Order id given by E-Commerce" value="{{ old('ecomordida') }}" required autocomplete="ecomordida" autofocus>
+                                    <input type="text" class="form-control" id="ecomordida" name="ecomordid" placeholder="Order id given by E-Commerce" value="{{ old('ecomordida') }}" required autocomplete="ecomordida" autofocus>
                                 </div>
                             </div>
                             <div class="col-6">
                                 <div class="form-group">
                                     <label for="ecomnames">PRODUCT ORDERED FROM</label><label class="text-danger">*</label>
-                                    <input type="text" class="form-control" id="ecomnames" name="ecomnames" placeholder="Amazone, Flipkart etc." value="{{ old('ecomnames') }}" required autocomplete="ecomnames">
+                                    <input type="text" class="form-control" id="ecomnames" name="ecomname" placeholder="Amazone, Flipkart etc." value="{{ old('ecomnames') }}" required autocomplete="ecomnames">
                                 </div>
                             </div>
                         </div>
 
                         <div class="form-group">
                             <label for="ecomproddescd">PRODUCT DESCRIPTION</label><label class="text-danger">*</label>
-                            <textarea class="form-control" id="ecomproddescd" name="ecomproddescd" placeholder="Describe your product" value="{{ old('ecomproddescd') }}" required autocomplete="ecomproddescd"></textarea>
+                            <textarea class="form-control" id="ecomproddescd" name="ecomproddesc" placeholder="Describe your product" value="{{ old('ecomproddescd') }}" required autocomplete="ecomproddescd"></textarea>
                         </div>
 
                         <div class="row">
@@ -51,19 +63,19 @@
                                 <label for="ecomorddtt">DATE OF THE PRODUCT ORDERED</label><label class="text-danger">*</label>
                               <i class="fa fa-calendar-alt"></i>
                               <div class="input-group date" id="datetimepicker2">
-                                <input type="text" class="form-control" name="ecomorddtt" id="ecomorddtt" autocomplete="off" required><span class="input-group-addon"><i class="glyphicon glyphicon-th"></i></span>
+                                <input type="text" class="form-control" name="ecomorddt" id="ecomorddtt" autocomplete="off" required><span class="input-group-addon"><i class="glyphicon glyphicon-th"></i></span>
                               </div>
                             </div>
                         </div>
 
                         <div class="form-group">
                             <label for="consigneenamer">CONSIGNEE NAME</label><label class="text-danger">*</label>
-                            <input type="text" class="form-control" id="consigneenamer" name="consigneenamer" placeholder="Receiver's Name" value="{{ old('consigneenamer') }}" required autocomplete="consigneenamer">
+                            <input type="text" class="form-control" id="consigneenamer" name="consigneename" placeholder="Receiver's Name" value="{{ old('consigneenamer') }}" required autocomplete="consigneenamer">
                         </div>
 
                         <div class="form-group">
                             <label for="consigneeaddrsf">CONSIGNEE ADDRESS</label><label class="text-danger">*</label>
-                            <textarea class="form-control" id="consigneeaddrsf" name="consigneeaddrsf" placeholder="CPX Destination" value="{{ old('consigneeaddrsf') }}" required autocomplete="consigneeaddrsf"></textarea>
+                            <textarea class="form-control" id="consigneeaddrsf" name="consigneeaddrs" placeholder="CPX Destination" value="{{ old('consigneeaddrsf') }}" required autocomplete="consigneeaddrsf"></textarea>
                         </div>
 
                         <div class="form-group">

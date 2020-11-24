@@ -43,7 +43,8 @@
     $('#history').on('show.bs.modal', function (event) {
         var id = $(event.relatedTarget).data('id'); //get status id from controller editcolumn
         // event.preventDefault();
-        console.log(id);
+        // console.log(id);
+        $("#history-body").find('#cpxid').empty();
         $("#history-body").find('#cpxid').append(id);
 
         $.ajax({
@@ -55,7 +56,7 @@
                 $("#history-table tbody").empty();
 
                 for (i in data) {
-                    console.log(data[i]);
+                    // console.log(data[i]);
                     var time = $.format.date(data[i].date, "dd/MM/yyyy HH:mm a");
 
                     var tr_str = "<tr>"+

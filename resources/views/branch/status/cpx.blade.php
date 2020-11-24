@@ -92,6 +92,7 @@
         // event.preventDefault();
         var id = $(event.relatedTarget).data('id'); //get CPX id from controller editcolumn
         var st = $('#cpx-body');
+        st.find('#cpxid').empty();
 
         $.ajax({
             type: 'get',

@@ -5,8 +5,12 @@ use Carbon\Carbon;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Order extends Model
-{
+class Order extends Model{
+
+    protected $fillable = [
+        'users_id', 'ecomordid', 'ecomname', 'ecomproddesc', 'ecompurchaseamt', '	ecomorddt', 'consigneename', 'consigneeaddrs', 'ecomprdtraclnk', 'ecomsppngpriority', 'ecomrcvby', 'ecomawb', '	note', 'status_id', 'awb', 'updatedby',
+    ];
+
     public function status(){
         return $this->belongsTo('App\Status');
     }

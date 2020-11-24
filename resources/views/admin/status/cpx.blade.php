@@ -92,6 +92,7 @@
         // event.preventDefault();
         var id = $(event.relatedTarget).data('id'); //get CPX id from controller editcolumn
         var st = $('#cpx-body');
+        st.find('#cpxid').empty();
 
         $.ajax({
             type: 'get',
@@ -100,7 +101,7 @@
             success:function(data){
 
                 for(i in data){
-                    console.log(data[i].id);
+                    // console.log(data[i].id);
                     st.find('#cpxid').append(data[i].id);
                     st.find('#ecomnames').val(data[i].ecomname);
                     st.find('#ecomordida').val(data[i].ecomordid);

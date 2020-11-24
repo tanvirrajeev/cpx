@@ -81,6 +81,7 @@ class RegisterController extends Controller
             'address' => $data['address'],
             // 'role' => '1',
             'status' => 'Active',
+            'branch_id' => 99,
             'password' => Hash::make($data['password']),
         ]);
     }
