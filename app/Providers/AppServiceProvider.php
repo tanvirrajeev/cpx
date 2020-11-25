@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -21,8 +22,15 @@ class AppServiceProvider extends ServiceProvider
      *
      * @return void
      */
-    public function boot()
-    {
-        //
+    public function boot(){
+
+        // Gate::define('finance-only', function($user){
+        //     if($user->role == 'Branch Finance Staff'){
+        //         return true;
+        //     }
+        //     return false;
+        // });
+
+
     }
 }

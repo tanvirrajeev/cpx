@@ -18,11 +18,13 @@ class RedirectIfAuthenticated
      */
     public function handle($request, Closure $next, $guard = null)
     {
-        if (Auth::guard($guard)->check() && Auth::user()->role->id == 4){
+        if (Auth::guard($guard)->check() && Auth::user()->role->name == 'Admin'){
             return redirect()->route('admin.dashboard');
-        }elseif(Auth::guard($guard)->check() && Auth::user()->role->id == 1){
+        }elseif(Auth::guard($guard)->check() && Auth::user()->role->name == 'Customer'){
             return redirect()->route('customer.cpx');
-        }elseif(Auth::guard($guard)->check() && Auth::user()->role->id == 2){
+        }elseif(Auth::guard($guard)->check() && Auth::user()->role->name == 'Branch Staff'){
+            return redirect()->route('branch.cpx');
+        }elseif(Auth::guard($guard)->check() && Auth::user()->role->name == 'Branch Finance Staff'){
             return redirect()->route('branch.cpx');
         }else{
             return $next($request);

@@ -2,7 +2,9 @@
 
 namespace App;
 use Carbon\Carbon;
+use App\User;
 
+use Illuminate\Support\Facades\DB;
 use Illuminate\Database\Eloquent\Model;
 
 class Order extends Model{
@@ -34,10 +36,15 @@ class Order extends Model{
         });
 
         static::saved(function (Order $order) {
+
+            // $user_name = User::find($order->updatedby);
+
+
             $his = new History();
             $his->order_id = $order->id;
             $his->status_id = $order->status_id;
             $his->user_id = $order->updatedby;
+            // $his->user_name = $user_name->name;
             $his->note = $order->note;
             $his->awb = $order->awb;
             $his->reveived_by = $order->ecomrcvby;

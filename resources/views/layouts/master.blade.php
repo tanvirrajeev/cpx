@@ -219,6 +219,59 @@
                 </a>
             </li>
         </ul>
+        <ul class="nav nav-sidebar flex-column">
+            <li class="nav-item">
+                <a href="/branch/billing" class="nav-link {{ Request::is('branch/billing') ? 'active' : ''}}">
+                    <div style="font-size: 1.33rem;">
+                        &nbsp;<i class="fas fa-dollar-sign "></i>
+                        <p style="font-size: 1rem;">Billing</p>
+                    </div>
+
+
+                </a>
+            </li>
+        </ul>
+        <ul class="nav nav-sidebar flex-column">
+            <li class="nav-item">
+                <a href="/branch/search" class="nav-link {{ Request::is('branch/search') ? 'active' : ''}}">
+                    <div style="font-size: 1.33rem;">
+                        &nbsp;<i class="fas fa-search"></i>
+                        <p style="font-size: 1rem;">Update By AWB</p>
+                    </div>
+                </a>
+            </li>
+        </ul>
+        <ul class="nav nav-sidebar flex-column">
+            <li class="nav-item">
+                <a href="/branch/searchorder" class="nav-link {{ Request::is('branch/searchorder') ? 'active' : ''}}">
+                    <div style="font-size: 1.33rem;">
+                        &nbsp;<i class="fas fa-search"></i>
+                        <p style="font-size: 1rem;">Search Order</p>
+                    </div>
+                </a>
+            </li>
+        </ul>
+          <ul class="nav nav-sidebar flex-column">
+            <li class="nav-item">
+                <a href="/branch/searchorderdate" class="nav-link {{ Request::is('branch/searchorderdate') ? 'active' : ''}}">
+                    <div style="font-size: 1.33rem;">
+                        &nbsp;<i class="fas fa-search"></i>
+                        <p style="font-size: 1rem;">Search Order By Date</p>
+                    </div>
+                </a>
+            </li>
+          </ul>
+        </ul>
+        <ul class="nav nav-sidebar flex-column">
+          <li class="nav-item">
+              <a href="/branch/searchbillingdate" class="nav-link {{ Request::is('branch/searchbillingdate') ? 'active' : ''}}">
+                  <div style="font-size: 1.33rem;">
+                      &nbsp;<i class="fas fa-search"></i>
+                      <p style="font-size: 1rem;">Search Billing By Date</p>
+                  </div>
+              </a>
+          </li>
+        </ul>
           @endif
 
 

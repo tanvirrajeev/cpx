@@ -83,6 +83,30 @@ Route::group([ 'as'=>'branch.', 'prefix' => 'branch', 'namespace'=>'Branch', 'mi
         Route::get('getorder', 'OrderController@getorder')->name('order.getorder');
         Route::get('gethistory', 'OrderController@gethistory')->name('order.gethistory');
 
+        Route::resource('billing', 'BillingController');
+        Route::get('billinglist', 'BillingController@billinglist')->name('billing.billinglist');
+        Route::get('spchargelist', 'BillingController@shippingchargelist')->name('billing.shippingchargelist');
+        // Route::get('entry', 'BillingController@billentry')->name('billentry');
+        Route::get('billing/{id}/entry', 'BillingController@billentry')->name('billentry');
+        Route::resource('search', 'SearchController');
+        Route::get('awb', 'SearchController@getawb')->name('search.awb');
+        Route::post('statusupdate', 'SearchController@statusupdate')->name('search.statusupdate');
+        Route::get('searchorderview', 'SearchController@orderview')->name('search.orderview');
+        Route::get('searchorder', 'SearchController@searchorder')->name('search.searchorder');
+        // Route::post('searchorderr', 'SearchController@order')->name('search.postorder');
+        // Route::get('datatable', 'SearchController@datatable')->name('search.datatable');
+        // Route::get('searchorderview', 'SearchController@searchorderview')->name('search.searchorderview');
+        Route::get('searchorderdate', 'SearchController@searchorderdate')->name('search.searchorderdate');
+        Route::get('searchbillingdate', 'SearchController@searchbillingdate')->name('search.searchbillingdate');
+        Route::get('searchbillingexport', 'SearchController@searchbillingexport')->name('search.searchbillingexport');
+        // Route::get('searchbilling', 'SearchController@searchbilling')->name('search.searchbilling');
+        Route::resource('shippingcharge', 'ShippingchargeController');
+        Route::get('shippingchargelist', 'ShippingchargeController@shippingchargelist')->name('shipping.shippingchargelist');
+        // Route::resource('orderexport', 'OrderexportController');
+        Route::get('orderexport', 'OrderexportController@index')->name('orderexport.index');
+        Route::get('orderexport_view', 'OrderexportController@orderexport_view')->name('orderexport.orderexport_view');
+
+
 });
 
 Route::group([ 'as'=>'customer.', 'prefix' => 'customer', 'namespace'=>'Customer', 'middleware'=>['auth','customer']],

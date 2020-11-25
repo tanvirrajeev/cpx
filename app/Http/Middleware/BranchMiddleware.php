@@ -15,7 +15,9 @@ class BranchMiddleware
      * @return mixed
      */
     public function handle($request, Closure $next){
-        if(Auth::check() && Auth::user()->role->id == 2){
+        if(Auth::check() && Auth::user()->role->name == 'Branch Staff'){
+            return $next($request);
+        }elseif(Auth::check() && Auth::user()->role->name == 'Branch Finance Staff'){
             return $next($request);
         }else{
             return redirect()->route('login');
