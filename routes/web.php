@@ -60,11 +60,17 @@ Route::group([ 'as'=>'admin.', 'prefix' => 'admin', 'namespace'=>'Admin', 'middl
         Route::get('searchbillingdate', 'SearchController@searchbillingdate')->name('search.searchbillingdate');
         Route::get('searchbillingexport', 'SearchController@searchbillingexport')->name('search.searchbillingexport');
         // Route::get('searchbilling', 'SearchController@searchbilling')->name('search.searchbilling');
+        // Route::get('shippingcharge', 'ShippingchargeController@index')->name('shippingcharge.index');
+        // Route::post('shippingcharge', 'ShippingchargeController@index')->name('shippingcharge.store');
         Route::resource('shippingcharge', 'ShippingchargeController');
         Route::get('shippingchargelist', 'ShippingchargeController@shippingchargelist')->name('shipping.shippingchargelist');
         // Route::resource('orderexport', 'OrderexportController');
         Route::get('orderexport', 'OrderexportController@index')->name('orderexport.index');
         Route::get('orderexport_view', 'OrderexportController@orderexport_view')->name('orderexport.orderexport_view');
+
+        Route::resource('employee', 'EmployeeController');
+        Route::get('userlist', 'EmployeeController@userlist')->name('employee.userlist');
+
 
 });
 
@@ -100,6 +106,8 @@ Route::group([ 'as'=>'branch.', 'prefix' => 'branch', 'namespace'=>'Branch', 'mi
         Route::get('searchbillingdate', 'SearchController@searchbillingdate')->name('search.searchbillingdate');
         Route::get('searchbillingexport', 'SearchController@searchbillingexport')->name('search.searchbillingexport');
         // Route::get('searchbilling', 'SearchController@searchbilling')->name('search.searchbilling');
+        // Route::get('shippingcharge', 'ShippingchargeController@index')->name('shippingcharge.index');
+        // Route::post('shippingcharge', 'ShippingchargeController@index')->name('shippingcharge.store');
         Route::resource('shippingcharge', 'ShippingchargeController');
         Route::get('shippingchargelist', 'ShippingchargeController@shippingchargelist')->name('shipping.shippingchargelist');
         // Route::resource('orderexport', 'OrderexportController');

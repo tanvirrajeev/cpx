@@ -180,7 +180,7 @@
               <li><a href="/admin/shippingcharge" class="{{ Request::is('admin/shippingcharge') ? 'active' : ''}}">SHIPPING CHARGE</a></li>
             </ul>
             <ul class="treeview-menu">
-              <li><a href="#">USERS</a></li>
+              <li><a href="/admin/employee" class="{{ Request::is('admin/employee') ? 'active' : ''}}">USERS</a></li>
             </ul>
             <ul class="treeview-menu">
               <li><a href="#">BRANCH</a></li>
