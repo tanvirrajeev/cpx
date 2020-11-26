@@ -21,9 +21,9 @@ class BillingController extends Controller
 
         if (Gate::allows('finance-only', Auth::user())){
             return view('branch.billing.index');
+        }else{
+            return redirect('/')->with('toast_error','You are not Authorized');
         }
-
-
     }
 
     public function billinglist(){
@@ -65,25 +65,31 @@ class BillingController extends Controller
     }
 
     public function show(Billing $billing){
-        $spcharge = DB::table('shippingcharges')
-        ->select('shippingcharges.id as id','shippingcharges.weight as weight')
-        ->get();
 
-        return view('branch.billing.show',compact('billing','spcharge'));
-    }
-
-    public function edit(Billing $billing)
-    {
-        // $spcharge = New Shippingcharge;
-        // $spcharge = Shippingcharge::all();
-        $spcharge = DB::table('shippingcharges')
+        if (Gate::allows('finance-only', Auth::user())){
+            $spcharge = DB::table('shippingcharges')
             ->select('shippingcharges.id as id','shippingcharges.weight as weight')
             ->get();
-        // dd($billing);
-        // dd($spcharge);
-        // $status = Status::all();
-        // var_dump($status);
-        return view('branch.billing.edit',compact('billing','spcharge'));
+
+            return view('branch.billing.show',compact('billing','spcharge'));
+        }else{
+            return redirect('/')->with('toast_error','You are not Authorized');
+        }
+    }
+
+    public function edit(Billing $billing){
+
+        if (Gate::allows('finance-only', Auth::user())){
+
+            $spcharge = DB::table('shippingcharges')
+            ->select('shippingcharges.id as id','shippingcharges.weight as weight')
+            ->get();
+
+            return view('branch.billing.edit',compact('billing','spcharge'));
+
+        }else{
+            return redirect('/')->with('toast_error','You are not Authorized');
+        }
     }
 
     public function update(Request $request, $billing){
@@ -103,35 +109,23 @@ class BillingController extends Controller
     }
 
     public function billentry($request){
-        $billing = DB::table('billings')
+        if (Gate::allows('finance-only', Auth::user())){
+            $billing = DB::table('billings')
             ->where('id', $request)
             ->first();
-        $spcharge = New Shippingcharge;
-        // $spcharge = Shippingcharge::all();
-        $spcharge = DB::table('shippingcharges')
-            ->select('shippingcharges.id as id','shippingcharges.weight as weight')
-            ->get();
-        // dd($billing);
-        // dd($spcharge);
-        // $status = Status::all();
-        // var_dump($status);
-        return view('branch.billing.entry',compact('billing','spcharge'));
+
+            $spcharge = New Shippingcharge;
+            // $spcharge = Shippingcharge::all();
+            $spcharge = DB::table('shippingcharges')
+                ->select('shippingcharges.id as id','shippingcharges.weight as weight')
+                ->get();
+
+            return view('branch.billing.entry',compact('billing','spcharge'));
+
+        }else{
+            return redirect('/')->with('toast_error','You are not Authorized');
+        }
     }
-
-    // public function billupdate(Request $request, $billing){
-    //     $bill = New Billing;
-    //     $bill = Billing::find($billing);
-    //     $bill->shippingcharge_id = $request->spchargeid;
-    //     $bill->order_id = $request->cpxid;
-    //     $bill->shippingcharge = $request->spcharge;
-    //     $bill->productprice = $request->prdprice;
-    //     $bill->dutytax = $request->dutax;
-    //     $bill->nettotal = $request->ntotal;
-    //     $bill->paymentstatus = $request->paystatus;
-    //     $bill->save();
-
-    //     return redirect(route('admin.billing.index'))->with('toast_success','Bill Updated');
-    // }
 
     public function destroy(Billing $billing){
         //

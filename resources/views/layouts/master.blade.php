@@ -272,6 +272,20 @@
               </a>
           </li>
         </ul>
+        <ul class="nav nav-sidebar flex-column" data-widget="treeview">
+            <li class="treeview">
+              <a href="#">SETTINGS</a>
+              {{-- <ul class="treeview-menu">
+                <li><a href="/admin/shippingcharge" class="{{ Request::is('admin/shippingcharge') ? 'active' : ''}}">SHIPPING CHARGE</a></li>
+              </ul> --}}
+              <ul class="treeview-menu">
+                <li><a href="/branch/employee" class="{{ Request::is('admin/employee') ? 'active' : ''}}">USERS</a></li>
+              </ul>
+              <ul class="treeview-menu">
+                <li><a href="#">STATUS</a></li>
+              </ul>
+            </li>
+          </ul>
           @endif
 
 

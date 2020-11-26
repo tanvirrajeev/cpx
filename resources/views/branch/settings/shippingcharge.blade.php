@@ -44,7 +44,7 @@
         {{-- Datatables  --}}
         <div class="col-md-12">
             <div class="card">
-                <div class="card-header bg-dark"><h3>{{ __('SHIPPING CHARGE') }}</h3></div>
+                <div class="card-header bg-navy"><h3>{{ __('SHIPPING CHARGE') }}</h3></div>
                 <div class="card-body">
                     <table class="table border" id="shippingcharge">
                         <thead>

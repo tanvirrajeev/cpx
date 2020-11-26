@@ -19,12 +19,12 @@
                 @endif
 
                 <div class="card-header bg-navy"><h3>{{ __('CREATE USER') }}</h3>
-                    <a href="/admin/employee/" class="btn btn-outline-warning btn-sm float-right"><i class="fas fa-backward"></i>&nbsp;</i>BACK</a>
+                    <a href="/branch/employee/" class="btn btn-outline-warning btn-sm float-right"><i class="fas fa-backward"></i>&nbsp;</i>BACK</a>
                 </div>
 
                 <div class="card-body">
 
-                    <form action="{{ route('admin.employee.store') }}" method="POST">
+                    <form action="{{ route('branch.employee.store') }}" method="POST">
                         {{-- <form action="{{ route('order.store') }}" method="POST"> --}}
                         @csrf
                         <div class="row">

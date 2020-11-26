@@ -78,6 +78,7 @@ Route::group([ 'as'=>'branch.', 'prefix' => 'branch', 'namespace'=>'Branch', 'mi
     function (){
         // Route::get('home','HomeController@index')->name('home');
         Route::get('dashboard', 'OrderController@dashboard')->name('dashboard');
+        // Route::get('/', 'OrderController@dashboard')->name('home');
         Route::get('cpx','CpxController@index')->name('cpx');
         Route::resource('order', 'OrderController');
         Route::get('orderlist', 'OrderController@orderlist')->name('order.orderlist');
@@ -113,6 +114,9 @@ Route::group([ 'as'=>'branch.', 'prefix' => 'branch', 'namespace'=>'Branch', 'mi
         // Route::resource('orderexport', 'OrderexportController');
         Route::get('orderexport', 'OrderexportController@index')->name('orderexport.index');
         Route::get('orderexport_view', 'OrderexportController@orderexport_view')->name('orderexport.orderexport_view');
+
+        Route::resource('employee', 'EmployeeController');
+        Route::get('userlist', 'EmployeeController@userlist')->name('employee.userlist');
 
 
 });

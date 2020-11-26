@@ -43,7 +43,7 @@
         serverSide: true,
         responsive: true,
         // order: [0, 'desc'],
-        ajax: '{!! route('admin.employee.userlist') !!}',
+        ajax: '{!! route('admin.userlist') !!}',
         // columnDefs: [{ "orderable": false, "targets": '_all' }],
         columns: [
             // { data: 'id', name: 'id' },

@@ -18,7 +18,7 @@
                     </div>
                 @endif
 
-                <div class="card-header bg-maroon"><h3>{{ __('VIEW USER') }}</h3>
+                <div class="card-header bg-navy"><h3>{{ __('VIEW USER') }}</h3>
                     <a href="/admin/employee/" class="btn btn-outline-warning btn-sm float-right"><i class="fas fa-backward"></i>&nbsp;</i>BACK</a>
                 </div>
 

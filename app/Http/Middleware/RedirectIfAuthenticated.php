@@ -23,9 +23,9 @@ class RedirectIfAuthenticated
         }elseif(Auth::guard($guard)->check() && Auth::user()->role->name == 'Customer'){
             return redirect()->route('customer.cpx');
         }elseif(Auth::guard($guard)->check() && Auth::user()->role->name == 'Branch Staff'){
-            return redirect()->route('branch.cpx');
-        }elseif(Auth::guard($guard)->check() && Auth::user()->role->name == 'Branch Finance Staff'){
-            return redirect()->route('branch.cpx');
+            return redirect()->route('branch.dashboard');
+        }elseif(Auth::guard($guard)->check() && Auth::user()->role->name == 'Dhaka Finance Staff'){
+            return redirect()->route('branch.dashboard');
         }else{
             return $next($request);
         }

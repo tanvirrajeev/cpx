@@ -2,25 +2,30 @@
 
 namespace App\Http\Controllers\Branch;
 
-use App\Http\Controllers\Controller;
-use App\Search;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
-use Yajra\DataTables\DataTables;
 use App\Order;
-// use Auth;
-use Illuminate\Support\Facades\Auth;
+use App\Search;
 use Carbon\Carbon;
-use Illuminate\Support\Facades\Log;
+use Illuminate\Http\Request;
+use Yajra\DataTables\DataTables;
 use App\DataTables\OrderDataTable;
+// use Auth;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 use App\Exports\SearchbillingExport;
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Gate;
 use Maatwebsite\Excel\Facades\Excel;
 
 class SearchController extends Controller
 {
 
     public function index(){
-        return view('branch.search.search-by-awb');
+        if (Gate::allows('finance-only', Auth::user())){
+            return view('branch.search.search-by-awb');
+        }else{
+            return redirect('/')->with('toast_error','You are not Authorized');
+        }
     }
 
     public function getawb(Request $request){
@@ -127,23 +132,28 @@ class SearchController extends Controller
 
 
     public function searchbillingdate(Request $request){
-        if(request()->ajax()){
-            if(!empty($request->from_date)){
-                $from_date = Carbon::parse($request->from_date)->startOfDay();
-                $to_date = Carbon::parse($request->to_date)->endOfDay();
 
-                $data = DB::table('billings')
-                    ->when($from_date && $to_date, function ($query, $condition) use($from_date, $to_date) {
-                        return $query->whereBetween('billings.created_at', [$from_date, $to_date]);
-                    })
-                    ->get();
-                }else{
-                    $data = DB::table('billings')->get();;
-                }
-                return datatables()->of($data)->make(true);
-                }
+        if (Gate::allows('finance-only', Auth::user())){
+            if(request()->ajax()){
+                if(!empty($request->from_date)){
+                    $from_date = Carbon::parse($request->from_date)->startOfDay();
+                    $to_date = Carbon::parse($request->to_date)->endOfDay();
 
-            return view('branch.search.searchbillingdate');
+                    $data = DB::table('billings')
+                        ->when($from_date && $to_date, function ($query, $condition) use($from_date, $to_date) {
+                            return $query->whereBetween('billings.created_at', [$from_date, $to_date]);
+                        })
+                        ->get();
+                    }else{
+                        $data = DB::table('billings')->get();;
+                    }
+                    return datatables()->of($data)->make(true);
+                    }
+
+                return view('branch.search.searchbillingdate');
+        }else{
+            return redirect('/')->with('toast_error','You are not Authorized');
+        }
     }
 
     public function searchbillingexport(){

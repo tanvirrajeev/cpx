@@ -7,7 +7,7 @@
         <div class="col-md-12">
             <div class="card">
                 <div class="card-header bg-orange"><h3>{{ __('Users') }}</h3>
-                    <a href="/admin/employee/create" class="btn btn-outline-warning btn-sm float-right"><i class="fas fa-plus fa-lg">&nbsp;</i>CREATE USER</a>
+                    <a href="/branch/employee/create" class="btn btn-outline-warning btn-sm float-right"><i class="fas fa-plus fa-lg">&nbsp;</i>CREATE USER</a>
                 </div>
                 <div class="card-body">
                     <table class="table border" id="userlist">
@@ -43,7 +43,7 @@
         serverSide: true,
         responsive: true,
         // order: [0, 'desc'],
-        ajax: '{!! route('admin.employee.userlist') !!}',
+        ajax: '{!! route('branch.employee.userlist') !!}',
         // columnDefs: [{ "orderable": false, "targets": '_all' }],
         columns: [
             // { data: 'id', name: 'id' },
