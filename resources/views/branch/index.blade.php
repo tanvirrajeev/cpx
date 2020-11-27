@@ -6,7 +6,19 @@
 
         <div class="col-md-9">
             <div class="card">
-                <div class="card-header bg-dark"><h3>{{ __('Order Now') }}</h3></div>
+
+                {{-- Validation Error Message --}}
+                @if ($errors->any())
+                    <div class="alert alert-danger">
+                        <ul>
+                            @foreach ($errors->all() as $error)
+                                <li>{{ $error }}</li>
+                            @endforeach
+                        </ul>
+                    </div>
+                @endif
+
+                <div class="card-header bg-dark"><h3>{{ __('ORDER NOW') }}</h3></div>
 
                 <div class="card-body bg-orange">
 
@@ -17,20 +29,20 @@
                             <div class="col-6">
                                 <div class="form-group">
                                     <label for="ecomordida">PRODUCT ORDER NO</label><label class="text-danger">*</label>
-                                    <input type="text" class="form-control" id="ecomordida" name="ecomordida" placeholder="Order id given by E-Commerce" value="{{ old('ecomordida') }}" required autocomplete="ecomordida" autofocus>
+                                    <input type="text" class="form-control" id="ecomordida" name="ecomordid" placeholder="Order id given by E-Commerce" value="{{ old('ecomordida') }}" required autocomplete="ecomordida" autofocus>
                                 </div>
                             </div>
                             <div class="col-6">
                                 <div class="form-group">
                                     <label for="ecomnames">PRODUCT ORDERED FROM</label><label class="text-danger">*</label>
-                                    <input type="text" class="form-control" id="ecomnames" name="ecomnames" placeholder="Amazone, Flipkart etc." value="{{ old('ecomnames') }}" required autocomplete="ecomnames">
+                                    <input type="text" class="form-control" id="ecomnames" name="ecomname" placeholder="Amazone, Flipkart etc." value="{{ old('ecomnames') }}" required autocomplete="ecomnames">
                                 </div>
                             </div>
                         </div>
 
                         <div class="form-group">
                             <label for="ecomproddescd">PRODUCT DESCRIPTION</label><label class="text-danger">*</label>
-                            <textarea class="form-control" id="ecomproddescd" name="ecomproddescd" placeholder="Describe your product" value="{{ old('ecomproddescd') }}" required autocomplete="ecomproddescd"></textarea>
+                            <textarea class="form-control" id="ecomproddescd" name="ecomproddesc" placeholder="Describe your product" value="{{ old('ecomproddescd') }}" required autocomplete="ecomproddescd"></textarea>
                         </div>
 
                         <div class="row">
@@ -51,19 +63,19 @@
                                 <label for="ecomorddtt">DATE OF THE PRODUCT ORDERED</label><label class="text-danger">*</label>
                               <i class="fa fa-calendar-alt"></i>
                               <div class="input-group date" id="datetimepicker2">
-                                <input type="text" class="form-control" name="ecomorddtt" id="ecomorddtt" autocomplete="off" required><span class="input-group-addon"><i class="glyphicon glyphicon-th"></i></span>
+                                <input type="text" class="form-control" name="ecomorddt" id="ecomorddtt" autocomplete="off" required><span class="input-group-addon"><i class="glyphicon glyphicon-th"></i></span>
                               </div>
                             </div>
                         </div>
 
                         <div class="form-group">
                             <label for="consigneenamer">CONSIGNEE NAME</label><label class="text-danger">*</label>
-                            <input type="text" class="form-control" id="consigneenamer" name="consigneenamer" placeholder="Receiver's Name" value="{{ old('consigneenamer') }}" required autocomplete="consigneenamer">
+                            <input type="text" class="form-control" id="consigneenamer" name="consigneename" placeholder="Receiver's Name" value="{{ old('consigneenamer') }}" required autocomplete="consigneenamer">
                         </div>
 
                         <div class="form-group">
                             <label for="consigneeaddrsf">CONSIGNEE ADDRESS</label><label class="text-danger">*</label>
-                            <textarea class="form-control" id="consigneeaddrsf" name="consigneeaddrsf" placeholder="CPX Destination" value="{{ old('consigneeaddrsf') }}" required autocomplete="consigneeaddrsf"></textarea>
+                            <textarea class="form-control" id="consigneeaddrsf" name="consigneeaddrs" placeholder="CPX Destination" value="{{ old('consigneeaddrsf') }}" required autocomplete="consigneeaddrsf"></textarea>
                         </div>
 
                         <div class="form-group">
@@ -72,10 +84,10 @@
                         </div>
 
                         <div>
-                            <p><input type="checkbox" id="terms_and_conditions" value="1" onclick="terms_changed(this)" />&nbsp; I AGREE TO PAY DUTY/TAX AND OTHER SURCHARGE TO BE PAID TO THE GOVERNMENT OF INDIA AND BANGLADESH TO SHIP MY PRODUCT <br> <br></p>
+                            <p><input type="checkbox" id="terms_and_conditions" value="1" onclick="terms_changed(this)" checked/>&nbsp; I AGREE TO PAY DUTY/TAX AND OTHER SURCHARGE TO BE PAID TO THE GOVERNMENT OF INDIA AND BANGLADESH TO SHIP MY PRODUCT <br> <br></p>
                         </div>
 
-                        <button type="submit" class="btn btn-dark" id="submit_button" disabled>SUBMIT</button>
+                        <button type="submit" class="btn btn-dark" id="submit_button" >SUBMIT</button>
                       </form>
 
 
@@ -88,14 +100,15 @@
 {{-- Terms & Condition check box --}}
 <script>
     function terms_changed(termsCheckBox){
-    //If the checkbox has been checked
-    if(termsCheckBox.checked){
-        //Set the disabled property to FALSE and enable the button.
         document.getElementById("submit_button").disabled = false;
-    } else{
-        //Otherwise, disable the submit button.
-        document.getElementById("submit_button").disabled = true;
-    }
+        //If the checkbox has been checked
+        if(termsCheckBox.checked){
+            //Set the disabled property to FALSE and enable the button.
+            document.getElementById("submit_button").disabled = false;
+        } else{
+            //Otherwise, disable the submit button.
+            document.getElementById("submit_button").disabled = true;
+        }
 }
 </script>
 @endsection

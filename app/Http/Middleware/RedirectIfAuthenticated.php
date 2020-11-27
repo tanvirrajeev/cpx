@@ -26,6 +26,8 @@ class RedirectIfAuthenticated
             return redirect()->route('branch.dashboard');
         }elseif(Auth::guard($guard)->check() && Auth::user()->role->name == 'Dhaka Finance Staff'){
             return redirect()->route('branch.dashboard');
+        }elseif(Auth::guard($guard)->check() && Auth::user()->role->name == 'Branch Admin'){
+            return redirect()->route('branch.dashboard');
         }else{
             return $next($request);
         }

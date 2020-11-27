@@ -19,6 +19,7 @@ class CreateStatusesTable extends Migration
                 $table->unsignedInteger('branch_id')->nullable();
                 $table->integer('flag');
                 $table->string('name');
+                $table->unsignedInteger('user_id');
                 $table->timestamps();
             });
         }

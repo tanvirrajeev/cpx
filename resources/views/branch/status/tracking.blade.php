@@ -71,7 +71,7 @@
             url: "{{ url('/branch/tracking') }}",
             data: {id:id},
             success:function(data){
-                // console.log(data);
+                console.log(data);
                 var st = $('#tracking-body');
                 st.find('#tracking-ul').empty(); //Refresh view everytime to display a new CPX tracking
 

@@ -23,5 +23,12 @@ class AuthServiceProvider extends ServiceProvider
             return false;
         });
 
+        Gate::define('branch-admin-only', function($user){
+            if($user->role->name == 'Branch Admin'){
+                return true;
+            }
+            return false;
+        });
+
     }
 }

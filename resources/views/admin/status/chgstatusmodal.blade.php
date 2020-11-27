@@ -18,7 +18,7 @@
             </form>
 
             <div class="form-group">
-                <textarea class="form-control" id="note" name="note" rows="3" style="display:none" placeholder="Must fillup if you select status as OTHERS..."></textarea>
+                <textarea class="form-control" id="note" name="note" rows="3" style="display:none" placeholder="Must fillup..."></textarea>
             </div>
 
             <div class="form-group">
@@ -138,8 +138,10 @@
                     }else{
                         st.find('#note').hide();
                         st.find('#awbd').hide();
+                        st.find('#rcvby').hide();
                         st.find('#note').prop('required',false);
                         st.find('#awbd').prop('required',false);
+                        st.find('#rcvby').prop('required',false);
                     }
 
 
@@ -157,6 +159,8 @@
                         if (data == '1' && $('#chgstatusmodal').find('#awbd').val()){
                             update();
                         }else if (data == '2' && $('#chgstatusmodal').find('#note').val()){
+                            update();
+                        }else if (data == '3'){
                             update();
                         }else if (data == '99' && $('#chgstatusmodal').find('#rcvby').val()){
                             update();

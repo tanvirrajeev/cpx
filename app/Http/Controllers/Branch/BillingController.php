@@ -12,7 +12,11 @@ use Illuminate\Http\Request;
 use Yajra\DataTables\DataTables;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
+// use Illuminate\Foundation\Auth\User;
+// use Alert;
 use Illuminate\Support\Facades\Gate;
+use Illuminate\Support\Facades\Redirect;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class BillingController extends Controller
 {
@@ -22,7 +26,10 @@ class BillingController extends Controller
         if (Gate::allows('finance-only', Auth::user())){
             return view('branch.billing.index');
         }else{
-            return redirect('/')->with('toast_error','You are not Authorized');
+            // return redirect('/')->with('toast_error','You are not Authorized');
+            // return redirect(route('branch.dashboard'))->with('errors','You are not Authorized');
+            Alert::error('You are not Authorized', 'You do not have access to this function');
+            return Redirect::back();
         }
     }
 
@@ -73,7 +80,9 @@ class BillingController extends Controller
 
             return view('branch.billing.show',compact('billing','spcharge'));
         }else{
-            return redirect('/')->with('toast_error','You are not Authorized');
+            // return redirect('/')->with('toast_error','You are not Authorized');
+            Alert::error('You are not Authorized', 'You do not have access to this function');
+            return Redirect::back();
         }
     }
 
@@ -88,7 +97,9 @@ class BillingController extends Controller
             return view('branch.billing.edit',compact('billing','spcharge'));
 
         }else{
-            return redirect('/')->with('toast_error','You are not Authorized');
+            // return redirect('/')->with('toast_error','You are not Authorized');
+            Alert::error('You are not Authorized', 'You do not have access to this function');
+            return Redirect::back();
         }
     }
 
@@ -123,7 +134,9 @@ class BillingController extends Controller
             return view('branch.billing.entry',compact('billing','spcharge'));
 
         }else{
-            return redirect('/')->with('toast_error','You are not Authorized');
+            // return redirect('/')->with('toast_error','You are not Authorized');
+            Alert::error('You are not Authorized', 'You do not have access to this function');
+            return Redirect::back();
         }
     }
 

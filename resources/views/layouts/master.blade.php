@@ -183,10 +183,10 @@
               <li><a href="/admin/employee" class="{{ Request::is('admin/employee') ? 'active' : ''}}">USERS</a></li>
             </ul>
             <ul class="treeview-menu">
-              <li><a href="#">BRANCH</a></li>
+              <li><a href="/admin/branch" class="{{ Request::is('admin/branch') ? 'active' : ''}}">BRANCH</a></li>
             </ul>
             <ul class="treeview-menu">
-              <li><a href="#">STATUS</a></li>
+                <li><a href="status" class="{{ Request::is('admin/status') ? 'active' : ''}}">STATUS</a></li>
             </ul>
           </li>
         </ul>

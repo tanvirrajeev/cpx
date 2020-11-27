@@ -6,24 +6,22 @@
     <div class="row justify-content-center">
         <div class="col-md-12">
             <div class="card">
-                <div class="card-header bg-orange"><h3>{{ __('USERS') }}</h3>
-                    <a href="/admin/employee/create" class="btn btn-outline-warning btn-sm float-right"><i class="fas fa-plus fa-lg">&nbsp;</i>CREATE USER</a>
+                <div class="card-header bg-orange"><h3>{{ __('BRANCH') }}</h3>
+                    <a href="/admin/branch/create" class="btn btn-outline-warning btn-sm float-right"><i class="fas fa-plus fa-lg">&nbsp;</i>CREATE BRANCH</a>
                 </div>
                 <div class="card-body">
-                    <table class="table border" id="userlist">
+                    <table class="table border" id="branchlist">
                         <thead>
                                 <th>NAME</th>
-                                <th>EMAIL</th>
-                                <th>USERNAME</th>
-                                <th>STATUS</th>
+                                <th>LOCATION</th>
+                                <th>ADDRESS</th>
                                 <th>ACTION</th>
                         </thead>
                         <tfoot>
                             <tr>
                                 <th>NAME</th>
-                                <th>EMAIL</th>
-                                <th>USERNAME</th>
-                                <th>STATUS</th>
+                                <th>LOCATION</th>
+                                <th>ADDRESS</th>
                                 <th>ACTION</th>
                             </tr>
                         </tfoot>
@@ -38,20 +36,19 @@
 {{-- DataTalbe for Admin Order page --}}
 <script>
     $(document).ready( function () {
-    $('#userlist').DataTable({
+    $('#branchlist').DataTable({
         processing: true,
         serverSide: true,
         responsive: true,
         // order: [0, 'desc'],
-        ajax: '{!! route('admin.employee.userlist') !!}',
+        ajax: '{!! route('admin.branchlist') !!}',
         // columnDefs: [{ "orderable": false, "targets": '_all' }],
         columns: [
             // { data: 'id', name: 'id' },
             { data: 'name', name: 'name' },
             // { data: 'consigneename', name: 'consigneename' },
-            { data: 'email', name: 'email' },
-            { data: 'username', name: 'username' },
-            { data: 'status', name: 'status' },
+            { data: 'location', name: 'location' },
+            { data: 'address', name: 'address' },
             { data: 'action', name: 'action' }
         ],
         initComplete: function () {

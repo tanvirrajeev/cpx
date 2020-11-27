@@ -138,8 +138,10 @@
                     }else{
                         st.find('#note').hide();
                         st.find('#awbd').hide();
+                        st.find('#rcvby').hide();
                         st.find('#note').prop('required',false);
                         st.find('#awbd').prop('required',false);
+                        st.find('#rcvby').prop('required',false);
                     }
 
 

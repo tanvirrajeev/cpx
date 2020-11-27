@@ -93,7 +93,7 @@
 
 
 
-                        }else if (data[i].flag  == '1'){
+                        }else if (data[i].status  == 'ARRIVED AT DELHI'){
                             // st.find('#sts-rcvhub').text(data[i].status);
                             // st.find('#awb').text("AWB: " + data[i].awb);
                             // st.find('#created-at-rcvhub').text($.format.date(data[i].created_at, "dd/MM/yyyy HH:mm a"));
@@ -172,7 +172,7 @@
                                 "</li>");
                         }
 
-                    else if(data[i].flag  == '2'){
+                    else{
                         var time = $.format.date(data[i].created_at, "dd/MM/yyyy HH:mm a");
                         st.find('#dlvrd').before("<li class=\"completed warning\ id=\"others\">" +
                             "<span class=\"time\" id=\"created-at-dlvrd\">"+time+"</span>" +
@@ -181,16 +181,7 @@
                             "<span class=\"subdued\" id=\"sts-rcvhub\">"+data[i].note+"</span>" +
                             "</span>"+
                             "</li>");
-                    }
 
-                    else{
-                        var time = $.format.date(data[i].created_at, "dd/MM/yyyy HH:mm a");
-                        st.find('#dlvrd').before("<li class=\"completed warning\ id=\"others\">" +
-                            "<span class=\"time\" id=\"created-at-dlvrd\">"+time+"</span>" +
-                            "<span class=\"bubble\"></span>" +
-                            "<span class=\"stacked-text\">"+ data[i].status +
-                            "</span>"+
-                            "</li>");
                     };
 
                 }

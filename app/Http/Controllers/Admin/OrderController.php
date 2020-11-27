@@ -131,7 +131,7 @@ class OrderController extends Controller
         $his = DB::table('histories')
                 ->join('users', 'users.id', '=', 'histories.user_id')
                 ->join('statuses', 'statuses.id', '=', 'histories.status_id')
-                ->select('histories.order_id','histories.status_id','users.name','statuses.name as status','histories.awb','histories.note','histories.created_at','histories.reveived_by')
+                ->select('histories.order_id','histories.status_id','users.name','statuses.name as status','statuses.flag as flag','histories.awb','histories.note','histories.created_at','histories.reveived_by')
                 ->where('histories.order_id', $id)
                 ->get();
 
@@ -216,7 +216,7 @@ class OrderController extends Controller
         $ord->updatedby = Auth::id();
         $ord->save();
 
-        return redirect(route('admin.order.index'))->with('toast_success','Order Updated');
+        return redirect(route('admin.dashboard'))->with('toast_success','Order Updated');
     }
 
     //Get Order from CPX Modal

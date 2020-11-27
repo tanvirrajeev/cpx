@@ -191,6 +191,17 @@ class OrderController extends Controller
 
 
     public function store(Request $request){
+
+        $this->validate($request,[
+            'ecomordid'=>'required|unique:orders|max:255',
+            'ecomname'=>'required',
+            'ecomproddesc'=>'required',
+            'ecomorddt'=>'required',
+            'consigneename'=>'required',
+            'consigneeaddrs'=>'required'
+         ]);
+
+
         $ord = New Order;
         $ord->users_id = Auth::id();
         $ord->ecomordid = $request->ecomordida;
@@ -226,22 +237,34 @@ class OrderController extends Controller
     }
 
     public function update(Request $request, $order){
-        $ord = New Order;
-        $ord = Order::find($order);
-        $ord->ecomordid = $request->ecomordida;
-        $ord->ecomname = $request->ecomnames;
-        $ord->ecomproddesc = $request->ecomproddescd;
-        $ord->ecompurchaseamt = $request->ecompurchaseamto;
-        $ord->ecomorddt = $request->ecomorddtt;
-        $ord->consigneename = $request->consigneenamer;
-        $ord->consigneeaddrs = $request->consigneeaddrsf;
-        $ord->ecomprdtraclnk = $request->ecomprdtraclnke;
-        $ord->ecomsppngpriority = $request->ecomsppngpriorityq;
-        $ord->status_id = $request->ecomstatuss;
-        $ord->note = $request->note;
-        $ord->awb = $request->awbd;
-        $ord->updatedby = Auth::id();
-        $ord->save();
+
+        $this->validate($request,[
+            'ecomname'=>'required',
+            'ecomproddesc'=>'required',
+            'ecomorddt'=>'required',
+            'consigneename'=>'required',
+            'consigneeaddrs'=>'required'
+         ]);
+
+
+
+         $ord = New Order;
+         $ord = Order::find($order);
+         $ord->ecomordid = $request->ecomordid;
+         $ord->ecomname = $request->ecomname;
+         $ord->ecomproddesc = $request->ecomproddesc;
+         $ord->ecompurchaseamt = $request->ecompurchaseamto;
+         $ord->ecomorddt = $request->ecomorddt;
+         $ord->consigneename = $request->consigneename;
+         $ord->consigneeaddrs = $request->consigneeaddrs;
+         $ord->ecomprdtraclnk = $request->ecomprdtraclnke;
+         $ord->ecomsppngpriority = $request->ecomsppngpriority;
+         $ord->status_id = $request->ecomstatuss;
+         $ord->note = $request->note;
+         $ord->awb = $request->awbd;
+         $ord->ecomrcvby = $request->rcvby;
+         $ord->updatedby = Auth::id();
+         $ord->save();
 
         return redirect(route('branch.dashboard'))->with('toast_success','Order Updated');
     }

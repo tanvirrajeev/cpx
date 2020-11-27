@@ -16,6 +16,8 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
 use Maatwebsite\Excel\Facades\Excel;
+use Illuminate\Support\Facades\Redirect;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class SearchController extends Controller
 {
@@ -24,7 +26,9 @@ class SearchController extends Controller
         if (Gate::allows('finance-only', Auth::user())){
             return view('branch.search.search-by-awb');
         }else{
-            return redirect('/')->with('toast_error','You are not Authorized');
+            // return redirect('/')->with('toast_error','You are not Authorized');
+            Alert::error('You are not Authorized', 'You do not have access to this function');
+            return Redirect::back();
         }
     }
 
@@ -152,7 +156,9 @@ class SearchController extends Controller
 
                 return view('branch.search.searchbillingdate');
         }else{
-            return redirect('/')->with('toast_error','You are not Authorized');
+            // return redirect('/')->with('toast_error','You are not Authorized');
+            Alert::error('You are not Authorized', 'You do not have access to this function');
+            return Redirect::back();
         }
     }
 

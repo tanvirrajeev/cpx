@@ -10,12 +10,32 @@ use Yajra\DataTables\DataTables;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Redirect;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class EmployeeController extends Controller{
 
     public function index(){
-        return view('branch.settings.employee.index');
+
+        // if (Gate::allows('branch-admin-only', Auth::user())){
+        //     return view('branch.settings.employee.index');
+        // }else{
+        //     // return redirect('/')->with('toast_error','You are not Authorized');
+        //     // return redirect(route('branch.dashboard'))->with('errors','You are not Authorized');
+        //     Alert::error('You are not Authorized', 'You do not have access to this function');
+        //     return Redirect::back();
+        // }
+
+        if (Gate::any(['branch-admin-only', 'finance-only'], Auth::user())) {
+            return view('branch.settings.employee.index');
+        }else{
+            // return redirect('/')->with('toast_error','You are not Authorized');
+            // return redirect(route('branch.dashboard'))->with('errors','You are not Authorized');
+            Alert::error('You are not Authorized', 'You do not have access to this function');
+            return Redirect::back();
+        }
     }
 
     public function userlist(){

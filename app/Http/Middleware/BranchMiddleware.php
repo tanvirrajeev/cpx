@@ -19,6 +19,8 @@ class BranchMiddleware
             return $next($request);
         }elseif(Auth::check() && Auth::user()->role->name == 'Dhaka Finance Staff'){
             return $next($request);
+        }elseif(Auth::check() && Auth::user()->role->name == 'Branch Admin'){
+            return $next($request);
         }else{
             return redirect()->route('login');
         }

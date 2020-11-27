@@ -98,7 +98,7 @@
                         </div>
 
                         <div class="form-group">
-                            <textarea class="form-control" id="note" name="note" rows="3" style="display:none" placeholder="Must fillup if you select status as OTHERS...">{{$order->note}}</textarea>
+                            <textarea class="form-control" id="note" name="note" rows="3" style="display:none" placeholder="Must fillup...">{{$order->note}}</textarea>
                         </div>
 
                         <div class="form-group">
