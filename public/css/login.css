@@ -1,0 +1,17 @@
+/*
+*
+* ==========================================
+* CUSTOM UTIL CLASSES
+* ==========================================
+*
+*/
+.login,
+.image {
+  min-height: 80vh;
+}
+
+.bg-image {
+  background-image: url('https://cdn.pixabay.com/photo/2015/08/16/16/25/airfield-891258_960_720.jpg');
+  background-size: cover;
+  background-position: center center;
+}
