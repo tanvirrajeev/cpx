@@ -17,7 +17,7 @@ class BranchMiddleware
     public function handle($request, Closure $next){
         if(Auth::check() && Auth::user()->role->name == 'Branch Staff'){
             return $next($request);
-        }elseif(Auth::check() && Auth::user()->role->name == 'Dhaka Finance Staff'){
+        }elseif(Auth::check() && Auth::user()->role->name == 'Finance Staff'){
             return $next($request);
         }elseif(Auth::check() && Auth::user()->role->name == 'Branch Admin'){
             return $next($request);

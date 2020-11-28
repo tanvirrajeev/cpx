@@ -19,20 +19,9 @@ class EmployeeController extends Controller{
 
     public function index(){
 
-        // if (Gate::allows('branch-admin-only', Auth::user())){
-        //     return view('branch.settings.employee.index');
-        // }else{
-        //     // return redirect('/')->with('toast_error','You are not Authorized');
-        //     // return redirect(route('branch.dashboard'))->with('errors','You are not Authorized');
-        //     Alert::error('You are not Authorized', 'You do not have access to this function');
-        //     return Redirect::back();
-        // }
-
         if (Gate::any(['branch-admin-only', 'finance-only'], Auth::user())) {
             return view('branch.settings.employee.index');
         }else{
-            // return redirect('/')->with('toast_error','You are not Authorized');
-            // return redirect(route('branch.dashboard'))->with('errors','You are not Authorized');
             Alert::error('You are not Authorized', 'You do not have access to this function');
             return Redirect::back();
         }
@@ -62,98 +51,138 @@ class EmployeeController extends Controller{
 
     public function create(){
 
-        $branch = Branch::select('id', 'name')
+        if (Gate::any(['branch-admin-only', 'finance-only'], Auth::user())) {
+            $branch = Branch::select('id', 'name')
                 ->where('id', '=', Auth::user()->branch_id)
                 ->get();
 
-        $role = Role::select('id', 'name')->get();
+            $role = Role::select('id', 'name')
+                ->where('name', '!=', 'Admin')
+                ->where('name', '!=', 'Finance Staff')
+                ->where('name', '!=', 'Branch Admin')
+                ->get();
 
-        return view('branch.settings.employee.create', compact('branch','role'));
+            return view('branch.settings.employee.create', compact('branch','role'));
+        }else{
+            Alert::error('You are not Authorized', 'You do not have access to this function');
+            return Redirect::back();
+        }
     }
 
     public function store(Request $request){
+        if (Gate::any(['branch-admin-only', 'finance-only'], Auth::user())) {
+            $this->validate($request,[
+                'name'=>'required',
+                'email'=>'required|email|unique:users|max:255',
+                'username'=>'required|unique:users|max:255',
+                'password'=>'required|min:6|regex:/[a-z]/|regex:/[0-9]/',
+                'address'=>'required',
+                'branch'=>'required',
+                'role'=>'required',
+                'status'=>'required'
+             ]);
 
-        $this->validate($request,[
-            'name'=>'required',
-            'email'=>'required|email|unique:users|max:255',
-            'username'=>'required|unique:users|max:255',
-            'password'=>'required|min:6|regex:/[a-z]/|regex:/[0-9]/',
-            'address'=>'required',
-            'branch'=>'required',
-            'role'=>'required',
-            'status'=>'required'
-         ]);
+            $emp = New User;
+            $emp->name = $request->name;
+            $emp->email = $request->email;
+            $emp->username = $request->username;
+            $emp->password = Hash::make($request->password);
+            $emp->address = $request->address;
+            $emp->phone = $request->phone;
+            $emp->branch_id = $request->branch;
+            $emp->role_id = $request->role;
+            $emp->status = $request->status;
+            $emp->save();
 
-        $emp = New User;
-        $emp->name = $request->name;
-        $emp->email = $request->email;
-        $emp->username = $request->username;
-        $emp->password = Hash::make($request->password);
-        $emp->address = $request->address;
-        $emp->phone = $request->phone;
-        $emp->branch_id = $request->branch;
-        $emp->role_id = $request->role;
-        $emp->status = $request->status;
-        $emp->save();
-
-        return redirect(route('branch.employee.index'))->with('toast_success','User Created');
+            return redirect(route('branch.employee.index'))->with('toast_success','User Created');
+        }else{
+            // return redirect('/')->with('toast_error','You are not Authorized');
+            // return redirect(route('branch.dashboard'))->with('errors','You are not Authorized');
+            Alert::error('You are not Authorized', 'You do not have access to this function');
+            return Redirect::back();
+        }
     }
 
     public function show($id){
-        $branch = Branch::select('id', 'name')
-        ->where('id', '!=', '99')
-        ->get();
+        if (Gate::any(['branch-admin-only', 'finance-only'], Auth::user())) {
+            $branch = Branch::select('id', 'name')
+                ->where('id', '!=', '99')
+                ->get();
 
-        $role = Role::select('id', 'name')->get();
-        $sltuser = User::find($id);
-        $sltbranch = Branch::find($sltuser->branch_id);
-        $sltrole = Role::find($sltuser->role_id);
+            $role = Role::select('id', 'name')->get();
+            $sltuser = User::find($id);
+            $sltbranch = Branch::find($sltuser->branch_id);
+            $sltrole = Role::find($sltuser->role_id);
 
-        return view('branch.settings.employee.show', compact('branch','role','sltuser','sltbranch','sltrole'));
+            return view('branch.settings.employee.show', compact('branch','role','sltuser','sltbranch','sltrole'));
+        }else{
+            // return redirect('/')->with('toast_error','You are not Authorized');
+            // return redirect(route('branch.dashboard'))->with('errors','You are not Authorized');
+            Alert::error('You are not Authorized', 'You do not have access to this function');
+            return Redirect::back();
+        }
     }
 
     public function edit($id){
-        $branch = Branch::select('id', 'name')
-        ->where('id', '=', Auth::user()->branch_id)
-        ->get();
+        if (Gate::any(['branch-admin-only', 'finance-only'], Auth::user())) {
+            $branch = Branch::select('id', 'name')
+                ->where('id', '=', Auth::user()->branch_id)
+                ->get();
 
-        $role = Role::select('id', 'name')->get();
-        $sltuser = User::find($id);
-        $sltbranch = Branch::find($sltuser->branch_id);
-        $sltrole = Role::find($sltuser->role_id);
+            $role = Role::select('id', 'name')
+                ->where('name', '!=', 'Admin')
+                ->where('name', '!=', 'Finance Staff')
+                ->where('name', '!=', 'Branch Admin')
+                ->get();
 
-        return view('branch.settings.employee.edit', compact('branch','role','sltuser','sltbranch','sltrole'));
+            $sltuser = User::find($id);
+            $sltbranch = Branch::find($sltuser->branch_id);
+            $sltrole = Role::find($sltuser->role_id);
+
+            return view('branch.settings.employee.edit', compact('branch','role','sltuser','sltbranch','sltrole'));
+        }else{
+            // return redirect('/')->with('toast_error','You are not Authorized');
+            // return redirect(route('branch.dashboard'))->with('errors','You are not Authorized');
+            Alert::error('You are not Authorized', 'You do not have access to this function');
+            return Redirect::back();
+        }
+
     }
 
 
     public function update(Request $request, $id){
-        $this->validate($request,[
-            'name'=>'required',
-            'email'=>'required|email|max:255',
-            'username'=>'required|max:255',
-            // 'password'=>'min:6|regex:/[a-z]/|regex:/[0-9]/',
-            'address'=>'required',
-            'branch'=>'required',
-            'role'=>'required',
-            'status'=>'required'
-         ]);
+        if (Gate::any(['branch-admin-only', 'finance-only'], Auth::user())) {
+            $this->validate($request,[
+                'name'=>'required',
+                'email'=>'required|email|max:255',
+                'username'=>'required|max:255',
+                // 'password'=>'min:6|regex:/[a-z]/|regex:/[0-9]/',
+                'address'=>'required',
+                'branch'=>'required',
+                'role'=>'required',
+                'status'=>'required'
+             ]);
 
-        $emp = New User;
-        $emp = User::find($id);
-        $emp->name = $request->name;
-        $emp->email = $request->email;
-        $emp->username = $request->username;
-        if($request->password != ''){
-            $emp->password = Hash::make($request->password);
+            $emp = New User;
+            $emp = User::find($id);
+            $emp->name = $request->name;
+            $emp->email = $request->email;
+            $emp->username = $request->username;
+            if($request->password != ''){
+                $emp->password = Hash::make($request->password);
+            }
+            $emp->address = $request->address;
+            $emp->phone = $request->phone;
+            $emp->branch_id = $request->branch;
+            $emp->role_id = $request->role;
+            $emp->status = $request->status;
+            $emp->save();
+
+            return redirect(route('branch.employee.index'))->with('toast_success','User Updated');
+        }else{
+            Alert::error('You are not Authorized', 'You do not have access to this function');
+            return Redirect::back();
         }
-        $emp->address = $request->address;
-        $emp->phone = $request->phone;
-        $emp->branch_id = $request->branch;
-        $emp->role_id = $request->role;
-        $emp->status = $request->status;
-        $emp->save();
-
-        return redirect(route('branch.employee.index'))->with('toast_success','User Updated');
     }
 
     public function destroy($id){

@@ -19,12 +19,12 @@
                 @endif
 
                 <div class="card-header bg-navy"><h3>{{ __('EDIT STATUS') }}</h3>
-                    <a href="{{route('admin.status.index')}}" class="btn btn-outline-warning btn-sm float-right"><i class="fas fa-backward"></i>&nbsp;</i>BACK</a>
+                    <a href="{{route('branch.status.index')}}" class="btn btn-outline-warning btn-sm float-right"><i class="fas fa-backward"></i>&nbsp;</i>BACK</a>
                 </div>
 
                 <div class="card-body">
 
-                    <form action="{{ route('admin.status.store') }}" method="POST">
+                    <form action="{{ route('branch.status.store') }}" method="POST">
                         {{-- <form action="{{ route('order.store') }}" method="POST"> --}}
                         @csrf
                         <div class="row">

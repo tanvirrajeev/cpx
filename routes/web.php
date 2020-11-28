@@ -122,6 +122,9 @@ Route::group([ 'as'=>'branch.', 'prefix' => 'branch', 'namespace'=>'Branch', 'mi
         Route::resource('employee', 'EmployeeController');
         Route::get('userlist', 'EmployeeController@userlist')->name('employee.userlist');
 
+        Route::resource('status', 'StatusController');
+        Route::get('stlist', 'StatusController@stlist')->name('status.stlist');
+
 
 });
 

@@ -17,7 +17,7 @@ class AuthServiceProvider extends ServiceProvider
         $this->registerPolicies();
 
         Gate::define('finance-only', function($user){
-            if($user->role->name == 'Dhaka Finance Staff'){
+            if($user->role->name == 'Finance Staff'){
                 return true;
             }
             return false;

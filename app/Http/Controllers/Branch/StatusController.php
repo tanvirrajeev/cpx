@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers\Branch;
 
 use App\Status;
 use Illuminate\Http\Request;
@@ -17,7 +17,7 @@ class StatusController extends Controller
 {
 
     public function index(){
-        return view('admin.status.index');
+        return view('branch.status.index');
     }
 
     public function stlist(){
@@ -36,8 +36,8 @@ class StatusController extends Controller
             return $data->id;
             })
         ->addColumn('action', function( $data) {
-            return  '<a href="/admin/status/'.$data->id.'" class="btn btn-xs btn-primary"><i class="fas fa-eye"></i></a>
-            <a href="/admin/status/'.$data->id.'/edit" class="btn btn-xs bg-maroon"><i class="fas fa-edit"></i></a>';
+            return  '<a href="/branch/status/'.$data->id.'" class="btn btn-xs btn-primary"><i class="fas fa-eye"></i></a>
+            <a href="/branch/status/'.$data->id.'/edit" class="btn btn-xs bg-maroon"><i class="fas fa-edit"></i></a>';
         })
         ->rawColumns(['action'])
         ->make(true);
@@ -45,7 +45,7 @@ class StatusController extends Controller
 
 
     public function create(){
-        return view('admin.status.create');
+        return view('branch.status.create');
     }
 
 
@@ -63,7 +63,7 @@ class StatusController extends Controller
         $st->flag = $request->flag;
         $st->user_id = Auth::id();
         $st->save();
-        return redirect(route('admin.status.index'))->with('toast_success','Status Created');
+        return redirect(route('branch.status.index'))->with('toast_success','Status Created');
     }
 
 
@@ -75,13 +75,13 @@ class StatusController extends Controller
                 ->first();
         // dd($st);
 
-        return view('admin.status.show',compact('st'));
+        return view('branch.status.show',compact('st'));
     }
 
 
 
     public function edit(Status $status){
-        return view('admin.status.edit',compact('status'));
+        return view('branch.status.edit',compact('status'));
     }
 
 
@@ -98,7 +98,7 @@ class StatusController extends Controller
         $st->flag = $request->flag;
         $st->user_id = Auth::id();
         $st->save();
-        return redirect(route('admin.status.index'))->with('toast_success','Status Updated');
+        return redirect(route('branch.status.index'))->with('toast_success','Status Updated');
     }
 
 

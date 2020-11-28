@@ -186,7 +186,7 @@
               <li><a href="/admin/branch" class="{{ Request::is('admin/branch') ? 'active' : ''}}">BRANCH</a></li>
             </ul>
             <ul class="treeview-menu">
-                <li><a href="status" class="{{ Request::is('admin/status') ? 'active' : ''}}">STATUS</a></li>
+                <li><a href="{{route('admin.status.index')}}" class="{{ Request::is('admin/status') ? 'active' : ''}}">STATUS</a></li>
             </ul>
           </li>
         </ul>
@@ -279,11 +279,11 @@
                 <li><a href="/admin/shippingcharge" class="{{ Request::is('admin/shippingcharge') ? 'active' : ''}}">SHIPPING CHARGE</a></li>
               </ul> --}}
               <ul class="treeview-menu">
-                <li><a href="/branch/employee" class="{{ Request::is('admin/employee') ? 'active' : ''}}">USERS</a></li>
+                <li><a href="/branch/employee" class="{{ Request::is('branch/employee') ? 'active' : ''}}">USERS</a></li>
               </ul>
               <ul class="treeview-menu">
-                <li><a href="#">STATUS</a></li>
-              </ul>
+                <li><a href="{{route('branch.status.index')}}" class="{{ Request::is('branch/status') ? 'active' : ''}}">STATUS</a></li>
+            </ul>
             </li>
           </ul>
           @endif
