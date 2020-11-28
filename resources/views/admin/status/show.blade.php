@@ -44,7 +44,9 @@
                                             <option value="{{ $st->flag }}" selected disabled>AWB</option>
                                             @elseif($st->flag == 2)
                                                 <option value="{{ $st->flag }}" selected disabled>NOTE</option>
-                                            @elseif($status->flag == 3)
+                                            @elseif($st->flag == 3)
+                                                <option value="{{ $st->flag }}" selected disabled>N/A</option>
+                                            @elseif($st->flag == 0)
                                                 <option value="{{ $st->flag }}" selected disabled>N/A</option>
                                         @endif
                                     </select>
