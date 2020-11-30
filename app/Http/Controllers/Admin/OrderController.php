@@ -246,7 +246,7 @@ class OrderController extends Controller
                         ->select('statuses.id as status_id', 'statuses.name as status_name')
                         ->get();
 
-            $sltord = DB::table('Orders')
+            $sltord = DB::table('orders')
                     ->join('statuses', 'statuses.id', '=', 'orders.status_id')
                     ->select('orders.id as cpxid','orders.awb as awb','orders.note as note','orders.ecomrcvby as rcvby','statuses.id as selected_status_id','statuses.name as selectes_status')
                     ->where('orders.id', $id)
